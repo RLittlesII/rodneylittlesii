@@ -1,0 +1,88 @@
+#recipe Blog
+#theme SolidState
+using Wyam.Blog.Pipelines;
+
+Settings[BlogKeys.Title ] = "Rodney Littles II";
+// Settings[BlogKeys.Image] = "";
+Settings[BlogKeys.Description] = "git clone";
+Settings[BlogKeys.Intro] = "Where I clone repositories, dig through code, and learn ... things.";
+Settings[BlogKeys.CaseInsensitiveTags] = true;
+Settings[BlogKeys.MarkdownConfiguration] = "advanced+bootstrap+emojis";
+Settings[BlogKeys.IncludeDateInPostPath] = false;
+Settings[BlogKeys.MetaRefreshRedirects] = true;
+Settings[BlogKeys.NetlifyRedirects] = true;
+// TODO: Toggle for ci / production builds
+// Settings[BlogKeys.ValidateAbsoluteLinks] = ;
+// Settings[BlogKeys.ValidateRelativeLinks] = ;
+// Settings[BlogKeys.ValidateLinksAsError] = ;
+
+
+FileSystem.InputPaths.AddRange(new DirectoryPath[] { "src" });
+
+// Use deep wild cards for posts
+var list = ((IModuleList)Blog.BlogPosts["MarkdownPosts"]);
+list.Remove(list.First());
+list.Insert(0,
+    new ReadFiles(ctx => $"{ctx.DirectoryPath(BlogKeys.PostsPath).FullPath}/**/*.md")
+);
+
+list = ((IModuleList)Blog.BlogPosts["RazorPosts"]);
+list.Remove(list.First());
+list.Insert(0,
+    new ReadFiles(ctx => $"{ctx.DirectoryPath(BlogKeys.PostsPath).FullPath}/{{!_,!index,}}**/*.cshtml")
+);
+
+// draft support
+if (!Settings.Get<bool>("Drafts")) {
+    var p = Blog.BlogPosts[BlogKeys.Published] as ModuleCollection;
+    if (p[0].GetType() == typeof(Where)) p.RemoveAt(0);
+    p.Insert(0, new Where((doc, ctx) =>
+    {
+        if (doc.Get<bool>("Draft"))
+        {
+            return false;
+        }
+        return true;
+    }));
+}
+
+// Folder in posts is a topic 
+if (Blog.BlogPosts.Contains("TopicPath")) Blog.BlogPosts.Remove("TopicPath"); 
+Blog.BlogPosts.Add("TopicPath", new Meta(Keys.RelativeFilePath, (doc, ctx) => 
+{
+    var published = doc.Get<DateTime>(BlogKeys.Published);
+    var fileName = doc.Bool("FrontMatterPublished")
+                        ? doc.FilePath(Keys.SourceFileName).ChangeExtension("html").FullPath
+                        : doc.FilePath(Keys.SourceFileName).ChangeExtension("html").FullPath.Substring(11);
+    var fileFolder = doc.DirectoryPath(Keys.RelativeFileDir).FullPath;
+    var folder = ctx.DirectoryPath(BlogKeys.PostsPath).FullPath;
+    if (fileFolder.Length > folder.Length) {
+        var topic = fileFolder.Substring(folder.Length).Trim('/', '\\'); 
+        if (topic.Length > 0) { 
+            fileName = $"{topic}/{fileName}"; 
+        }
+    }
+
+    return ctx.Bool(BlogKeys.IncludeDateInPostPath)
+        ? $"{ctx.DirectoryPath(BlogKeys.PostsPath).FullPath}/{published:yyyy}/{published:MM}/{fileName}"
+        : $"{ctx.DirectoryPath(BlogKeys.PostsPath).FullPath}/{fileName}";
+}));
+
+// Tag of topic folder
+if (Blog.BlogPosts.Contains("TopicTags")) Blog.BlogPosts.Remove("TopicTags");
+Blog.BlogPosts.Add("TopicTags", new Meta(BlogKeys.Tags, (doc, ctx) =>
+{
+    var published = doc.Get<DateTime>(BlogKeys.Published);
+    var fileName = doc.Bool("FrontMatterPublished")
+                        ? doc.FilePath(Keys.SourceFileName).ChangeExtension("html").FullPath
+                        : doc.FilePath(Keys.SourceFileName).ChangeExtension("html").FullPath.Substring(11);
+    var fileFolder = doc.DirectoryPath(Keys.RelativeFileDir).FullPath;
+    var folder = ctx.DirectoryPath(BlogKeys.PostsPath).FullPath;
+    var tags = doc.Get<string[]>(BlogKeys.Tags) ?? new string[0];
+    if (fileFolder.Length > folder.Length) {
+        var topic = fileFolder.Substring(folder.Length).Trim('/', '\\');
+        return tags.Concat(new [] { topic }).ToArray();
+    }
+
+    return tags;
+}));
