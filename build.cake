@@ -4,6 +4,7 @@
 var target = Argument("target", "Default");
 var recipe = "Blog";
 var theme = "SolidState";
+var IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("master", AppVeyor.Environment.Repository.Branch);
 
 Setup(context =>
 {
@@ -44,6 +45,7 @@ Task("Preview")
     });
 
 Task("Deploy")
+    .WithCriteria(IsMasterBranch)
     .Does(() =>
     {
         string token = EnvironmentVariable("NETLIFY_TOKEN");
@@ -52,16 +54,15 @@ Task("Deploy")
             throw new Exception("Could not get NETLIFY_TOKEN environment variable");
         }
 
-        // This uses the Netlify CLI, but it hits the 200/min API rate limit
-        // To use this, also need #addin "Cake.Npm"
-        // Npm.Install(x => x.Package("netlify-cli"));
-        // StartProcess(
-        //    MakeAbsolute(File("./node_modules/.bin/netlify.cmd")),
-        //    "deploy -p output -s daveaglick -t " + token);
+        string url = EnvironmentVariable("NETLIFY_URL");
+        if(string.IsNullOrEmpty(url))
+        {
+            throw new Exception("Could not get NETLIFY_TOKEN environment variable");
+        }
 
         // Upload via curl and zip instead
         Zip("./output", "output.zip", "./output/**/*");
-        StartProcess("curl", "--header \"Content-Type: application/zip\" --header \"Authorization: Bearer " + token + "\" --data-binary \"@output.zip\" --url https://api.netlify.com/api/v1/sites/rodneylittlesii.netlify.com//deploys");
+        StartProcess("curl", "--header \"Content-Type: application/zip\" --header \"Authorization: Bearer " + token + "\" --data-binary \"@output.zip\" --url " + url);
     });
 
 Task("Default")
