@@ -17,7 +17,6 @@ Settings[Keys.LinksUseHttps] = true;
 // Settings[BlogKeys.ValidateRelativeLinks] = ;
 // Settings[BlogKeys.ValidateLinksAsError] = ;
 
-
 FileSystem.InputPaths.AddRange(new DirectoryPath[] { "src" });
 
 // Use deep wild cards for posts
@@ -34,7 +33,7 @@ list.Insert(0,
 );
 
 // draft support
-if (!Settings.Get<bool>("Drafts")) {
+if (Settings.Get<bool>("Drafts")) {
     var p = Blog.BlogPosts[BlogKeys.Published] as ModuleCollection;
     if (p[0].GetType() == typeof(Where)) p.RemoveAt(0);
     p.Insert(0, new Where((doc, ctx) =>

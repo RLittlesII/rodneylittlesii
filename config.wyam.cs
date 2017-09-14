@@ -4,18 +4,18 @@ using Wyam.Blog.Pipelines;
 
 Settings[BlogKeys.Title ] = "Rodney Littles II";
 // Settings[BlogKeys.Image] = "";
-Settings[BlogKeys.Description] = "git clone";
+Settings[BlogKeys.Description] = "This is a journey into code.";
 Settings[BlogKeys.Intro] = "Where I clone repositories, dig through code, and learn ... things.";
 Settings[BlogKeys.CaseInsensitiveTags] = true;
 Settings[BlogKeys.MarkdownConfiguration] = "advanced+bootstrap+emojis";
 Settings[BlogKeys.IncludeDateInPostPath] = false;
 Settings[BlogKeys.MetaRefreshRedirects] = true;
 Settings[BlogKeys.NetlifyRedirects] = true;
+Settings[Keys.LinksUseHttps] = true;
 // TODO: Toggle for ci / production builds
 // Settings[BlogKeys.ValidateAbsoluteLinks] = ;
 // Settings[BlogKeys.ValidateRelativeLinks] = ;
 // Settings[BlogKeys.ValidateLinksAsError] = ;
-
 
 FileSystem.InputPaths.AddRange(new DirectoryPath[] { "src" });
 
@@ -33,7 +33,7 @@ list.Insert(0,
 );
 
 // draft support
-if (!Settings.Get<bool>("Drafts")) {
+if (Settings.Get<bool>("Drafts")) {
     var p = Blog.BlogPosts[BlogKeys.Published] as ModuleCollection;
     if (p[0].GetType() == typeof(Where)) p.RemoveAt(0);
     p.Insert(0, new Where((doc, ctx) =>

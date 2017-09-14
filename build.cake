@@ -39,8 +39,9 @@ Task("Preview")
             Watch = true,
             Settings = new Dictionary<string, object>() 
             {
-                { "Drafts", false }
-            }
+                { "Drafts", true }
+            },
+            InputPaths = new DirectoryPath[] { "src" }
         });
     });
 
@@ -57,7 +58,7 @@ Task("Deploy")
         string url = EnvironmentVariable("NETLIFY_URL");
         if(string.IsNullOrEmpty(url))
         {
-            throw new Exception("Could not get NETLIFY_TOKEN environment variable");
+            throw new Exception("Could not get NETLIFY_URL environment variable");
         }
 
         // Upload via curl and zip instead
