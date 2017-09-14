@@ -40,8 +40,8 @@ Task("Preview")
             Settings = new Dictionary<string, object>() 
             {
                 { "Drafts", true }
-            },
-            InputPaths = new DirectoryPath[] { "src" }
+            }, 
+            InputPaths = new DirectoryPath[] { "src", "drafts" }
         });
     });
 

@@ -17,7 +17,8 @@ Settings[Keys.LinksUseHttps] = true;
 // Settings[BlogKeys.ValidateRelativeLinks] = ;
 // Settings[BlogKeys.ValidateLinksAsError] = ;
 
-FileSystem.InputPaths.AddRange(new DirectoryPath[] { "src" });
+
+// FileSystem.InputPaths.AddRange(new DirectoryPath[] { "src" });
 
 // Use deep wild cards for posts
 var list = ((IModuleList)Blog.BlogPosts["MarkdownPosts"]);
@@ -33,7 +34,7 @@ list.Insert(0,
 );
 
 // draft support
-if (Settings.Get<bool>("Drafts")) {
+if (!Settings.Get<bool>("Drafts")) {
     var p = Blog.BlogPosts[BlogKeys.Published] as ModuleCollection;
     if (p[0].GetType() == typeof(Where)) p.RemoveAt(0);
     p.Insert(0, new Where((doc, ctx) =>
@@ -66,23 +67,4 @@ Blog.BlogPosts.Add("TopicPath", new Meta(Keys.RelativeFilePath, (doc, ctx) =>
     return ctx.Bool(BlogKeys.IncludeDateInPostPath)
         ? $"{ctx.DirectoryPath(BlogKeys.PostsPath).FullPath}/{published:yyyy}/{published:MM}/{fileName}"
         : $"{ctx.DirectoryPath(BlogKeys.PostsPath).FullPath}/{fileName}";
-}));
-
-// Tag of topic folder
-if (Blog.BlogPosts.Contains("TopicTags")) Blog.BlogPosts.Remove("TopicTags");
-Blog.BlogPosts.Add("TopicTags", new Meta(BlogKeys.Tags, (doc, ctx) =>
-{
-    var published = doc.Get<DateTime>(BlogKeys.Published);
-    var fileName = doc.Bool("FrontMatterPublished")
-                        ? doc.FilePath(Keys.SourceFileName).ChangeExtension("html").FullPath
-                        : doc.FilePath(Keys.SourceFileName).ChangeExtension("html").FullPath.Substring(11);
-    var fileFolder = doc.DirectoryPath(Keys.RelativeFileDir).FullPath;
-    var folder = ctx.DirectoryPath(BlogKeys.PostsPath).FullPath;
-    var tags = doc.Get<string[]>(BlogKeys.Tags) ?? new string[0];
-    if (fileFolder.Length > folder.Length) {
-        var topic = fileFolder.Substring(folder.Length).Trim('/', '\\');
-        return tags.Concat(new [] { topic }).ToArray();
-    }
-
-    return tags;
 }));
