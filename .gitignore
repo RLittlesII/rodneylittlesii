@@ -4,3 +4,4 @@ tools/*
 output.zip
 config.wyam.dll
 config.wyam.hash
+.dotnet/
