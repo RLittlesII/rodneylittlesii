@@ -4,13 +4,14 @@ using Wyam.Blog.Pipelines;
 
 Settings[BlogKeys.Title ] = "Rodney Littles II";
 // Settings[BlogKeys.Image] = "";
-Settings[BlogKeys.Description] = "git clone";
+Settings[BlogKeys.Description] = "This is a journey into code.";
 Settings[BlogKeys.Intro] = "Where I clone repositories, dig through code, and learn ... things.";
 Settings[BlogKeys.CaseInsensitiveTags] = true;
 Settings[BlogKeys.MarkdownConfiguration] = "advanced+bootstrap+emojis";
 Settings[BlogKeys.IncludeDateInPostPath] = false;
 Settings[BlogKeys.MetaRefreshRedirects] = true;
 Settings[BlogKeys.NetlifyRedirects] = true;
+Settings[Keys.LinksUseHttps] = true;
 // TODO: Toggle for ci / production builds
 // Settings[BlogKeys.ValidateAbsoluteLinks] = ;
 // Settings[BlogKeys.ValidateRelativeLinks] = ;
@@ -66,23 +67,4 @@ Blog.BlogPosts.Add("TopicPath", new Meta(Keys.RelativeFilePath, (doc, ctx) =>
     return ctx.Bool(BlogKeys.IncludeDateInPostPath)
         ? $"{ctx.DirectoryPath(BlogKeys.PostsPath).FullPath}/{published:yyyy}/{published:MM}/{fileName}"
         : $"{ctx.DirectoryPath(BlogKeys.PostsPath).FullPath}/{fileName}";
-}));
-
-// Tag of topic folder
-if (Blog.BlogPosts.Contains("TopicTags")) Blog.BlogPosts.Remove("TopicTags");
-Blog.BlogPosts.Add("TopicTags", new Meta(BlogKeys.Tags, (doc, ctx) =>
-{
-    var published = doc.Get<DateTime>(BlogKeys.Published);
-    var fileName = doc.Bool("FrontMatterPublished")
-                        ? doc.FilePath(Keys.SourceFileName).ChangeExtension("html").FullPath
-                        : doc.FilePath(Keys.SourceFileName).ChangeExtension("html").FullPath.Substring(11);
-    var fileFolder = doc.DirectoryPath(Keys.RelativeFileDir).FullPath;
-    var folder = ctx.DirectoryPath(BlogKeys.PostsPath).FullPath;
-    var tags = doc.Get<string[]>(BlogKeys.Tags) ?? new string[0];
-    if (fileFolder.Length > folder.Length) {
-        var topic = fileFolder.Substring(folder.Length).Trim('/', '\\');
-        return tags.Concat(new [] { topic }).ToArray();
-    }
-
-    return tags;
 }));

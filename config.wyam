@@ -68,5 +68,3 @@ Blog.BlogPosts.Add("TopicPath", new Meta(Keys.RelativeFilePath, (doc, ctx) =>
         ? $"{ctx.DirectoryPath(BlogKeys.PostsPath).FullPath}/{published:yyyy}/{published:MM}/{fileName}"
         : $"{ctx.DirectoryPath(BlogKeys.PostsPath).FullPath}/{fileName}";
 }));
-
-
