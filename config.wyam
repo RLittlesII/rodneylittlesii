@@ -18,7 +18,7 @@ Settings[Keys.LinksUseHttps] = true;
 // Settings[BlogKeys.ValidateLinksAsError] = ;
 
 
-// FileSystem.InputPaths.AddRange(new DirectoryPath[] { "src" });
+FileSystem.InputPaths.AddRange(new DirectoryPath[] { "src" });
 
 // Use deep wild cards for posts
 var list = ((IModuleList)Blog.BlogPosts["MarkdownPosts"]);
