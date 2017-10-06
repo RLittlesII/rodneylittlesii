@@ -24,7 +24,7 @@ Command line doesn't feel scalable and .ini files worry me.  I consume a lot of 
 <script src="https://gist.github.com/RLittlesII/e73b0519b4ef38e70c8b7fda8bcb2f40.js"></script>
 
 # Modify the bootstrap script
-If you're lazy like me, you probably just download the stock bootstrapper from [Cake](https://cakebuild.net/docs/tutorials/setting-up-a-new-project).  Today, we have to extend the bootstrap script and make it aware of our global configuration.
+If you're lazy like me, you probably just download the stock bootstrapper from [Cake](https://cakebuild.net/docs/tutorials/setting-up-a-new-project).  I want my bootstrapper to either take in my tool path as a parameter, or set the path in the script and make it aware of our global configuration.
 
 ``` powershell
 $ToolPath = [Environment]::GetEnvironmentVariable("CAKE_TOOLS_PATH", "User")
