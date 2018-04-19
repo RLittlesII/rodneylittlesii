@@ -39,7 +39,7 @@ The following is a list of things we'll need when [getting started](https://docs
 Fastlane itself has a set of configuration files, and lanes that can be used.  Cake.Fastlane should respect fastlanes default configuration files.  If you find out it doesn't raise an issue in the repository please!
 
 At this point your local fastlane repository folder should look similar to the image below:
-![Local Repository Folder](https://raw.githubusercontent.com/RLittlesII/rodneylittlesii/master/src/images/fastlane-folder.jpg)
+![Local Repository Folder](https://raw.githubusercontent.com/RLittlesII/rodneylittlesii/master/src/images/fastlane-folder.png)
 
 # Setting up the cake script
 Now we are going to give our `fastlane.match.cake` some color.  Since a cake file is just a C# file that is executable in the Cake runtime, I can use C# concenpts like global variables and local functions in my cake script.
