@@ -1,5 +1,5 @@
-#tool nuget:?package=Wyam
-#addin nuget:?package=Cake.Wyam
+#tool nuget:?package=Wyam&version=1.2.0
+#addin nuget:?package=Cake.Wyam&version=1.2.0
 
 var target = Argument("target", "Default");
 var recipe = "Blog";
