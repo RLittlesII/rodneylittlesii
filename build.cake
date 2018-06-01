@@ -4,7 +4,7 @@
 var target = Argument("target", "Default");
 var recipe = "Blog";
 var theme = "SolidState";
-var IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("master", AppVeyor.Environment.Repository.Branch);
+var IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("main", AppVeyor.Environment.Repository.Branch);
 
 Setup(context =>
 {
