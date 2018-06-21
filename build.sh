@@ -7,7 +7,7 @@
 ##########################################################################
 
 # Define directories.
-CAKE_VERSION="0.22.2"
+CAKE_VERSION="0.26.0"
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 TOOLS_DIR=$CAKE_PATHS_TOOLS
 ADDINS_DIR=$CAKE_PATHS_ADDINS
