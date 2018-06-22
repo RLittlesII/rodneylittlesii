@@ -50,7 +50,7 @@ Ask!  Someone will help you, because helping you helps them.  Maybe you are a on
 
 > I struggle enough with code throughout the day.  The last thing I want to do is struggle when I get home.
 
-Practice makes perfect.  When we are coding for our lives, we aren't practicing we are trying to survive.  I found, the more code I wrote, the easier it became.  The more peer reviews I had, the easier it was for me to architect clean code.  I discovered that the time I spent looking at someone elses code, actually made my code cleaner!  I learned the proper way to handle `iDisposable`, not just by browsing stack overflow, by implementing a feature for OSS.  Now that code is being used in a project that was able to benefit from my learning a new tool. 
+Practice makes perfect.  When we are coding for our lives, we aren't practicing we are trying to survive.  I found, the more code I wrote, the easier it became.  The more peer reviews I had, the easier it was for me to architect clean code.  I discovered that the time I spent looking at someone elses code, actually made my code cleaner!  I learned the proper way to handle `IDisposable`, not just by browsing stack overflow, by implementing a feature for OSS.  Now that code is being used in a project that was able to benefit from my learning a new tool. 
 
 > I just want to netflix and chill
 
