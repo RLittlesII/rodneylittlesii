@@ -38,7 +38,7 @@ Learning the internals of a system can be taxing.  So many developers have all t
 
 > I don't have time to be an expert
 
-I workout daily, I have an active social life and I am trying to open a Kung Fu school.  I partition my time to allow me to be as productive as possible.  Sometimes I can't help the community, but when I can I make it a point to do so. The frameworks I consume, I contribute to.  So there is a benefit of knowing the internals.  Knowing what my software is built on, at the code level, helps me make better technical decisions.  I don't have to be an expert, I just need to know enough to feel confident in the framework, and trouble shoot it when I am not.
+I workout daily, I have an active social life and I am planning on opening a Kung Fu school.  I partition my time to allow me to be as productive as possible.  Sometimes I can't help the community, but when I can I make it a point to do so. The frameworks I consume, I contribute to.  So there is a benefit of knowing the internals.  Knowing what my software is built on, at the code level, helps me make better technical decisions.  I don't have to be an expert, I just need to know enough to feel confident in the framework, and trouble shoot it when I am not.
 
 > I have my own backlog and bug list to fix, I don't want to help someone else clean theirs.  Writing an application is easier than maintaining one, so why would I want to get my hands dirty helping someone keep their code bug free?
 
