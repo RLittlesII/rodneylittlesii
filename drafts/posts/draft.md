@@ -1,3 +1,6 @@
 Title: Draft
-Published: 12/13/2017
+Drafted: 07/22/2017
+Published: 08/15/2018
+Tags:
+    - Draft
 ---
