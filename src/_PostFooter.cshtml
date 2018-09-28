@@ -4,7 +4,7 @@
     var disqus_shortname = 'rodneylittlesii'; // required: replace example with your forum shortname
     var disqus_identifier = '@Model.FilePath(Keys.RelativeFilePath).FileNameWithoutExtension.FullPath';
     var disqus_title = '@Model.String(BlogKeys.Title)';
-    var disqus_url = '@Context.GetLink(Model, true)';
+    var disqus_url ='https://rodneylittlesii.com/' + '@Context.GetLink(Model, true)';
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
