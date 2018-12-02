@@ -31,11 +31,12 @@ Param(
     [string[]]$ScriptArgs
 )
 
-$CakeVersion = "0.26.0"
+$CakeVersion = "0.30.0";
+$WyamVersion = "2.0.0";
 $DotNetChannel = "preview";
-$DotNetVersion = "1.0.0-rc4-004933";
+$DotNetVersion = "2.1.500";
 $DotNetInstallerUri = "https://dot.net/v1/dotnet-install.ps1";
-$NugetUrl = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
+$NugetUrl = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe";
 
 # Make sure tools folder exists
 $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
@@ -50,10 +51,6 @@ if (!(Test-Path $ToolPath)) {
     Write-Verbose "Creating tools directory..."
     New-Item -Path $ToolPath -Type directory | out-null
 }
-
-###########################################################################
-# INSTALL .NET CORE CLI
-###########################################################################
 
 Function Remove-PathVariable([string]$VariableToRemove)
 {
@@ -71,6 +68,10 @@ Function Remove-PathVariable([string]$VariableToRemove)
         [Environment]::SetEnvironmentVariable("PATH", [System.String]::Join(';', $newItems), "Process")
     }
 }
+
+###########################################################################
+# INSTALL .NET CORE CLI
+###########################################################################
 
 # Get .NET Core CLI path if installed.
 $FoundDotNetCliVersion = $null;
@@ -101,6 +102,28 @@ $NugetPath = Join-Path $ToolPath "nuget.exe"
 if (!(Test-Path $NugetPath)) {
     Write-Host "Downloading NuGet.exe..."
     (New-Object System.Net.WebClient).DownloadFile($NugetUrl, $NugetPath);
+}
+
+###########################################################################
+# INSTALL WYAM
+###########################################################################
+
+# Get Wyam path if installed.
+$FoundWyamVersion = $null;
+if (Get-Command wyam -ErrorAction SilentlyContinue) {
+    $FoundWyamVersion = wyam --version;
+}
+
+$InstallPath = Join-Path $PSScriptRoot ".dotnet\tools"
+if (!(Test-Path $InstallPath)) {
+    mkdir -Force $InstallPath | Out-Null;
+}
+
+if($FoundWyamVersion -ne $WyamVersion) {
+    Write-Host "Installing Wyam..."
+    Invoke-Expression "dotnet tool install -g Wyam.Tool --version $WyamVersion"
+    # Invoke-Expression "dotnet tool install --tool-path $InstallPath Wyam.Tool --version $WyamVersion"
+    # $env:PATH = "$InstallPath;$env:PATH"
 }
 
 ###########################################################################
