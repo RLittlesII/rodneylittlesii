@@ -31,8 +31,8 @@ Param(
     [string[]]$ScriptArgs
 )
 
-$CakeVersion = "0.30.0";
-$WyamVersion = "2.0.0";
+$CakeVersion = "0.32.1";
+$WyamVersion = "2.1.1";
 $DotNetChannel = "preview";
 $DotNetVersion = "2.1.500";
 $DotNetInstallerUri = "https://dot.net/v1/dotnet-install.ps1";
@@ -134,10 +134,7 @@ if($FoundWyamVersion -ne $WyamVersion) {
 $CakePath = Join-Path $ToolPath "Cake.$CakeVersion/Cake.exe"
 if (!(Test-Path $CakePath)) {
     Write-Host "Installing Cake..."
-    Invoke-Expression "&`"$NugetPath`" install Cake -Version $CakeVersion -OutputDirectory `"$ToolPath`"" | Out-Null;
-    if ($LASTEXITCODE -ne 0) {
-        Throw "An error occured while restoring Cake from NuGet."
-    }
+    Invoke-Expression "dotnet tool install -g Cake.Tool --version $CakeVersion"
 }
 
 ###########################################################################
@@ -154,5 +151,5 @@ $Arguments = @{
 
 # Start Cake
 Write-Host "Running build script..."
-Invoke-Expression "& `"$CakePath`" `"build.cake`" $Arguments $ScriptArgs"
+Invoke-Expression "dotnet-cake `"build.cake`" $Arguments $ScriptArgs"
 exit $LASTEXITCODE

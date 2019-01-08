@@ -10,11 +10,11 @@ SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 TOOLS_DIR=$CAKE_PATHS_TOOLS
 NUGET_EXE=$SCRIPT_DIR/nuget.exe
 NUGET_URL=https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
-CAKE_VERSION=0.30.0
+CAKE_VERSION=0.32.1
 CAKE_EXE=$TOOLS_DIR/Cake.$CAKE_VERSION/Cake.exe
 DOTNET_VERSION=2.1.500
 WYAM_EXE="~/.dotnet/tools"/wyam.exe
-WYAM_VERSION=2.0.0
+WYAM_VERSION=2.1.1
 
 # Define default arguments.
 TARGET="Default"
@@ -86,17 +86,8 @@ fi
 ###########################################################################
 
 if [ ! -f "$CAKE_EXE" ]; then
-    mono "$NUGET_EXE" install Cake -Version $CAKE_VERSION -OutputDirectory "$TOOLS_DIR"
-    if [ $? -ne 0 ]; then
-        echo "An error occured while installing Cake."
-        exit 1
-    fi
-fi
-
-# Make sure that Cake has been installed.
-if [ ! -f "$CAKE_EXE" ]; then
-    echo "Could not find Cake.exe at '$CAKE_EXE'."
-    exit 1
+    echo "Installing Cake..."
+    dotnet tool install -g Cake.Tool --version $CAKE_VERSION
 fi
 
 ###########################################################################
@@ -104,4 +95,4 @@ fi
 ###########################################################################
 
 # Start Cake
-exec mono "$CAKE_EXE" build.cake --verbosity=$VERBOSITY --configuration=$CONFIGURATION --target=$TARGET $DRYRUN "${SCRIPT_ARGUMENTS[@]}"
+exec dotnet-cake build.cake --verbosity=$VERBOSITY --configuration=$CONFIGURATION --target=$TARGET $DRYRUN "${SCRIPT_ARGUMENTS[@]}"
