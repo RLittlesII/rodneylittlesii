@@ -1,0 +1,22 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+- drafts
+- draft/*
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+- task: Bash@3
+  inputs:
+    #targetType: 'filePath' # Optional. Options: filePath, inline
+    filePath: ./build.sh
+    arguments: --target AppVeyor
+    #script: '# Write your commands here# Use the environment variables input below to pass secret variables to this script' # Required when targetType == Inline
+    #workingDirectory: # Optional
+    #failOnStderr: false # Optional
