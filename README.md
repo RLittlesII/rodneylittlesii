@@ -5,4 +5,4 @@ Personal blog of a developer trying to learn all the things
 
 | Build ||
 |:--:|:--:|
-|Current | [![Build status](https://ci.appveyor.com/api/projects/status/k98oxvbpfco923x3?svg=true)](https://ci.appveyor.com/project/RLittlesII/rodneylittlesii) |
+| Drafts | [![Build Status](https://dev.azure.com/rlittlesii/rodneylittlesii/_apis/build/status/RLittlesII.rodneylittlesii?branchName=drafts)](https://dev.azure.com/rlittlesii/rodneylittlesii/_build/latest?definitionId=5?branchName=drafts) |
