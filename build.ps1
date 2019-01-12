@@ -110,8 +110,6 @@ if (!(Test-Path $InstallPath)) {
 if($FoundWyamVersion -ne $WyamVersion) {
     Write-Host "Installing Wyam..."
     Invoke-Expression "dotnet tool install -g Wyam.Tool --version $WyamVersion"
-    # Invoke-Expression "dotnet tool install --tool-path $InstallPath Wyam.Tool --version $WyamVersion"
-    # $env:PATH = "$InstallPath;$env:PATH"
 }
 
 ###########################################################################

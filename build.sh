@@ -8,12 +8,13 @@
 # Define directories.
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 TOOLS_DIR=$CAKE_PATHS_TOOLS
+NUGET_EXE=$SCRIPT_DIR/nuget.exe
+NUGET_URL=https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 CAKE_VERSION=0.32.1
 CAKE_EXE=$TOOLS_DIR/Cake.$CAKE_VERSION/Cake.exe
 DOTNET_PATH=$SCRIPT_DIR/.dotnet
-DOTNET_TOOL_PATH=$DOTNET_PATH/tools
 DOTNET_VERSION=2.1.500
-WYAM_EXE=$DOTNET_TOOL_PATH/wyam.exe
+WYAM_EXE="~/.dotnet/tools"/wyam.exe
 WYAM_VERSION=2.1.1
 
 # Define default arguments.
@@ -57,6 +58,20 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 "$DOTNET_PATH/dotnet" --info
 
 ###########################################################################
+# INSTALL NUGET
+###########################################################################
+
+# Download NuGet if it does not exist.
+if [ ! -f "$NUGET_EXE" ]; then
+    echo "Downloading NuGet..."
+    curl -Lsfo "$NUGET_EXE" $NUGET_URL
+    if [ $? -ne 0 ]; then
+        echo "An error occured while downloading nuget.exe."
+        exit 1
+    fi
+fi
+
+###########################################################################
 # INSTALL WYAM
 ###########################################################################
 
@@ -64,6 +79,7 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 if [ ! -f "$WYAM_EXE" ]; then
     echo "Installing Wyam..."
     dotnet tool install -g Wyam.Tool --version $WYAM_VERSION
+    export PATH="$WYAM_EXE":$PATH
 fi
 
 ###########################################################################
@@ -80,4 +96,4 @@ fi
 ###########################################################################
 
 # Start Cake
-exec dotnet-cake build.cake --verbosity=$VERBOSITY --configuration=$CONFIGURATION --target=$TARGET $DRYRUN "${SCRIPT_ARGUMENTS[@]}"
+dotnet-cake build.cake --verbosity=$VERBOSITY --configuration=$CONFIGURATION --target=$TARGET $DRYRUN "${SCRIPT_ARGUMENTS[@]}"

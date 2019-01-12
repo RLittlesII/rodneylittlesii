@@ -46,6 +46,7 @@ Task("Preview")
     });
 
 Task("Deploy")
+    .IsDependentOn("Build")
     .WithCriteria(IsMasterBranch)
     .Does(() =>
     {
@@ -70,7 +71,9 @@ Task("Default")
     .IsDependentOn("Preview");
 
 Task("AppVeyor")
-    .IsDependentOn("Build")
+    .IsDependentOn("Build");
+
+Task("AzureDevOps")
     .IsDependentOn("Deploy");
 
 RunTarget(target);
