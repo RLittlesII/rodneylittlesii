@@ -31,12 +31,11 @@ Param(
     [string[]]$ScriptArgs
 )
 
-$CakeVersion = "0.30.0";
-$WyamVersion = "2.0.0";
+$CakeVersion = "0.32.1";
+$WyamVersion = "2.1.1";
 $DotNetChannel = "preview";
 $DotNetVersion = "2.1.500";
 $DotNetInstallerUri = "https://dot.net/v1/dotnet-install.ps1";
-$NugetUrl = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe";
 
 # Make sure tools folder exists
 $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
@@ -94,17 +93,6 @@ if($FoundDotNetCliVersion -ne $DotNetVersion) {
 }
 
 ###########################################################################
-# INSTALL NUGET
-###########################################################################
-
-# Make sure nuget.exe exists.
-$NugetPath = Join-Path $ToolPath "nuget.exe"
-if (!(Test-Path $NugetPath)) {
-    Write-Host "Downloading NuGet.exe..."
-    (New-Object System.Net.WebClient).DownloadFile($NugetUrl, $NugetPath);
-}
-
-###########################################################################
 # INSTALL WYAM
 ###########################################################################
 
@@ -122,8 +110,6 @@ if (!(Test-Path $InstallPath)) {
 if($FoundWyamVersion -ne $WyamVersion) {
     Write-Host "Installing Wyam..."
     Invoke-Expression "dotnet tool install -g Wyam.Tool --version $WyamVersion"
-    # Invoke-Expression "dotnet tool install --tool-path $InstallPath Wyam.Tool --version $WyamVersion"
-    # $env:PATH = "$InstallPath;$env:PATH"
 }
 
 ###########################################################################
@@ -134,10 +120,7 @@ if($FoundWyamVersion -ne $WyamVersion) {
 $CakePath = Join-Path $ToolPath "Cake.$CakeVersion/Cake.exe"
 if (!(Test-Path $CakePath)) {
     Write-Host "Installing Cake..."
-    Invoke-Expression "&`"$NugetPath`" install Cake -Version $CakeVersion -OutputDirectory `"$ToolPath`"" | Out-Null;
-    if ($LASTEXITCODE -ne 0) {
-        Throw "An error occured while restoring Cake from NuGet."
-    }
+    Invoke-Expression "dotnet tool install -g Cake.Tool --version $CakeVersion"
 }
 
 ###########################################################################
@@ -154,5 +137,5 @@ $Arguments = @{
 
 # Start Cake
 Write-Host "Running build script..."
-Invoke-Expression "& `"$CakePath`" `"build.cake`" $Arguments $ScriptArgs"
+Invoke-Expression "dotnet-cake `"build.cake`" $Arguments $ScriptArgs"
 exit $LASTEXITCODE
