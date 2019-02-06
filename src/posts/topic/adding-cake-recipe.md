@@ -31,7 +31,7 @@ The [documentation](https://cake-contrib.github.io/Cake.Recipe/docs/usage/creati
 
 Going into my AppVeyor settings I add the following environment variables:
 
-![Environment Variables](https://raw.githubusercontent.com/RLittlesII/rodneylittlesii/master/src/images/appveyor-cake-recipe-settings.jpg)
+![Environment Variables](../../images/appveyor-cake-recipe-settings.jpg)
 
 Finally adding the below build script parameters in AppVeyor will publish the package to MyGet:
 

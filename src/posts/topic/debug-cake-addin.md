@@ -51,6 +51,6 @@ In the build.cake file I add the following [preprocessor directive](http://cakeb
 
 I navigate back to Visual Studio Debug -> Attach to Process (or Ctrl + Alt + P), pick the Cake execution with the corresponding process id and I hit break points!!!
 
-![Attach To Process](https://raw.githubusercontent.com/RLittlesII/rodneylittlesii/master/src/images/Attach-To-Process.jpg)
+![Attach To Process](../../images/Attach-To-Process.jpg)
 
 Now I can debug the issue I am seeing, determine if it is user error or the addin, and resolve it either way!
