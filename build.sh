@@ -15,7 +15,7 @@ CAKE_EXE=$TOOLS_DIR/Cake.$CAKE_VERSION/Cake.exe
 DOTNET_PATH=$SCRIPT_DIR/.dotnet
 DOTNET_VERSION=2.1.500
 WYAM_EXE="~/.dotnet/tools"/wyam.exe
-WYAM_VERSION=2.1.1
+WYAM_VERSION=2.1.3
 
 # Define default arguments.
 TARGET="Default"
