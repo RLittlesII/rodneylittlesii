@@ -32,7 +32,7 @@ Param(
 )
 
 $CakeVersion = "0.32.1";
-$WyamVersion = "2.1.1";
+$WyamVersion = "2.1.3";
 $DotNetChannel = "preview";
 $DotNetVersion = "2.1.500";
 $DotNetInstallerUri = "https://dot.net/v1/dotnet-install.ps1";

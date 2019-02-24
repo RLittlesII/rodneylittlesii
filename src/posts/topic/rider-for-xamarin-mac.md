@@ -2,8 +2,8 @@ Title: JetBrains Rider for Xamarin development on Mac
 Drafted: 09/14/2017
 Published: 10/03/2017
 Tags:
-    - JetBrains
-    - ReSharper
+    - Jet Brains
+    - Resharper
     - Visual Studio
     - Xamarin
     - OSX
@@ -14,16 +14,16 @@ I have been a .NET developer for a long while now.  I remember Java during the s
 
 Recently, I have adopted [Visual Studio Code](https://code.visualstudio.com/) as my text editor of choice (because it is IDE light, and [OmniSharp](http://www.omnisharp.net/) provides a nice intellisense experience).  With the advent of [Roslyn](https://github.com/dotnet/roslyn), intellisense has become a game of one-upmanship.  Everyone is trying to provide a better developer experience and a lot of meta programming for tooling has made developing wih C# a fun experience.
 
-The most recent IDE to come across my desk is [JetBrains Rider](https://www.jetbrains.com/rider/).  I was skeptical, until someone in the Cake gitter channel said it was the most productive cross platform IDE he has used.  I made a resolution with .NET Core to start doing more development on my Mac, being a Xamarin developer, it's where I spend the majority of my time.  The remainder of this post is about my experience with and the contrast betwwen Visual Studio 4 Mac and JetBrains Rider.  
+The most recent IDE to come across my desk is [JetBrains Rider](https://www.jetbrains.com/rider/).  I was skeptical, until someone in the Cake gitter channel said it was the most productive cross platform IDE he has used.  I made a resolution with .NET Core to start doing more development on my Mac, being a Xamarin developer, it's where I spend the majority of my time.  The remainder of this post is about my experience with and the contrast betwwen Visual Studio 4 Mac and Jet Brains Rider.  
 
 
 > **DISCLAIMER: I am new to IntelliJ IDE's and some of this assessment may be my ignorance.**
 
 # Evaluation being new to IntelliJ
-First assesment of JetBrains Rider based on my expectations from Visual Studio is favorable.  It has a lot of nice features, and more importantly the features that I have come to expect are present.
+First assesment of Jet Brains Rider based on my expectations from Visual Studio is favorable.  It has a lot of nice features, and more importantly the features that I have come to expect are present.
 - Pros
-    - ReSharper on Mac
-    - ReSharper on Mac (This is not a typo, it deserves to be here twice because it's THAT important)
+    - Resharper on Mac
+    - Resharper on Mac (This is not a typo, it deserves to be here twice because it's THAT important)
     - Can pin tabs
     - Code clean up
     - Unit Test explorer
@@ -45,5 +45,5 @@ First assesment of JetBrains Rider based on my expectations from Visual Studio i
     - Does not let you edit values directly, instead prompts you based on it's decision logic
     - Forces me to select the emulator every time I start debugging, even though I have a default configuration with one selected.
 
-# JetBrains Rider
-Barring some of the things I listed. Yes the list is long, but most of them are minor things I can work around for now. Rider is a nice IDE. I am still partial to Visual Studio as an IDE, primarily because I have been coding in Visual Studio for so long and change is hard.  I can see making JetBrains Rider my default IDE for Xamarin development on Mac once some of the more glaring holes get fixed.  As it stands, for developing .NET on Mac, JetBrains Rider blows VS Mac out of the water.
+# Jet Brains Rider
+Barring some of the things I listed. Yes the list is long, but most of them are minor things I can work around for now. Rider is a nice IDE.  I am still partial to Visual Studio as an IDE, primarily because I have been coding in Visual Studio for so long and change is hard.  I can see making Jet Brains Rider my default IDE for Xamarin development on Mac once some of the more glaring holes get fixed.  As it stands, for developing .NET on Mac, Jet Brains Rider blows VS Mac out of the water.
