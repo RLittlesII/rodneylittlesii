@@ -44,4 +44,4 @@ I use a configuration singleton and build configurations to register the mocks i
 
 Now I can simulate connectivity changes in my view while I work on making sure my users experience is what I expect.
 
-![Connectivity Dialog](https://raw.githubusercontent.com/RLittlesII/rodneylittlesii/draft/essential-events/src/images/connectivity.gif)
+![Connectivity Dialog](https://raw.githubusercontent.com/RLittlesII/rodneylittlesii/main/src/images/connectivity.gif)
