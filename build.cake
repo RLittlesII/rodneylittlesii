@@ -1,5 +1,8 @@
 #tool nuget:?package=Wyam&version=2.1.3
 #addin nuget:?package=Cake.Wyam&version=2.1.3
+#addin "NetlifySharp"
+
+using NetlifySharp;
 
 var target = Argument("target", "Default");
 var recipe = "Blog";
@@ -50,21 +53,15 @@ Task("Deploy")
     .WithCriteria(IsMasterBranch)
     .Does(() =>
     {
-        string token = EnvironmentVariable("NETLIFY_TOKEN");
-        if(string.IsNullOrEmpty(token))
+        var netlifyToken = EnvironmentVariable("NETLIFY_TOKEN");
+        if(string.IsNullOrEmpty(netlifyToken))
         {
-            throw new Exception("Could not get NETLIFY_TOKEN environment variable");
+            throw new Exception("Could not get Netlify token environment variable");
         }
 
-        string url = EnvironmentVariable("NETLIFY_URL");
-        if(string.IsNullOrEmpty(url))
-        {
-            throw new Exception("Could not get NETLIFY_URL environment variable");
-        }
-
-        // Upload via curl and zip instead
-        Zip("./output", "output.zip", "./output/**/*");
-        StartProcess("curl", "--header \"Content-Type: application/zip\" --header \"Authorization: Bearer " + token + "\" --data-binary \"@output.zip\" --url " + url);
+        Information("Deploying output to Netlify");
+        var client = new NetlifyClient(netlifyToken);
+        client.UpdateSite($"rodneylittlesii.netlify.com", MakeAbsolute(Directory("./output")).FullPath).SendAsync().Wait();
     });
 
 Task("Default")
