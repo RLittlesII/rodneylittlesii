@@ -1,17 +1,25 @@
 trigger:
-- main
-- drafts
-- draft/*
+  branches:
+    include:
+    - main
+    - drafts
+    - draft/*
+pr:
+  autoCancel: true
+  branches:
+    include:
+    - main
+    - drafts
+jobs:
+  - job: CakeBuild
+    pool:
+      vmImage: "windows-2019"
+    steps:
+      - task: DotNetCoreInstaller@0
+        displayName: "dotnet install"
+        inputs:
+          packageType: 'sdk' # Options: runtime, sdk
+          version: '2.1.500'
 
-pool:
-  vmImage: 'vs2017-win2016'
-
-steps:
-- task: DotNetCoreInstaller@0
-  displayName: 'dotnet install'
-  inputs:
-    packageType: 'sdk' # Options: runtime, sdk
-    version: '2.1.500'
-
-- powershell: '.\build.ps1 -t AzureDevOps' 
-  displayName: 'cake build'
+      - powershell: '.\build.ps1 -t AzureDevOps' 
+        displayName: "cake"
