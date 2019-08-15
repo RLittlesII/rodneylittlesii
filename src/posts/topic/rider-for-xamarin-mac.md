@@ -1,6 +1,7 @@
 Title: JetBrains Rider for Xamarin development on Mac
 Drafted: 09/14/2017
 Published: 10/03/2017
+Edited: 08/15/2019
 Tags:
     - Jet Brains
     - Resharper
@@ -47,3 +48,14 @@ First assesment of Jet Brains Rider based on my expectations from Visual Studio 
 
 # Jet Brains Rider
 Barring some of the things I listed. Yes the list is long, but most of them are minor things I can work around for now. Rider is a nice IDE.  I am still partial to Visual Studio as an IDE, primarily because I have been coding in Visual Studio for so long and change is hard.  I can see making Jet Brains Rider my default IDE for Xamarin development on Mac once some of the more glaring holes get fixed.  As it stands, for developing .NET on Mac, Jet Brains Rider blows VS Mac out of the water.
+
+## Edit: Rider Improvements as of 08/15/19
+I have been using Rider as my primary IDE since the writing of this post.  Some of the cons have been fixed.  The Rider team seems to be working hard to make the product better.
+
+Xamarin improvements include:
+- iOS debugging has improved dramatically
+- The default emulator selection issues have been resolved
+- Xamarin Forms XAML `ContentPage` has become a first class citizen
+- Build configurations have become manageable, sorted by default
+- Code Lense is implemented
+- Xamarin.Mac support
