@@ -10,16 +10,29 @@ pr:
     include:
     - main
     - drafts
+
 jobs:
-  - job: CakeBuild
+  - job: Windows
     pool:
       vmImage: "windows-2019"
     steps:
-      - task: DotNetCoreInstaller@0
-        displayName: "dotnet install"
+      - task: UseDotNet@2
+        displayName: Install dotnet 2
         inputs:
-          packageType: 'sdk' # Options: runtime, sdk
-          version: '2.1.500'
+          packageType: "sdk"
+          version: 2.2.x
 
-      - powershell: '.\build.ps1 -t AzureDevOps' 
+      - powershell: '.\build.ps1 -t Build' 
+        displayName: "cake"
+  - job: macOS
+    pool:
+      vmImage: "macOS-latest"
+    steps:
+      - task: UseDotNet@2
+        displayName: Install dotnet 2
+        inputs:
+          packageType: "sdk"
+          version: 2.1.x
+
+      - bash: './build.sh -t AzureDevOps' 
         displayName: "cake"
