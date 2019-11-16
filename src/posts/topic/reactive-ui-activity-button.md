@@ -2,7 +2,7 @@ Title: Activity Control with ReactiveUI
 Drafted: 12/18/2017
 Published: 05/10/18
 Tags:
- - Reactive UI
+ - ReactiveUI
  - Xamarin Forms
 ---
 
