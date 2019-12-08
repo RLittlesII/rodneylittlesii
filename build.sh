@@ -10,12 +10,12 @@ SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 TOOLS_DIR=$CAKE_PATHS_TOOLS
 NUGET_EXE=$SCRIPT_DIR/nuget.exe
 NUGET_URL=https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
-CAKE_VERSION=0.32.1
+CAKE_VERSION=0.33.0
 CAKE_EXE=$TOOLS_DIR/Cake.$CAKE_VERSION/Cake.exe
 DOTNET_PATH=$SCRIPT_DIR/.dotnet
 DOTNET_VERSION=2.1.500
 WYAM_EXE="~/.dotnet/tools"/wyam.exe
-WYAM_VERSION=2.1.3
+WYAM_VERSION=2.2.8
 
 # Define default arguments.
 TARGET="Default"
@@ -96,4 +96,4 @@ fi
 ###########################################################################
 
 # Start Cake
-dotnet-cake build.cake --verbosity=$VERBOSITY --configuration=$CONFIGURATION --target=$TARGET $DRYRUN "${SCRIPT_ARGUMENTS[@]}"
+dotnet-cake build.cake --verbosity=$VERBOSITY --configuration=$CONFIGURATION --target=$TARGET $DRYRUN
