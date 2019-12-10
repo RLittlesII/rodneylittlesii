@@ -74,4 +74,6 @@ There is the following `PropertyGroup` node is in that file
 ```
 
 remove the extra `bin` at the end of the `_FunctionsExtensionsDir` and all should be good.
+
+https://github.com/Azure/azure-functions-host/issues/4578#issuecomment-564103277
 ## Azure Portal
