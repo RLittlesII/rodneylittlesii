@@ -11,6 +11,10 @@ Tags:
 I've always thought that central state in an application is bad!  I have been using the MVVM pattern for years and the thought of global shared state always seemed odd.  
 
 
+We'll take a look at MVVM, MVU and what you might want to use central state outside the MVVM pattern.  Maybe how you can do it inside the pattern as well?
+
+![MVVM and MVU](https://miro.medium.com/fit/c/1838/551/0*Z62W9MFQpsQcgSWh)
+
 # MVVM - View Model maintains State
 
 ![MVVM](https://www.researchgate.net/publication/275258051/figure/fig3/AS:294465420972038@1447217435491/The-Model-View-ViewModel-MVVM-architectural-pattern-In-MVVM-the-View-layer-is.png)
@@ -24,6 +28,9 @@ Then I thought, if I pass parameters, am I not in effect sharing state across bo
 
 ![MVU](https://staltz.com/img/flux-unidir-ui-arch.jpg)
 ### Comet
+
+## Application State Management Patterns
+![](https://res.cloudinary.com/practicaldev/image/fetch/s--q95jY-tz--/c_imagga_scale,f_auto,fl_progressive,h_500,q_auto,w_1000/https://cl.ly/319964388514/Image%25202019-08-17%2520at%25202.31.50%2520PM.png)
 ### Redux
 ### Vuex
 
