@@ -1,4 +1,4 @@
-Title: Reactive Programming 201: Loading data on "Page" load
+Title: Reactive Programming - Load Data on Page Load
 Drafted: 03/02/2020
 Published: 03/02/2020
 Tags:
