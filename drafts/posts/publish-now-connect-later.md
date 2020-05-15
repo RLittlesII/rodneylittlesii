@@ -6,3 +6,17 @@ Tags:
     - .NET
     - Reactive Extensions
 ---
+
+```csharp
+var connectable = observabe.Publish();
+connectable.Where(x => ...).SelectMany(x => x...);
+
+...
+public void Listen() {
+_disposable = connectable.Connect();
+}
+
+public void Disconnect() {
+_disposable.Dispose();
+}
+```
