@@ -13,3 +13,16 @@ Tags:
 ## Whether they pertain to your framework or not
 
 # A Binding Engine != MVVM
+
+#### Why bind something through the ViewModel if it's technically static (not changing) ?!
+    - Label Text
+    - Button Text
+
+
+## MVVM Implies
+
+### Testability
+#### Static Instances are not your friend
+
+### SOLID
+#### Maybe not all of SOLID but more SOLID than less
