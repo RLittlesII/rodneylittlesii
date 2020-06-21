@@ -3,6 +3,8 @@ Personal blog of a developer trying to learn all the things
 
 [Rodney Littles, II](https://rodneylittlesii.com)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/954e5bef-1eb2-4220-a9f2-2ea2a9473d90/deploy-status)](https://app.netlify.com/sites/rodneylittlesii/deploys)
+
 | Branch |Azure DevOps | GitHub Actions |
 |:--:|:--:|:--:|
 | Drafts | [![Build Status](https://dev.azure.com/rlittlesii/github/_apis/build/status/rodneylittlesii?branchName=drafts)](https://dev.azure.com/rlittlesii/github/_build/latest?definitionId=12&branchName=drafts) | ![Build Action](https://github.com/RLittlesII/rodneylittlesii/workflows/Build%20Action/badge.svg?branch=drafts)
