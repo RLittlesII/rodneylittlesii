@@ -34,5 +34,5 @@ jobs:
           packageType: "sdk"
           version: 2.1.x
 
-      - bash: './build.sh -t AzureDevOps' 
+      - bash: './build.sh -t Build' 
         displayName: "cake"

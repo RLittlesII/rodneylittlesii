@@ -73,4 +73,7 @@ Task("AppVeyor")
 Task("AzureDevOps")
     .IsDependentOn("Deploy");
 
+Task("GitHub-Actions")
+    .IsDependentOn("Deploy");
+
 RunTarget(target);
