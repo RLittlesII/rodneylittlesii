@@ -12,18 +12,6 @@ pr:
     - drafts
 
 jobs:
-  - job: Windows
-    pool:
-      vmImage: "windows-2019"
-    steps:
-      - task: UseDotNet@2
-        displayName: Install dotnet 2
-        inputs:
-          packageType: "sdk"
-          version: 2.2.x
-
-      - powershell: '.\build.ps1 -t Build' 
-        displayName: "cake"
   - job: macOS
     pool:
       vmImage: "macOS-latest"
