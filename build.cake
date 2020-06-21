@@ -7,7 +7,7 @@ using NetlifySharp;
 var target = Argument("target", "Default");
 var recipe = "Blog";
 var theme = "SolidState";
-var IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("main", TFBuild.Environment.Repository.Branch);
+var IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("main", GitHubActions.Environment.Workflow.HeadRef);
 
 Setup(context =>
 {
