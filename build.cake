@@ -19,26 +19,7 @@ Teardown(context =>
     Information(DateTime.Now);	
 });
 
-Task("Environment")
-    .WithCriteria(BuildSystem.IsRunningOnGitHubActions)
-    .Does(() =>
-    {
-        Information("GITHUB_ACTION: {0}", GitHubActions.Environment.Workflow.Action);
-        Information("GITHUB_ACTOR: {0}", GitHubActions.Environment.Workflow.Actor);
-        Information("GITHUB_BASE_REF: {0}", GitHubActions.Environment.Workflow.BaseRef);
-        Information("GITHUB_EVENT_NAME: {0}", GitHubActions.Environment.Workflow.EventName);
-        Information("GITHUB_EVENT_PATH: {0}", GitHubActions.Environment.Workflow.EventPath);
-        Information("GITHUB_HEAD_REF: {0}", GitHubActions.Environment.Workflow.HeadRef);
-        Information("GITHUB_JOB: {0}", GitHubActions.Environment.Workflow.Job);
-        Information("GITHUB_REPOSITORY: {0}", GitHubActions.Environment.Workflow.Repository);
-        Information("GITHUB_REF: {0}", GitHubActions.Environment.Workflow.Ref);
-        Information("GITHUB_SHA: {0}", GitHubActions.Environment.Workflow.Sha);
-        Information("GITHUB_WORKFLOW: {0}", GitHubActions.Environment.Workflow.Workflow);
-        Information("GITHUB_REF: {0}", GitHubActions.Environment.Workflow.Ref);
-    });
-
 Task("Build")
-    .IsDependentOn("Environment")
     .Does(() =>
     {
         Wyam(new WyamSettings
@@ -94,7 +75,6 @@ Task("AzureDevOps")
     .IsDependentOn("Deploy");
 
 Task("GitHub-Actions")
-    .WithCriteria(BuildSystem.IsRunningOnGitHubActions)
     .IsDependentOn("Build");
 
 RunTarget(target);
