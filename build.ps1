@@ -31,7 +31,7 @@ Param(
     [string[]]$ScriptArgs
 )
 
-$CakeVersion = "0.33.0";
+$CakeVersion = "0.38.2";
 $WyamVersion = "2.2.8";
 $DotNetChannel = "preview";
 $DotNetVersion = "2.1.500";
