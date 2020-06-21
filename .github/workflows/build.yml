@@ -32,4 +32,4 @@ jobs:
 
     - name: Cake Build
       shell: bash
-      run: ./build.sh -t Build
+      run: ./build.sh -t GitHub-Actions
