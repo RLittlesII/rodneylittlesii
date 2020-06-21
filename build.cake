@@ -93,6 +93,6 @@ Task("AzureDevOps")
     .IsDependentOn("Deploy");
 
 Task("GitHub-Actions")
-    .IsDependentOn("Deploy");
+    .IsDependentOn("Build");
 
 RunTarget(target);
