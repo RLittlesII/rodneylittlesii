@@ -7,3 +7,4 @@ config.wyam.hash
 .dotnet/
 nuget.exe
 config.wyam.packages.xml
+.DS_Store

@@ -3,7 +3,7 @@
 using Wyam.Blog.Pipelines;
 
 Settings[BlogKeys.Title ] = "Rodney Littles II";
-// Settings[BlogKeys.Image] = "";
+Settings[BlogKeys.Image] = "favicon.ico";
 Settings[BlogKeys.Description] = "This is a journey into code.";
 Settings[BlogKeys.Intro] = "Where I clone repositories, dig through code, and learn ... things.";
 Settings[BlogKeys.CaseInsensitiveTags] = true;
