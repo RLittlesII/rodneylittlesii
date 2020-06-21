@@ -7,7 +7,7 @@ using NetlifySharp;
 var target = Argument("target", "Default");
 var recipe = "Blog";
 var theme = "SolidState";
-var IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("main", GitHubActions.Environment.Workflow.Ref);
+var IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("refs/heads/main", GitHubActions.Environment.Workflow.Ref);
 
 Setup(context =>
 {
@@ -38,6 +38,7 @@ Task("Environment")
     });
 
 Task("Build")
+    .IsDependentOn("Environment")
     .Does(() =>
     {
         Wyam(new WyamSettings
