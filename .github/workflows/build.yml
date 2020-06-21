@@ -33,3 +33,5 @@ jobs:
     - name: Cake Build
       shell: bash
       run: ./build.sh -t GitHub-Actions
+      env:
+        NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
