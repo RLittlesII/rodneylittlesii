@@ -71,7 +71,6 @@ Task("AppVeyor")
     .IsDependentOn("Build");
 
 Task("AzureDevOps")
-    .WithCriteria(BuildSystem.IsRunningOnAzurePipelines)
     .IsDependentOn("Deploy");
 
 Task("GitHub-Actions")
