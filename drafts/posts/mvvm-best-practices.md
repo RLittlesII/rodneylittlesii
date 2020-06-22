@@ -26,3 +26,10 @@ Tags:
 
 ### SOLID
 #### Maybe not all of SOLID but more SOLID than less
+
+
+
+### Page and ViewModel are coupled.  Live with it.
+- They Share a life cycle
+- Page is Presentation
+- ViewModel is the *STATE* of that view at any given point in time.
