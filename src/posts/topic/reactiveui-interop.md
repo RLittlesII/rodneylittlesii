@@ -2,9 +2,9 @@ Title: Interoperability with ReactiveUI
 Drafted: 02/08/2019
 Published: 02/13/2019
 Tags:
- - Mvvm
+ - MVVM
  - ReactiveUI
- - Xamarin.Forms
+ - Xamarin Forms
 ---
 
 # One MVVM Framework above all others
