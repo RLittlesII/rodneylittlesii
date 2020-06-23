@@ -21,9 +21,9 @@ Benefits
 - All my downstream subscribers are getting the same observable
 
 ```csharp
-var connectable = observabe.Publish();
+IConnectableObservable connectable = observabe.Publish();
 connectable.Where(x => ...).SelectMany(x => x...);
-
+connectable.Subscribe();
 ...
 public void Listen() {
 _disposable = connectable.Connect();
