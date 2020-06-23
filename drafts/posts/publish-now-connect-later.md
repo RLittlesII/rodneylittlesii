@@ -1,11 +1,15 @@
 Title: Defer subscription till when you need it using IConnectableObservable
 Drafted: 04/17/2020
-Published: 04/17/2020
+Published: 06/22/2020
 Tags:
     - C#
     - .NET
     - Reactive Extensions
 ---
+
+# What is this IConnectableObservable?
+
+[Publishing Reference Counts for Connected Observables](../posts/topic/rx-publish-refcount)
 
 # The problem with subscriptions
 - Each `Subscribe()` is effectively another method invocation.  In terms of EventHandlers, it is the allocation of another event handler.
