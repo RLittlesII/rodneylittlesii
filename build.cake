@@ -7,7 +7,7 @@ using NetlifySharp;
 var target = Argument("target", "Default");
 var recipe = "Blog";
 var theme = "SolidState";
-var IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("main", AzurePipelines.Environment.Repository.SourceBranchName);
+var IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("refs/heads/main", GitHubActions.Environment.Workflow.Ref);
 
 Setup(context =>
 {
