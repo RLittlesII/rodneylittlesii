@@ -16,7 +16,7 @@ Setup(context =>
     {
         IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("main", AzurePipelines.Environment.Repository.SourceBranchName);
     }
-    else
+    if(BuildSystem.IsRunningOnGitHubActions)
     {
         IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("refs/heads/main", GitHubActions.Environment.Workflow.Ref);
     }
@@ -49,7 +49,6 @@ Task("GitHubActionsEnvironment")
         Information("GITHUB_REF: {0}", GitHubActions.Environment.Workflow.Ref);
         Information("GITHUB_SHA: {0}", GitHubActions.Environment.Workflow.Sha);
         Information("GITHUB_WORKFLOW: {0}", GitHubActions.Environment.Workflow.Workflow);
-        Information("GITHUB_REF: {0}", GitHubActions.Environment.Workflow.Ref);
     });
 
 
