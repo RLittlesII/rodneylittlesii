@@ -33,3 +33,9 @@ Tags:
 - They Share a life cycle
 - Page is Presentation
 - ViewModel is the *STATE* of that view at any given point in time.
+
+### ViewModel's tend to be the sewing room of applications
+- People put logic there because there's "nowhere else to put it"
+- Instead of creating clean abstractions, ViewModels tend to be where we stich together pieces of different interfaces
+    - This violates single responsibility
+    - ViewModels responsibility is to maintain state for the view, not piece together the return of a web request
