@@ -1,0 +1,40 @@
+Configuration:
+- Debug
+- Release
+Continue: 
+Help: 
+Host:
+- AppVeyor
+- AzurePipelines
+- Bamboo
+- Bitrise
+- Console
+- GitHubActions
+- GitLab
+- Jenkins
+- TeamCity
+- Travis
+NoLogo: 
+Plan: 
+Root: 
+Skip:
+- Build
+- Clean
+- Default
+- Deploy
+- Preview
+- Publish
+- Restore
+Target:
+- Build
+- Clean
+- Default
+- Deploy
+- Preview
+- Publish
+- Restore
+Verbosity:
+- Minimal
+- Normal
+- Quiet
+- Verbose

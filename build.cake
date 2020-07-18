@@ -1,74 +1,46 @@
-#tool nuget:?package=Wyam&version=2.2.8
-#addin nuget:?package=Cake.Wyam&version=2.2.8
-#addin "nuget:?package=NetlifySharp&version=1.1.0"
 
-using NetlifySharp;
+var npmPath = (IsRunningOnWindows()
+                ? Context.Tools.Resolve("npm.cmd")
+                : Context.Tools.Resolve("npm"))
+                ?? throw new Exception("Failed to resolve npm, make sure Node is installed.");
 
-var target = Argument("target", "Default");
-var recipe = "Blog";
-var theme = "SolidState";
-var IsMainBranch = StringComparer.OrdinalIgnoreCase.Equals("refs/heads/main", GitHubActions.Environment.Workflow.Ref);
+Action<FilePath, ProcessArgumentBuilder> Cmd => (path, args) => {
+    var result = StartProcess(path, new ProcessSettings { Arguments = args });
 
-Setup(context =>
-{
-    Information(DateTime.Now);
-});
-
-Teardown(context =>
-{
-    Information(DateTime.Now);	
-});
+    if(0 != result)
+    {
+        throw new Exception($"Failed to execute tool {path.GetFilename()} ({result})");
+    }
+};
 
 Task("Build")
-    .Does(() =>
-    {
-        Wyam(new WyamSettings
-        {
-            Recipe = recipe,
-            Theme = theme,
-            UpdatePackages = true
-        });
-    });
+    .Does(() => DotNetCoreRun("./src/site.csproj"));
 
-Task("Preview")
-    .Does(() =>
-    {
-        Wyam(new WyamSettings
-        {
-            Recipe = recipe,
-            Theme = theme,
-            UpdatePackages = true,
-            Preview = true,
-            Watch = true,
-            Settings = new Dictionary<string, object>() 
-            {
-                { "Drafts", true }
-            }, 
-            InputPaths = new DirectoryPath[] { "src", "drafts" }
-        });
-    });
+Task("Install-Netlify-Cli")
+    .Does(() => Cmd(npmPath, new ProcessArgumentBuilder()
+        .Append("install")
+        .AppendSwitch("--prefix", " ", "tools")
+        .Append("netlify-cli")));
 
 Task("Deploy")
     .IsDependentOn("Build")
-    .Does(() =>
-    {
-        var netlifyToken = EnvironmentVariable("NETLIFY_TOKEN");
-        if(string.IsNullOrEmpty(netlifyToken))
-        {
-            throw new Exception("Could not get Netlify token environment variable");
-        }
+    .IsDependentOn("Install-Netlify-Cli")
+    .Does(() => {
+        var netlifyPath = (IsRunningOnWindows()
+            ? Context.Tools.Resolve("netlify.cmd")
+            : Context.Tools.Resolve("netlify"))
+            ?? throw new Exception("Failed to resolve netlify-cli, make sure netlify-cli is installed.");
 
-        Information("Deploying output to Netlify");
-        var client = new NetlifyClient(netlifyToken);
-        var outputPath = MakeAbsolute(Directory("./output")).FullPath;
-        Information($"Output: {outputPath}");
-        client.UpdateSiteAsync((string)MakeAbsolute(Directory("./output")).FullPath, "rodneylittlesii.netlify.com").GetAwaiter().GetResult();
+        Cmd(netlifyPath, new ProcessArgumentBuilder()
+            .Append("deploy")
+            .AppendSwitch("--dir", "=", "output"));
     });
 
+Task("Preview")
+    .Does(() => DotNetCoreRun("./src/site.csproj", new ProcessArgumentBuilder()
+        .Append("preview")));
+
 Task("Default")
-    .IsDependentOn("Preview");
+    .IsDependentOn("Build");
 
-Task("GitHubActions")
-    .IsDependentOn("Deploy");
-
-RunTarget(target);
+RunTarget(Argument("Target", "Default"));

@@ -3,39 +3,16 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace></RootNamespace>
     <NoWarn>CS0649;CS0169</NoWarn>
     <NukeRootDirectory>..</NukeRootDirectory>
     <NukeScriptDirectory>..</NukeScriptDirectory>
     <RefitDisableGenerateRefitStubs>true</RefitDisableGenerateRefitStubs>
   </PropertyGroup>
-
   <ItemGroup>
   <PackageReference Include="NetlifySharp" Version="1.1.0" />
   <PackageReference Include="Nuke.Common" Version="0.25.0-alpha0334" />
   <PackageReference Include="Refit" Version="5.2.1" />
   <PackageReference Include="Rocket.Surgery.Nuke" Version="0.13.6" />
-  <PackageReference Include="Wyam.Core" Version="2.2.9" />
-  <PackageReference Include="Wyam.CodeAnalysis" Version="2.2.9" />
-  <PackageReference Include="Wyam.Configuration" Version="2.2.9" />
-  <PackageReference Include="Wyam.Blog" Version="2.2.9" />
-  <PackageReference Include="Wyam.Blog.SolidState" Version="2.2.9" />
-  <PackageReference Include="Wyam.Docs" Version="2.2.9" />
-  <PackageReference Include="Wyam.Docs.Samson" Version="2.2.9" />
-  <PackageReference Include="Wyam.GitHub" Version="2.2.9" />
-  <PackageReference Include="Wyam.Highlight" Version="2.2.9" />
-  <PackageReference Include="Wyam.Hosting" Version="2.2.9" />
-  <PackageReference Include="Wyam.Images" Version="2.2.9" />
-  <PackageReference Include="Wyam.Json" Version="2.2.9" />
-  <PackageReference Include="Wyam.SearchIndex" Version="2.2.9" />
-  <PackageReference Include="Wyam.Tables" Version="2.2.9" />
-  <PackageReference Include="Wyam.Xmp" Version="2.2.9" />
-  <PackageReference Include="YamlDotNet" Version="8.1.2" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="..\build.cake">
-      <Link>build.cake</Link>
-    </Content>
-  </ItemGroup>
-
 </Project>
