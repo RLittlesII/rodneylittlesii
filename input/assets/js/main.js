@@ -1,152 +1,109 @@
 /*
-	Phantom by HTML5 UP
+	Solid State by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
 (function($) {
 
-	skel.breakpoints({
-		xlarge:	'(max-width: 1680px)',
-		large:	'(max-width: 1280px)',
-		medium:	'(max-width: 980px)',
-		small:	'(max-width: 736px)',
-		xsmall:	'(max-width: 480px)'
-	});
+	var	$window = $(window),
+		$body = $('body'),
+		$header = $('#header'),
+		$banner = $('#banner');
 
-	$(function() {
+	// Breakpoints.
+		breakpoints({
+			xlarge:	'(max-width: 1680px)',
+			large:	'(max-width: 1280px)',
+			medium:	'(max-width: 980px)',
+			small:	'(max-width: 736px)',
+			xsmall:	'(max-width: 480px)'
+		});
 
-		var	$window = $(window),
-			$body = $('body');
+	// Play initial animations on page load.
+		$window.on('load', function() {
+			window.setTimeout(function() {
+				$body.removeClass('is-preload');
+			}, 100);
+		});
 
-		// Disable animations/transitions until the page has loaded.
-			$body.addClass('is-loading');
+	// Header.
+		if ($banner.length > 0
+		&&	$header.hasClass('alt')) {
 
-			$window.on('load', function() {
-				window.setTimeout(function() {
-					$body.removeClass('is-loading');
-				}, 100);
+			$window.on('resize', function() { $window.trigger('scroll'); });
+
+			$banner.scrollex({
+				bottom:		$header.outerHeight(),
+				terminate:	function() { $header.removeClass('alt'); },
+				enter:		function() { $header.addClass('alt'); },
+				leave:		function() { $header.removeClass('alt'); }
 			});
 
-		// Touch?
-			if (skel.vars.touch)
-				$body.addClass('is-touch');
+		}
 
-		// Forms.
-			var $form = $('form');
+	// Menu.
+		var $menu = $('#menu');
 
-			// Auto-resizing textareas.
-				$form.find('textarea').each(function() {
+		$menu._locked = false;
 
-					var $this = $(this),
-						$wrapper = $('<div class="textarea-wrapper"></div>'),
-						$submits = $this.find('input[type="submit"]');
+		$menu._lock = function() {
 
-					$this
-						.wrap($wrapper)
-						.attr('rows', 1)
-						.css('overflow', 'hidden')
-						.css('resize', 'none')
-						.on('keydown', function(event) {
+			if ($menu._locked)
+				return false;
 
-							if (event.keyCode == 13
-							&&	event.ctrlKey) {
+			$menu._locked = true;
 
-								event.preventDefault();
-								event.stopPropagation();
+			window.setTimeout(function() {
+				$menu._locked = false;
+			}, 350);
 
-								$(this).blur();
+			return true;
 
-							}
+		};
 
-						})
-						.on('blur focus', function() {
-							$this.val($.trim($this.val()));
-						})
-						.on('input blur focus --init', function() {
+		$menu._show = function() {
 
-							$wrapper
-								.css('height', $this.height());
+			if ($menu._lock())
+				$body.addClass('is-menu-visible');
 
-							$this
-								.css('height', 'auto')
-								.css('height', $this.prop('scrollHeight') + 'px');
+		};
 
-						})
-						.on('keyup', function(event) {
+		$menu._hide = function() {
 
-							if (event.keyCode == 9)
-								$this
-									.select();
+			if ($menu._lock())
+				$body.removeClass('is-menu-visible');
 
-						})
-						.triggerHandler('--init');
+		};
 
-					// Fix.
-						if (skel.vars.browser == 'ie'
-						||	skel.vars.mobile)
-							$this
-								.css('max-height', '10em')
-								.css('overflow-y', 'auto');
+		$menu._toggle = function() {
 
-				});
+			if ($menu._lock())
+				$body.toggleClass('is-menu-visible');
 
-			// Fix: Placeholder polyfill.
-				$form.placeholder();
+		};
 
-		// Prioritize "important" elements on medium.
-			skel.on('+medium -medium', function() {
-				$.prioritize(
-					'.important\\28 medium\\29',
-					skel.breakpoint('medium').active
-				);
-			});
+		$menu
+			.appendTo($body)
+			.on('click', function(event) {
 
-		// Menu.
-			var $menu = $('#menu');
+				event.stopPropagation();
 
-			$menu.wrapInner('<div class="inner"></div>');
+				// Hide.
+					$menu._hide();
 
-			$menu._locked = false;
+			})
+			.find('.inner')
+				.on('click', '.close', function(event) {
 
-			$menu._lock = function() {
+					event.preventDefault();
+					event.stopPropagation();
+					event.stopImmediatePropagation();
 
-				if ($menu._locked)
-					return false;
+					// Hide.
+						$menu._hide();
 
-				$menu._locked = true;
-
-				window.setTimeout(function() {
-					$menu._locked = false;
-				}, 350);
-
-				return true;
-
-			};
-
-			$menu._show = function() {
-
-				if ($menu._lock())
-					$body.addClass('is-menu-visible');
-
-			};
-
-			$menu._hide = function() {
-
-				if ($menu._lock())
-					$body.removeClass('is-menu-visible');
-
-			};
-
-			$menu._toggle = function() {
-
-				if ($menu._lock())
-					$body.toggleClass('is-menu-visible');
-
-			};
-
-			$menu
-				.appendTo($body)
+				})
 				.on('click', function(event) {
 					event.stopPropagation();
 				})
@@ -161,40 +118,28 @@
 						$menu._hide();
 
 					// Redirect.
-						if (href == '#menu')
-							return;
-
 						window.setTimeout(function() {
 							window.location.href = href;
 						}, 350);
 
-				})
-				.append('<a class="close" href="#menu">Close</a>');
-
-			$body
-				.on('click', 'a[href="#menu"]', function(event) {
-
-					event.stopPropagation();
-					event.preventDefault();
-
-					// Toggle.
-						$menu._toggle();
-
-				})
-				.on('click', function(event) {
-
-					// Hide.
-						$menu._hide();
-
-				})
-				.on('keydown', function(event) {
-
-					// Hide on escape.
-						if (event.keyCode == 27)
-							$menu._hide();
-
 				});
 
-	});
+		$body
+			.on('click', 'a[href="#menu"]', function(event) {
+
+				event.stopPropagation();
+				event.preventDefault();
+
+				// Toggle.
+					$menu._toggle();
+
+			})
+			.on('keydown', function(event) {
+
+				// Hide on escape.
+					if (event.keyCode == 27)
+						$menu._hide();
+
+			});
 
 })(jQuery);
