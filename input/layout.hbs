@@ -10,15 +10,16 @@
 
     <title>Rodney Littles, II{{#if title}} - {{title}}{{/if}}</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="/assets/css/highlight.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
-    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
     <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
     <link href="/assets/css/override.css" rel="stylesheet" />
 
-    <meta name="description" content="Driving Digital Transformation on Serverless Containers..." />
+    <meta name="description" content="This is a journey into code." />
     <link type="application/rss+xml" rel="alternate" title="Rodney Littles, II" href="/feed.rss" />
     <link type="application/atom+xml" rel="alternate" title="Rodney Littles, II" href="/feed.atom" />
     <!--<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -32,7 +33,7 @@
     <meta name="msapplication-tooltip" content="Rodney Littles, II" />
     <meta name="msapplication-starturl" content="/" />
 
-    <meta property="og:title" content="Rodney Littles, II{{#if title}} - {{title}}{{/if}}" />
+    <meta property="og:title" content="{{#if title}} - {{title}}{{/if}}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://rodneylittlesii.com{{link}}" />
     <!-- TODO: More social graph meta tags -->
@@ -42,48 +43,45 @@
 
 <body>
     <!-- Wrapper -->
-    <div id="wrapper">
-
+    <div id="page-wrapper">
         <!-- Header -->
         <header id="header">
-            <div class="inner">
-
-                <!-- Logo -->
-                <a href="/" class="logo">
-                    <span class="title">Rodney Littles, II</span>
-                </a>
-
-                <!-- Nav -->
-                <nav>
-                    <ul>
-                        <li><a href="#menu">Menu</a></li>
-                    </ul>
-                </nav>
-
-            </div>
+            <h1><a href="/">{{title}}</a></h1>
+            <nav>
+                <a href="#menu">Menu</a>
+            </nav>
         </header>
 
         <!-- Menu -->
         <nav id="menu">
-            <h2>Menu</h2>
-            <ul>
-                <li><a href="/posts">Archive</a></li>
-                <li><a href="/tags">Tags</a></li>
-            </ul>
+            <div class="inner">
+                <h2>Menu</h2>
+                <ul class="links">
+                    <li><a href="/posts">Archive</a></li>
+                    <li><a href="/tags">Tags</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+                <a href="#" class="close">Close</a>
+            </div>
         </nav>
 
-        <!-- Main -->
-        <div id="main">
+        <!-- Banner -->
+        <section id="banner">
             <div class="inner">
-
-                {{{body}}}
-
+                <div class="logo"><span class="icon fa-gem" /></div>
+                <h2><span>{{description}}</span></h2>
+                <p>{{intro}}</p>
             </div>
-        </div>
+        </section>
+
+        <!-- Main -->
+        <section id="wrapper">
+            {{{body}}}
+        </section>
 
         <!-- Footer -->
         <footer id="footer">
-            <div class="inner">
+            {{!-- <div class="inner">
                 <section>
                     <h2>Feeds</h2>
                     <ul class="actions small vertical">
@@ -100,7 +98,7 @@
                     <li>Built by <a href="https://nuke.build">Nuke</a></li>
                     <li>Hosted by <a href="https://www.netlify.com">Netlify</a></li>
                 </ul>
-            </div>
+            </div> --}}
 
         </footer>
 

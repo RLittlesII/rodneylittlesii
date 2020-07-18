@@ -4,6 +4,7 @@ using Statiq.Common;
 using Statiq.Core;
 using Statiq.Feeds;
 using Statiq.Handlebars;
+using YamlDotNet.Core.Tokens;
 
 namespace site.Pipelines
 {
@@ -32,7 +33,9 @@ namespace site.Pipelines
                         title = doc.GetString(Keys.Title),
                         body = await doc.GetContentStringAsync(),
                         link = ctx.GetLink(doc),
-                        year = ctx.Settings.GetString(FeedKeys.Copyright)
+                        year = ctx.Settings.GetString(FeedKeys.Copyright),
+                        description = ctx.Settings.GetString(FeedKeys.Description),
+                        intro = ctx.Settings.GetString(BlogKeys.Intro)
                     })),
                 new SetContent(Config.FromDocument(x => x.GetString("template")))
             };

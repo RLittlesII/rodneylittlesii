@@ -23,8 +23,18 @@ namespace site
                 .AddSetting(FeedKeys.Author, "Rodney Littles, II")
                 .AddSetting(FeedKeys.Image, "favicon.ico")
                 .AddSetting(FeedKeys.Description, "This is a journey into code.")
+                .AddSetting(BlogKeys.Intro, "Where I clone repositories, dig through code, and learn ... things. ")
                 .AddSetting(FeedKeys.Copyright, DateTime.UtcNow.Year.ToString())
                 .RunAsync();
         }
+    }
+
+    public static class BlogKeys
+    {
+        /// <summary>
+        /// The default metadata key for getting the title of feed items.
+        /// </summary>
+        /// <type><see cref="string"/></type>
+        public const string Intro = nameof(Intro);
     }
 }
