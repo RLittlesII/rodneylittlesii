@@ -4,7 +4,7 @@ Param(
     [string[]]$BuildArguments
 )
 
-Write-Output "PowerShell $($PSVersionTable.PSEdition) version $($PSVersionTable.PSVersion)"
+Write-Output "Windows PowerShell $($Host.Version)"
 
 Set-StrictMode -Version 2.0; $ErrorActionPreference = "Stop"; $ConfirmPreference = "None"; trap { exit 1 }
 $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
@@ -41,7 +41,7 @@ if (Test-Path $DotNetGlobalFile) {
 }
 
 # If dotnet is installed locally, and expected version is not set or installation matches the expected version
-if ($null -ne (Get-Command "dotnet" -ErrorAction SilentlyContinue) -and `
+if ((Get-Command "dotnet" -ErrorAction SilentlyContinue) -ne $null -and `
      (!(Test-Path variable:DotNetVersion) -or $(& dotnet --version) -eq $DotNetVersion)) {
     $env:DOTNET_EXE = (Get-Command "dotnet").Path
 }
@@ -64,5 +64,5 @@ else {
 
 Write-Output "Microsoft (R) .NET Core SDK version $(& $env:DOTNET_EXE --version)"
 
-ExecSafe { & $env:DOTNET_EXE build $BuildProjectFile /nodeReuse:false -nologo -clp:NoSummary --verbosity quiet }
+ExecSafe { & $env:DOTNET_EXE build $BuildProjectFile /nodeReuse:false }
 ExecSafe { & $env:DOTNET_EXE run --project $BuildProjectFile --no-build -- $BuildArguments }
