@@ -7,7 +7,7 @@ socialMediaLinks:
     class: icon brands fa-twitter
   - link: https://github.com/rlittlesii
     title: GitHub (rlittlesii)
-    class: fa fa-github
+    class: icon brands fa-twitter
   - link: https://keybase.io/rlittlesii
     title: Keybase (rlittlesii)
     class: fa fa-key
@@ -18,42 +18,45 @@ socialMediaLinks:
 
 <section class="wrapper style2">
     <div class="inner">
-            <div class="inner">
-                <section class="features">
-                {{#each posts}}
-                    <article>
-                        <div class="content">
-                            <h3 class="major">{{title}}</h3>
-                            <p>Posted on {{date}}</p>
-                            <p>{{{excerpt}}}</p>
-                            <a href="{{link}}" class="special">Read more</a>
-                        </div>
-                    </article>
+        <section class="features">
+        {{#each posts}}
+            <article>
+                <div class="content">
+                    <h3 class="major">{{title}}</h3>
+                    <p>Posted on {{date}}</p>
+                    <p>{{{excerpt}}}</p>
+                    <a href="{{link}}" class="special">Read</a>
+                </div>
+            </article>
+        {{/each}}
+        </section>
+    </div>
+    <section class="wrapper alt style3">
+        <div class="inner">
+            <h5 class="major">Tags</h5>
+            <div>
+                {{#each tags}}
+                <a href="{{link}}" role="button" class="button small">{{title}} ({{count}})</a>
                 {{/each}}
-                </section>
-    </div>
-    <div class="4u 12u$(medium)">
+            </div>
+            <br />
+            <ul class="actions">
+                <li><a href="/tags" class="button small">View All Tags &rarr;</a></li>
+            </ul>
+        </div>
+    </section>
+    <section class="wrapper style1">
+        <div class="inner">
+            <h5 class="major">Older Posts</h5>
+            <ul>
+                {{#each olderPosts}}
+                <li><a href="{{link}}">{{title}}</a></li>
+                {{/each}}
+            </ul>
+            <ul class="actions">
+                <li><a href="/posts" class="button">Archive &rarr;</a></li>
+            </ul>
+        </div>
+    </section>
 
-        <h5>Tags</h5>
-        <ul class="actions">
-            {{#each tags}}
-            <li><a role="button" href="{{link}}" class="button">{{title}} ({{count}})</a></li>
-            {{/each}}
-        </ul>
-        <ul class="actions small">
-            <li><a href="/tags" class="button small">View All Tags &rarr;</a></li>
-        </ul>
-
-        <ul class="actions small">
-            <li><a href="/posts" class="button small">Archive &rarr;</a></li>
-        </ul>
-
-        <hr />
-        <h5>The Internets</h5>
-        <ul class="contact">
-            {{#each socialMediaLinks}}
-            <li class="{{class}}"><a href="{{link}}"> {{title}}</a></li>
-            {{/each}}
-        </ul>
-    </div>
 </section>

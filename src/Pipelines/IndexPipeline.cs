@@ -35,6 +35,7 @@ namespace site.Pipelines
                         olderPosts = context.Outputs.FromPipeline(nameof(BlogPostPipeline))
                             .OrderByDescending(x => x.GetDateTime(FeedKeys.Published))
                             .Skip(3)
+                            .Take(3)
                             .Select(x => x.AsPost(context)), 
                         tags = context.Outputs.FromPipeline(nameof(TagsPipeline))
                             .OrderByDescending(x => x.GetChildren().Count)
