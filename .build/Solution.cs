@@ -87,4 +87,10 @@ class GeneratorBuild : NukeBuild
     Target Default => _ => _
         .DependsOn(Build)
         .DependsOn(Publish);
+
+    Target GitHubActions => _ => _
+        .DependsOn(Build);
+
+    Target AzureDevOps => _ => _
+        .DependsOn(Deploy);
 }

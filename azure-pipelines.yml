@@ -1,0 +1,26 @@
+trigger:
+  branches:
+    include:
+    - main
+    - drafts
+    - draft/*
+pr:
+  autoCancel: true
+  branches:
+    include:
+    - main
+    - drafts
+
+jobs:
+  - job: macOS
+    pool:
+      vmImage: "macOS-latest"
+    steps:
+      - task: UseDotNet@2
+        displayName: Install dotnet 2
+        inputs:
+          packageType: "sdk"
+          version: 2.1.x
+
+      - bash: './build.sh -t AzureDevOps' 
+        displayName: "nuke"
