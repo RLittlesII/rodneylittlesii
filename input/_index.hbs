@@ -16,22 +16,22 @@ socialMediaLinks:
     class: fa fa-linkedin
 ---
 
-<section class="wrapper">
-    <section class="wrapper spotlight style3">
-        <div class="inner">
-            <section class="features">
-            {{#each posts}}
-                <article>
-                    <div class="content">
-                        <h3 class="major">{{title}}</h3>
-                        <p>Posted on {{date}}</p>
-                        <p>{{{excerpt}}}</p>
-                        <a href="{{link}}" class="special">Read more</a>
-                    </div>
-                </article>
-            {{/each}}
-            </section>
-    </section>
+<section class="wrapper style2">
+    <div class="inner">
+            <div class="inner">
+                <section class="features">
+                {{#each posts}}
+                    <article>
+                        <div class="content">
+                            <h3 class="major">{{title}}</h3>
+                            <p>Posted on {{date}}</p>
+                            <p>{{{excerpt}}}</p>
+                            <a href="{{link}}" class="special">Read more</a>
+                        </div>
+                    </article>
+                {{/each}}
+                </section>
+    </div>
     <div class="4u 12u$(medium)">
 
         <h5>Tags</h5>
