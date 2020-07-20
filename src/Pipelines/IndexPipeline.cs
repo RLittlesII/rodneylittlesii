@@ -26,25 +26,34 @@ namespace site.Pipelines
                 new RenderHandlebars()
                     .WithModel(Config.FromDocument((doc, context) => new
                     {
-                        description = context.Settings.GetString(FeedKeys.Description),
                         intro = doc.GetString("intro"),
-                        posts = context.Outputs.FromPipeline(nameof(BlogPostPipeline))
-                            .OrderByDescending(x => x.GetDateTime(FeedKeys.Published))
-                            .Take(3)
-                            .Select(x => x.AsPost(context)),
-                        olderPosts = context.Outputs.FromPipeline(nameof(BlogPostPipeline))
-                            .OrderByDescending(x => x.GetDateTime(FeedKeys.Published))
-                            .Skip(3)
-                            .Take(3)
-                            .Select(x => x.AsPost(context)), 
-                        tags = context.Outputs.FromPipeline(nameof(TagsPipeline))
-                            .OrderByDescending(x => x.GetChildren().Count)
-                            .ThenBy(x => x.GetString(Keys.GroupKey))
-                            .Take(10)
-                            .Select(x => x.AsTag(context)),
-                        socialMediaLinks = doc
-                            .GetChildren("socialMediaLinks")
-                            .Select(x => x.AsDynamic())
+                        description = context.Settings.GetString(FeedKeys.Description),
+                        posts =
+                            context
+                                .Outputs
+                                .FromPipeline(nameof(BlogPostPipeline))
+                                .OrderByDescending(x => x.GetDateTime(FeedKeys.Published))
+                                .Take(4)
+                                .Select(x => x.AsPost(context)),
+                        olderPosts =
+                            context
+                                .Outputs
+                                .FromPipeline(nameof(BlogPostPipeline))
+                                .OrderByDescending(x => x.GetDateTime(FeedKeys.Published))
+                                .Skip(3)
+                                .Take(4)
+                                .Select(x => x.AsPost(context)), 
+                        tags =
+                            context
+                                .Outputs
+                                .FromPipeline(nameof(TagsPipeline))
+                                .OrderByDescending(x => x.GetChildren().Count)
+                                .ThenBy(x => x.GetString(Keys.GroupKey))
+                                .Take(5)
+                                .Select(x => x.AsTag(context)),
+                        socialMediaLinks =
+                            doc.GetChildren("socialMediaLinks")
+                               .Select(x => x.AsDynamic())
                     }))
             };
 

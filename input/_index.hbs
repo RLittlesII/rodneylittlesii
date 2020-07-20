@@ -8,42 +8,40 @@ intro: >
         <section class="features">
         {{#each posts}}
             <article>
-                <div class="content">
-                    <h3 class="major">{{title}}</h3>
-                    <p>Posted on {{date}}</p>
-                    <p>{{{excerpt}}}</p>
-                    <a href="{{link}}" class="special">Read</a>
-                </div>
+                <h3>{{title}}</h3>
+                <hr />
+                <p><em>Posted on {{date}}</em></p>
+                <p>{{{excerpt}}}</p>
+                <a href="{{link}}" class="special">Read</a>
             </article>
         {{/each}}
         </section>
     </div>
-    <section class="wrapper alt style3">
-        <div class="inner">
-            <h5 class="major">Tags</h5>
-            <div>
-                {{#each tags}}
-                <a href="{{link}}" role="button" class="button small">{{title}} ({{count}})</a>
-                {{/each}}
-            </div>
-            <br />
-            <ul class="actions">
-                <li><a href="/tags" class="button small">View All Tags &rarr;</a></li>
-            </ul>
+</section>
+<section class="wrapper alt style3">
+    <div class="inner">
+        <h5 class="major">Tags</h5>
+        <div>
+            {{#each tags}}
+            <a href="{{link}}" role="button" class="button small">{{title}} ({{count}})</a>
+            {{/each}}
         </div>
-    </section>
-    <section class="wrapper style1">
-        <div class="inner">
-            <h5 class="major">Older Posts</h5>
-            <ul>
-                {{#each olderPosts}}
-                <li><a href="{{link}}">{{title}}</a></li>
-                {{/each}}
-            </ul>
-            <ul class="actions">
-                <li><a href="/posts" class="button">Archive &rarr;</a></li>
-            </ul>
-        </div>
-    </section>
-
+        <br />
+        <ul class="actions">
+            <li><a href="/tags" class="button small">View All Tags &rarr;</a></li>
+        </ul>
+    </div>
+</section>
+<section class="wrapper style1">
+    <div class="inner">
+        <h5 class="major">Older Posts</h5>
+        <ul>
+            {{#each olderPosts}}
+            <li><a href="{{link}}">{{title}}</a></li>
+            {{/each}}
+        </ul>
+        <ul class="actions">
+            <li><a href="/posts" class="button">Archive &rarr;</a></li>
+        </ul>
+    </div>
 </section>
