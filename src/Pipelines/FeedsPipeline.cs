@@ -13,8 +13,7 @@ namespace site.Pipelines
             ProcessModules = new ModuleList
             {
                 new ConcatDocuments(nameof(BlogPostPipeline)),
-                new OrderDocuments(Config.FromDocument((x => x.GetDateTime(FeedKeys.Published))))
-                    .Descending(),
+                new OrderDocuments(Config.FromDocument(x => x.GetDateTime(FeedKeys.Published))).Descending(),
                 new GenerateFeeds()
             };
 

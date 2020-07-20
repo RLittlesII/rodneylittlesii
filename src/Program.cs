@@ -21,7 +21,6 @@ namespace site
                 .AddSetting(Keys.Title, "Rodney Littles, II")
                 .AddSetting(FeedKeys.Image, "favicon.ico")
                 .AddSetting(FeedKeys.Author, "Rodney Littles, II")
-                .AddSetting(FeedKeys.Image, "favicon.ico")
                 .AddSetting(FeedKeys.Description, "This is a journey into code.")
                 .AddSetting(BlogKeys.Intro, "Where I clone repositories, dig through code, and learn ... things. ")
                 .AddSetting(FeedKeys.Copyright, DateTime.UtcNow.Year.ToString())
