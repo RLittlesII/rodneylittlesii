@@ -25,15 +25,30 @@ Benefits
 - All my downstream subscribers are getting the same observable
 
 ```csharp
-IConnectableObservable connectable = observabe.Publish();
-connectable.Where(x => ...).SelectMany(x => x...);
-connectable.Subscribe();
-...
-public void Listen() {
-_disposable = connectable.Connect();
-}
+public class MyViewModel
+{
+    IConnectableObservable _connectable;
+    IDisposable _disposable = Disposabe.Empty;
 
-public void Disconnect() {
-_disposable.Dispose();
+    public MyViewModel()
+    {
+        _connectable = observabe.Publish();
+        _connectable
+            .Where(x => x...)
+            .SelectMany(x => x...);
+
+        _connectable
+            .Subscribe();
+    }
+
+    public void Listen()
+    {
+        _disposable = _connectable.Connect();
+    }
+
+    public void Disconnect()
+    {
+        _disposable?.Dispose();
+    }
 }
 ```
