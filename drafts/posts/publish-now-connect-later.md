@@ -9,12 +9,11 @@ Tags:
 
 # What is this IConnectableObservable?
 
-[Publishing Reference Counts for Connected Observables](../posts/topic/rx-publish-refcount)
+A few months ago I had a revelation blog post where someone smart helped me understand something I didn't.  That whole post was dedicated to understanding publishing, and connecting to observable sequences. [Publishing Reference Counts for Connected Observables](../posts/topic/rx-publish-refcount).  I would recommend understanding what `IConnectableObservable` is before going too far down the page.
 
 # The problem with subscriptions
-- Each `Subscribe()` is effectively another method invocation.  In terms of EventHandlers, it is the allocation of another event handler.
-- `Subscribe()` will immediately force the Observable pipeline to build and listen for notifications.
-- Each `Subscribe()` could potentially be connected to a different observable (depending on how the pipeline was created)
+So now that we've set the above disclaimer, what is the problem with subscriptions?  They are technically method invocations.  So when a `Subscribe` happens on an Observable, it is live, reading notifications from it's stream.  Each `Subscribe()` is effectively another method invocation, meaning he allocation of another event handler. `Subscribe()` will immediately force the Observable pipeline to build and listen for notifications. Each `Subscribe()` could potentially be connected to a different observable (depending on how the pipeline was created).Is this always the desired behavior?  What if my user needs the ability to pause listening to the stream?  Maybe it's a stream of music and they want to pause.  Maybe it's a stream of events, that only matter in the morning.  Maybe it's a download you don't want to automatically trigger.  Whatever it is, sometimes we need to delay the emission of notificatons, without changing where we execute our `Subscribe()` statement.
+
 
 ## Solving that concern with Connect()
 
