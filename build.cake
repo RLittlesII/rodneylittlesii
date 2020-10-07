@@ -67,12 +67,6 @@ Task("Deploy")
 Task("Default")
     .IsDependentOn("Preview");
 
-Task("AppVeyor")
-    .IsDependentOn("Build");
-
-Task("AzureDevOps")
-    .IsDependentOn("Build");
-
 Task("GitHubActions")
     .IsDependentOn("Deploy");
 
