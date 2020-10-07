@@ -7,7 +7,7 @@ using NetlifySharp;
 var target = Argument("target", "Default");
 var recipe = "Blog";
 var theme = "SolidState";
-var IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("main", TFBuild.Environment.Repository.Branch);
+var IsMainBranch = StringComparer.OrdinalIgnoreCase.Equals("refs/heads/main", GitHubActions.Environment.Workflow.Ref);
 
 Setup(context =>
 {
@@ -50,7 +50,7 @@ Task("Preview")
 
 Task("Deploy")
     .IsDependentOn("Build")
-    .WithCriteria(IsMasterBranch)
+    .WithCriteria(IsMainBranch)
     .Does(() =>
     {
         var netlifyToken = EnvironmentVariable("NETLIFY_TOKEN");
@@ -66,12 +66,6 @@ Task("Deploy")
 
 Task("Default")
     .IsDependentOn("Preview");
-
-Task("AppVeyor")
-    .IsDependentOn("Build");
-
-Task("AzureDevOps")
-    .IsDependentOn("Build");
 
 Task("GitHubActions")
     .IsDependentOn("Deploy");
