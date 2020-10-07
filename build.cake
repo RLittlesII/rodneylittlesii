@@ -7,19 +7,11 @@ using NetlifySharp;
 var target = Argument("target", "Default");
 var recipe = "Blog";
 var theme = "SolidState";
-var IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("refs/heads/main", GitHubActions.Environment.Workflow.Ref);
+var IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("main", TFBuild.Environment.Repository.Branch);
 
 Setup(context =>
 {
     Information(DateTime.Now);
-    if(BuildSystem.IsRunningOnAzurePipelines)
-    {
-        IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("main", AzurePipelines.Environment.Repository.SourceBranchName);
-    }
-    if(BuildSystem.IsRunningOnGitHubActions)
-    {
-        IsMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("refs/heads/main", GitHubActions.Environment.Workflow.Ref);
-    }
 });
 
 Teardown(context =>
@@ -27,41 +19,7 @@ Teardown(context =>
     Information(DateTime.Now);	
 });
 
-
-Task("AzurePipelinesEnvironment")
-    .WithCriteria(BuildSystem.IsRunningOnAzurePipelines)
-    .Does(() => 
-    {
-    });
-
-Task("GitHubActionsEnvironment")
-    .WithCriteria(BuildSystem.IsRunningOnGitHubActions)
-    .Does(() => 
-    {
-        Information("GITHUB_ACTION: {0}", GitHubActions.Environment.Workflow.Action);
-        Information("GITHUB_ACTOR: {0}", GitHubActions.Environment.Workflow.Actor);
-        Information("GITHUB_BASE_REF: {0}", GitHubActions.Environment.Workflow.BaseRef);
-        Information("GITHUB_EVENT_NAME: {0}", GitHubActions.Environment.Workflow.EventName);
-        Information("GITHUB_EVENT_PATH: {0}", GitHubActions.Environment.Workflow.EventPath);
-        Information("GITHUB_HEAD_REF: {0}", GitHubActions.Environment.Workflow.HeadRef);
-        Information("GITHUB_JOB: {0}", GitHubActions.Environment.Workflow.Job);
-        Information("GITHUB_REPOSITORY: {0}", GitHubActions.Environment.Workflow.Repository);
-        Information("GITHUB_REF: {0}", GitHubActions.Environment.Workflow.Ref);
-        Information("GITHUB_SHA: {0}", GitHubActions.Environment.Workflow.Sha);
-        Information("GITHUB_WORKFLOW: {0}", GitHubActions.Environment.Workflow.Workflow);
-    });
-
-
-Task("Environment")
-    .IsDependentOn("AzurePipelinesEnvironment")
-    .IsDependentOn("GitHubActionsEnvironment")
-    .Does(() =>
-    {
-        Information("NETLIFY_TOKEN: {0}", EnvironmentVariable("NETLIFY_TOKEN") != null);        
-    });
-
 Task("Build")
-    .IsDependentOn("Environment")
     .Does(() =>
     {
         Wyam(new WyamSettings
@@ -113,7 +71,7 @@ Task("AppVeyor")
     .IsDependentOn("Build");
 
 Task("AzureDevOps")
-    .IsDependentOn("Deploy");
+    .IsDependentOn("Build");
 
 Task("GitHubActions")
     .IsDependentOn("Deploy");
