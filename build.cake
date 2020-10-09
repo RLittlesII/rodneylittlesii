@@ -61,7 +61,7 @@ Task("Deploy")
 
         Information("Deploying output to Netlify");
         var client = new NetlifyClient(netlifyToken);
-        client.UpdateSiteAsync(MakeAbsolute(Directory("./output")).FullPath, "rodneylittlesii.netlify.com").GetAwaiter().GetResult();
+        client.UpdateSiteAsync((string)MakeAbsolute(Directory("./output")).FullPath, "rodneylittlesii.netlify.com").GetAwaiter().GetResult();
     });
 
 Task("Default")
