@@ -13,6 +13,9 @@ config.wyam.packages.xml
 # JetBrains Rider
 .idea
 
+# Nuke
+.tmp
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
