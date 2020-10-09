@@ -1,0 +1,40 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = ".build", ".build\.build.csproj", "{FBEC6C39-CF15-4DEF-937F-A2E982DD12E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution", ".solution", "{CDF62264-AC79-4497-B332-6BE22DA07587}"
+ProjectSection(SolutionItems) = preProject
+	.gitignore = .gitignore
+	.nuke = .nuke
+	LICENSE = LICENSE
+	README.md = README.md
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{1A3C097B-1F09-4AF9-8A25-02B7021C0B18}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FBEC6C39-CF15-4DEF-937F-A2E982DD12E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBEC6C39-CF15-4DEF-937F-A2E982DD12E4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FBEC6C39-CF15-4DEF-937F-A2E982DD12E4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FBEC6C39-CF15-4DEF-937F-A2E982DD12E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBEC6C39-CF15-4DEF-937F-A2E982DD12E4}.Release|x64.ActiveCfg = Release|Any CPU
+		{FBEC6C39-CF15-4DEF-937F-A2E982DD12E4}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FBEC6C39-CF15-4DEF-937F-A2E982DD12E4} = {1A3C097B-1F09-4AF9-8A25-02B7021C0B18}
+	EndGlobalSection
+EndGlobal

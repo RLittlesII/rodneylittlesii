@@ -1,99 +1,62 @@
 #!/usr/bin/env bash
-##########################################################################
-# This is the Cake bootstrapper script for Linux and OS X.
-# This file was downloaded from https://github.com/cake-build/resources
-# Feel free to change this file to fit your needs.
-##########################################################################
 
-# Define directories.
-SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-TOOLS_DIR=$CAKE_PATHS_TOOLS
-NUGET_EXE=$SCRIPT_DIR/nuget.exe
-NUGET_URL=https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
-CAKE_VERSION=0.38.5
-CAKE_EXE=$TOOLS_DIR/Cake.$CAKE_VERSION/Cake.exe
-DOTNET_PATH=$SCRIPT_DIR/.dotnet
-DOTNET_VERSION=2.1.500
-WYAM_EXE="~/.dotnet/tools"/wyam.exe
-WYAM_VERSION=2.2.8
+echo $(bash --version 2>&1 | head -n 1)
 
-# Define default arguments.
-TARGET="Default"
-CONFIGURATION="Release"
-VERBOSITY="verbose"
-DRYRUN=
-SCRIPT_ARGUMENTS=()
-
-# Parse arguments.
-for i in "$@"; do
-    case $1 in
-        -t|--target) TARGET="$2"; shift ;;
-        -c|--configuration) CONFIGURATION="$2"; shift ;;
-        -v|--verbosity) VERBOSITY="$2"; shift ;;
-        -d|--dryrun) DRYRUN="-dryrun" ;;
-        --) shift; SCRIPT_ARGUMENTS+=("$@"); break ;;
-        *) SCRIPT_ARGUMENTS+=("$1") ;;
-    esac
-    shift
-done
-
-# Make sure the tools folder exist.
-if [ ! -d "$TOOLS_DIR" ]; then
-  mkdir "$TOOLS_DIR"
-fi
+set -eo pipefail
+SCRIPT_DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 
 ###########################################################################
-# INSTALL .NET CORE CLI
+# CONFIGURATION
 ###########################################################################
 
-echo "Installing .NET CLI..."
-if [ ! -d "$DOTNET_PATH" ]; then
-  mkdir "$DOTNET_PATH"
-fi
-curl -Lsfo "$DOTNET_PATH/dotnet-install.sh" https://dot.net/v1/dotnet-install.sh
-sudo bash "$DOTNET_PATH/dotnet-install.sh" --version $DOTNET_VERSION --install-dir .dotnet --no-path
-export PATH="$DOTNET_PATH":$PATH
-export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+BUILD_PROJECT_FILE="$SCRIPT_DIR/.build/.build.csproj"
+TEMP_DIRECTORY="$SCRIPT_DIR//.tmp"
+
+DOTNET_GLOBAL_FILE="$SCRIPT_DIR//global.json"
+DOTNET_INSTALL_URL="https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh"
+DOTNET_CHANNEL="Current"
+
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-"$DOTNET_PATH/dotnet" --info
+export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 
 ###########################################################################
-# INSTALL NUGET
+# EXECUTION
 ###########################################################################
 
-# Download NuGet if it does not exist.
-if [ ! -f "$NUGET_EXE" ]; then
-    echo "Downloading NuGet..."
-    curl -Lsfo "$NUGET_EXE" $NUGET_URL
-    if [ $? -ne 0 ]; then
-        echo "An error occured while downloading nuget.exe."
-        exit 1
+function FirstJsonValue {
+    perl -nle 'print $1 if m{"'$1'": "([^"]+)",?}' <<< ${@:2}
+}
+
+# If global.json exists, load expected version
+if [[ -f "$DOTNET_GLOBAL_FILE" ]]; then
+    DOTNET_VERSION=$(FirstJsonValue "version" $(cat "$DOTNET_GLOBAL_FILE"))
+    if [[ "$DOTNET_VERSION" == ""  ]]; then
+        unset DOTNET_VERSION
     fi
 fi
 
-###########################################################################
-# INSTALL WYAM
-###########################################################################
+# If dotnet is installed locally, and expected version is not set or installation matches the expected version
+if [[ -x "$(command -v dotnet)" && (-z ${DOTNET_VERSION+x} || $(dotnet --version 2>&1) == "$DOTNET_VERSION") ]]; then
+    export DOTNET_EXE="$(command -v dotnet)"
+else
+    DOTNET_DIRECTORY="$TEMP_DIRECTORY/dotnet-unix"
+    export DOTNET_EXE="$DOTNET_DIRECTORY/dotnet"
 
-# Install Wyam if it does not exist.
-if [ ! -f "$WYAM_EXE" ]; then
-    echo "Installing Wyam..."
-    dotnet tool install -g Wyam.Tool --version $WYAM_VERSION
-    export PATH="$WYAM_EXE":$PATH
+    # Download install script
+    DOTNET_INSTALL_FILE="$TEMP_DIRECTORY/dotnet-install.sh"
+    mkdir -p "$TEMP_DIRECTORY"
+    curl -Lsfo "$DOTNET_INSTALL_FILE" "$DOTNET_INSTALL_URL"
+    chmod +x "$DOTNET_INSTALL_FILE"
+
+    # Install by channel or version
+    if [[ -z ${DOTNET_VERSION+x} ]]; then
+        "$DOTNET_INSTALL_FILE" --install-dir "$DOTNET_DIRECTORY" --channel "$DOTNET_CHANNEL" --no-path
+    else
+        "$DOTNET_INSTALL_FILE" --install-dir "$DOTNET_DIRECTORY" --version "$DOTNET_VERSION" --no-path
+    fi
 fi
 
-###########################################################################
-# INSTALL CAKE
-###########################################################################
+echo "Microsoft (R) .NET Core SDK version $("$DOTNET_EXE" --version)"
 
-if [ ! -f "$CAKE_EXE" ]; then
-    echo "Installing Cake..."
-    dotnet tool install -g Cake.Tool --version $CAKE_VERSION
-fi
-
-###########################################################################
-# RUN BUILD SCRIPT
-###########################################################################
-
-# Start Cake
-dotnet-cake build.cake --verbosity=$VERBOSITY --configuration=$CONFIGURATION --target=$TARGET $DRYRUN
+"$DOTNET_EXE" build "$BUILD_PROJECT_FILE" /nodeReuse:false -nologo -clp:NoSummary --verbosity quiet
+"$DOTNET_EXE" run --project "$BUILD_PROJECT_FILE" --no-build -- "$@"
