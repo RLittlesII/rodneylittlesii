@@ -60,6 +60,7 @@ Task("Deploy")
         }
 
         Information("Deploying output to Netlify");
+        Information($"Token: {netlifyToken}");
         var client = new NetlifyClient(netlifyToken);
         client.UpdateSite($"rodneylittlesii.netlify.com", MakeAbsolute(Directory("./output")).FullPath).SendAsync().Wait();
     });
