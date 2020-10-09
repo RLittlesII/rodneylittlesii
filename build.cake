@@ -1,6 +1,6 @@
 #tool nuget:?package=Wyam&version=2.2.8
 #addin nuget:?package=Cake.Wyam&version=2.2.8
-#addin "nuget:?package=NetlifySharp&version=0.1.0"
+#addin "nuget:?package=NetlifySharp&version=1.1.0"
 
 using NetlifySharp;
 
@@ -60,9 +60,8 @@ Task("Deploy")
         }
 
         Information("Deploying output to Netlify");
-        Information($"Token: {netlifyToken}");
         var client = new NetlifyClient(netlifyToken);
-        client.UpdateSite($"rodneylittlesii.netlify.com", MakeAbsolute(Directory("./output")).FullPath).SendAsync().Wait();
+        client.UpdateSiteAsync(MakeAbsolute(Directory("./output")).FullPath, "rodneylittlesii.netlify.com").GetAwaiter().GetResult();
     });
 
 Task("Default")
