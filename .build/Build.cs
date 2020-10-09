@@ -44,6 +44,7 @@ class Build : NukeBuild
     Target Restore => _ => _
         .Executes(() =>
         {
+            Logger.Info("Branch: {0}", GitRepository.Branch);
             DotNetTasks
                 .DotNetToolUpdate(configuration =>
                     configuration
