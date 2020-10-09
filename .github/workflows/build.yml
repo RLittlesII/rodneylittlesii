@@ -31,6 +31,6 @@ jobs:
 
     - name: Cake Build
       shell: bash
-      run: ./build.sh -t GitHubActions
+      run: ./build.sh -t GitHubActions --verbosity diagnostic
       env:
         NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
