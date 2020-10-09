@@ -44,7 +44,6 @@ class Build : NukeBuild
     Target Restore => _ => _
         .Executes(() =>
         {
-            Logger.Info("Branch: {0}", GitRepository.Branch);
             DotNetTasks
                 .DotNetToolUpdate(configuration =>
                     configuration
@@ -86,7 +85,7 @@ class Build : NukeBuild
 
     Target Deploy => _ => _
         .DependsOn(Compile)
-        .OnlyWhenStatic(() => GitRepository.Branch == "main")
+        .OnlyWhenStatic(() => GitRepository.Branch == "refs/heads/main")
         .Executes(() =>
         {
             var netlifyToken = Environment.GetEnvironmentVariable("NETLIFY_TOKEN");
