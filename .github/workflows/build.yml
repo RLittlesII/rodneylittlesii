@@ -11,7 +11,7 @@ on:
     - drafts
     - draft/*
   pull_request:
-    branches: [ main ]
+    branches: [ main, drafts ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,8 +19,6 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: macos-latest
-    env:
-      NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -34,3 +32,5 @@ jobs:
     - name: Cake Build
       shell: bash
       run: ./build.sh -t GitHubActions
+      env:
+        NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
