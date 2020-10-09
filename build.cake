@@ -50,7 +50,6 @@ Task("Preview")
 
 Task("Deploy")
     .IsDependentOn("Build")
-    .WithCriteria(IsMainBranch)
     .Does(() =>
     {
         var netlifyToken = EnvironmentVariable("NETLIFY_TOKEN");
@@ -61,6 +60,8 @@ Task("Deploy")
 
         Information("Deploying output to Netlify");
         var client = new NetlifyClient(netlifyToken);
+        var outputPath = MakeAbsolute(Directory("./output")).FullPath;
+        Information($"Output: {outputPath}");
         client.UpdateSiteAsync((string)MakeAbsolute(Directory("./output")).FullPath, "rodneylittlesii.netlify.com").GetAwaiter().GetResult();
     });
 
