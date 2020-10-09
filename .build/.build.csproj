@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+  <PackageReference Include="NetlifySharp" Version="1.1.0" />
   <PackageReference Include="Nuke.Common" Version="0.25.0-alpha0334" />
   <PackageReference Include="Refit" Version="5.2.1" />
   <PackageReference Include="Rocket.Surgery.Nuke" Version="0.13.6" />

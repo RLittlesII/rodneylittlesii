@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Net.Http;
+using NetlifySharp;
 using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Execution;
@@ -38,7 +39,7 @@ class Build : NukeBuild
     /// <summary>
     /// The directory where packaged output should be placed (zip, webdeploy, etc)
     /// </summary>
-    public AbsolutePath OutputDirectory => RootDirectory / "./output";
+    public AbsolutePath OutputDirectory => RootDirectory / "output";
 
     Target Restore => _ => _
         .Executes(() =>
@@ -95,13 +96,8 @@ class Build : NukeBuild
 
             Logger.Info("Deploying output to Netlify");
 
-            AbsolutePath archive = RootDirectory / "output.zip";
-
-            CompressionTasks.CompressZip(OutputDirectory, archive);
-
-            using (var client = new HttpClient())
-            {
-            }
+            var client = new NetlifyClient(netlifyToken);
+            client.UpdateSiteAsync(OutputDirectory, "rodneylittlesii.netlify.com").GetAwaiter().GetResult();
         });
 
     Target GitHubActions => _ => _
