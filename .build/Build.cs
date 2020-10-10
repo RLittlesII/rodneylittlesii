@@ -85,7 +85,7 @@ class Build : NukeBuild
 
     Target Deploy => _ => _
         .DependsOn(Compile)
-        .OnlyWhenStatic(() => GitRepository.Branch == "main")
+        .OnlyWhenStatic(() => GitRepository.Branch == "refs/heads/main")
         .Executes(() =>
         {
             var netlifyToken = Environment.GetEnvironmentVariable("NETLIFY_TOKEN");
@@ -94,10 +94,12 @@ class Build : NukeBuild
                 throw new Exception("Could not get Netlify token environment variable");
             }
 
+            var netlifyUrl = Environment.GetEnvironmentVariable("NETLIFY_URL");
+
             Logger.Info("Deploying output to Netlify");
 
             var client = new NetlifyClient(netlifyToken);
-            client.UpdateSiteAsync(OutputDirectory, "rodneylittlesii.netlify.com").GetAwaiter().GetResult();
+            client.UpdateSiteAsync(OutputDirectory, netlifyUrl).GetAwaiter().GetResult();
         });
 
     Target GitHubActions => _ => _
