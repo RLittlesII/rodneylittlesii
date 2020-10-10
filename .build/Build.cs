@@ -98,7 +98,7 @@ class Build : NukeBuild
 
             Logger.Info("Deploying output to Netlify");
 
-            var client = new NetlifyClient(netlifyToken);
+            var client = new NetlifyClient(netlifyToken, new HttpClient());
             client.UpdateSiteAsync(OutputDirectory, netlifyUrl).GetAwaiter().GetResult();
         });
 
