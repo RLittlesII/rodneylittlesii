@@ -1,4 +1,4 @@
-Title: Building with GitHub Actions with Nuke
+Title: Building GitHub Actions with Nuke
 Drafted: 10/12/2020
 Published: 10/22/2020
 Tags:
