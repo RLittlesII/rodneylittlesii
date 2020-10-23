@@ -33,8 +33,8 @@ The major DSL differences are
 Task => Target
 ```
 
-```csharp 
-Does => Execute
+```csharp
+Does => Executes
 ```
 
 Include dependencies in a csproj file instead of compiler directives.  Everything else is just API specifics. so I won't bore you with the noise.  Here is the result of the conversion.
