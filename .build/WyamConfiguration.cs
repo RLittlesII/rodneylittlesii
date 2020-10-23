@@ -68,17 +68,17 @@ class WyamConfiguration : ConfigurationEngineBase
         Settings[BlogKeys.NetlifyRedirects] = true;
         Settings[Keys.LinksUseHttps] = true;
         Settings[Keys.Host] = "rodneylittlesii.com/";
-        
+
         FileSystem.InputPaths.AddRange(new DirectoryPath[] { "src" });
 
 // Use deep wild cards for posts
-        var list = ((IModuleList)Blog.BlogPosts["MarkdownPosts"]);
+        var list = (IModuleList)Blog.BlogPosts["MarkdownPosts"];
         list.Remove(list.First());
         list.Insert(0,
             new ReadFiles(ctx => $"{ctx.DirectoryPath(BlogKeys.PostsPath).FullPath}/**/*.md")
         );
 
-        list = ((IModuleList)Blog.BlogPosts["RazorPosts"]);
+        list = (IModuleList)Blog.BlogPosts["RazorPosts"];
         list.Remove(list.First());
         list.Insert(0,
             new ReadFiles(ctx => $"{ctx.DirectoryPath(BlogKeys.PostsPath).FullPath}/{{!_,!index,}}**/*.cshtml")
@@ -96,6 +96,11 @@ class WyamConfiguration : ConfigurationEngineBase
                 }
                 return true;
             }));
+        }
+
+        if (Settings.Get<bool>("Drafts"))
+        {
+            FileSystem.InputPaths.AddRange(new DirectoryPath[] { "drafts" });
         }
 
 // Folder in posts is a topic 
