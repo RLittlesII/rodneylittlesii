@@ -10,38 +10,38 @@ using Nuke.Common.IO;
 using Nuke.Common.Tools.DotNet;
 using Wyam.Common.Meta;
 using Wyam.Core.Execution;
-using Nuke.Common.CI;
 using Nuke.Common.Tooling;
 
-[GitHubActions("ci", GitHubActionsImage.MacOsLatest, GitHubActionsImage.WindowsLatest, GitHubActionsImage.UbuntuLatest,
-    AutoGenerate = false,
-    On = new[] {GitHubActionsTrigger.Push},
-    OnPushTags = new[] {"v*"},
-    OnPushBranches = new[] {"master", "next"},
-    OnPullRequestBranches = new[] {"master", "next"},
-    InvokedTargets = new[] {nameof(Default)})]
+[GitHubActions("ci",
+    GitHubActionsImage.MacOsLatest,
+    AutoGenerate = true,
+    OnPushBranches = new[] {"main", "drafts", "draft/*"},
+    OnPullRequestBranches = new[] {"drafts"},
+    InvokedTargets = new[] {nameof(GitHubActions)},
+    ImportSecrets = new[] {"NETLIFY_TOKEN", "NETLIFY_URL"})]
+[DotNetVerbosityMapping]
 [UnsetVisualStudioEnvironmentVariables]
 class Build : NukeBuild
 {
-    /// Support plugins are available for:
-    ///   - JetBrains ReSharper        https://nuke.build/resharper
-    ///   - JetBrains Rider            https://nuke.build/rider
-    ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
-    ///   - Microsoft VSCode           https://nuke.build/vscode
-
     public static int Main() => Execute<Build>(x => x.Default);
-
-    [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     [GitRepository] public GitRepository GitRepository { get; }
 
-    /// <summary>
-    /// The directory where packaged output should be placed (zip, webdeploy, etc)
-    /// </summary>
     public AbsolutePath OutputDirectory => RootDirectory / "output";
 
-    Target Restore => _ => _
+    Target RestoreNuke => _ => _
+        .OnlyWhenStatic(() => !IsLocalBuild)
+        .Executes(() =>
+        {
+            DotNetTasks
+                .DotNetToolUpdate(configuration =>
+                    configuration
+                        .SetPackageName("Nuke.GlobalTool")
+                        .EnableGlobal()
+                        .SetArgumentConfigurator(args => args.Add("--version={0}", "0.25.0-alpha0377")));
+        });
+
+    Target RestoreWyam => _ => _
         .Executes(() =>
         {
             DotNetTasks
@@ -51,6 +51,11 @@ class Build : NukeBuild
                         .EnableGlobal()
                         .SetArgumentConfigurator(args => args.Add("--version={0}", "2.2.9")));
         });
+
+    Target Restore => _ => _
+        .DependsOn(RestoreWyam)
+        .DependsOn(RestoreNuke)
+        .Executes();
 
     Target Compile => _ => _
         .DependsOn(Restore)
@@ -65,23 +70,22 @@ class Build : NukeBuild
 
     Target Preview => _ => _
         .DependsOn(Compile)
-        .Executes(
-            () =>
-            {
-                Wyam.Common.Tracing.Trace.AddListener(new NukeTraceListener());
-                Wyam.Common.Tracing.Trace.Level = SourceLevels.All;
-                PreviewServer.Preview(
-                    () =>
-                    {
-                        var engine = new Engine();
-                        engine.Settings[Keys.CleanOutputPath] = false;
-                        new WyamConfiguration(engine, this);
-                        return engine;
-                    },
-                    this
-                );
-            }
-        );
+        .Executes(() =>
+        {
+            Wyam.Common.Tracing.Trace.AddListener(new NukeTraceListener());
+            Wyam.Common.Tracing.Trace.Level = SourceLevels.All;
+            PreviewServer.Preview(
+                () =>
+                {
+                    var engine = new Engine();
+                    engine.Settings[Keys.CleanOutputPath] = false;
+                    engine.Settings["Drafts"] = false;
+                    new WyamConfiguration(engine, this);
+                    return engine;
+                },
+                this
+            );
+        });
 
     Target Deploy => _ => _
         .DependsOn(Compile)
