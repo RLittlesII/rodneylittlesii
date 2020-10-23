@@ -33,12 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\build.cake">
-      <Link>build.cake</Link>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="..\.github\workflows\ci.yml">
       <Link>ci\ci.yml</Link>
     </None>

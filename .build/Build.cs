@@ -9,7 +9,6 @@ using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.Tools.DotNet;
 using Wyam.Common.Meta;
-using Wyam.Core.Execution;
 using Nuke.Common.Tooling;
 
 [GitHubActions("ci",
@@ -63,9 +62,11 @@ class Build : NukeBuild
         {
             Wyam.Common.Tracing.Trace.AddListener(new NukeTraceListener());
             Wyam.Common.Tracing.Trace.Level = SourceLevels.All;
-            var engine = new Engine();
-            new WyamConfiguration(engine, this);
-            engine.Execute();
+            
+            EngineBuilder
+                .Create()
+                .WithConfiguration(this)
+                .Execute();
         });
 
     Target Preview => _ => _
@@ -74,17 +75,14 @@ class Build : NukeBuild
         {
             Wyam.Common.Tracing.Trace.AddListener(new NukeTraceListener());
             Wyam.Common.Tracing.Trace.Level = SourceLevels.All;
-            PreviewServer.Preview(
-                () =>
-                {
-                    var engine = new Engine();
-                    engine.Settings[Keys.CleanOutputPath] = false;
-                    engine.Settings["Drafts"] = false;
-                    new WyamConfiguration(engine, this);
-                    return engine;
-                },
-                this
-            );
+            PreviewServer
+                .Preview(() =>
+                        EngineBuilder
+                            .Create()
+                            .WithSetting(Keys.CleanOutputPath, false)
+                            .WithSetting("Drafts", true)
+                            .WithConfiguration(this),
+                this);
         });
 
     Target Deploy => _ => _
