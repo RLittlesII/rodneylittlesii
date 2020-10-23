@@ -171,7 +171,7 @@ jobs:
 Even though I couldn't find anything explicitly in the documentation, seems the `secrets` in GitHub Actions on a single repo don't like being passed into a job.  So I had to pass them into the step.
 
 ## Nuke can generate YAML!
-I dislike YAML.  Not because it is yet another markup language, it does serve a purpose.  I dislike YAML because it is an artifact I have to generate to execute my build script on my target CI systems. The glorious build script that I wrote specifically to not need anything but a command-line interface, now will not work without YAML.  Well, for my next trick I am going to take my Nuke build and build my GitHub Actions YAML pipeline with my build script.  Fortunately, it's as easy as adding a custom attribute provided by Nuke.  You just add an attribute for the given build system you want to build for and it will generate that build systems yaml.
+I dislike YAML.  Not because it is yet another markup language, it does serve a purpose.  I dislike YAML because it is an artifact I have to generate to execute my build script on my target CI systems. The glorious build script that I wrote specifically to not need anything but a command-line interface, now will not work without YAML.  Well, for my next trick I am going to take my Nuke build and build my GitHub Actions YAML pipeline with my build script.  Fortunately, it's as easy as adding a custom attribute provided by Nuke.  You just add an attribute for the given CI system you want to build for and it will generate that systems specific yaml.
 
 ```csharp
 [GitHubActions("ci",
