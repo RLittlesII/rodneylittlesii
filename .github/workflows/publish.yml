@@ -1,4 +1,4 @@
-name: Publish Article
+name: publish
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
         with:
           clean: 'false'
           fetch-depth: '0'
-      - name: Run './build.cmd GitHubActions'
+      - name: Nuke
         run: ./build.cmd GitHubActions
         env:
             NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
