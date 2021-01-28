@@ -1,0 +1,28 @@
+name: publish
+
+on:
+  push:
+    branches:
+      - main
+      - drafts
+      - draft/*
+
+  pull_request:
+    branches:
+      - main
+      - drafts
+
+jobs:
+  Build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macOS-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Run './build.cmd GitHubActions'
+        run: ./build.cmd GitHubActions
+        env:
+            NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+            NETLIFY_URL: ${{ secrets.NETLIFY_URL }}
