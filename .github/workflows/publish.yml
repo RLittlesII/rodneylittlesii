@@ -20,7 +20,11 @@ jobs:
         os: [macOS-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          clean: 'false'
+          fetch-depth: '0'
       - name: Run './build.cmd GitHubActions'
         run: ./build.cmd GitHubActions
         env:
