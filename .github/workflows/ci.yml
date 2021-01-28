@@ -22,13 +22,14 @@ on:
       - main
       - drafts
       - draft/*
+
   pull_request:
     branches:
+      - main
       - drafts
 
 jobs:
-  macOS-latest:
-    name: macOS-latest
+  Build:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
