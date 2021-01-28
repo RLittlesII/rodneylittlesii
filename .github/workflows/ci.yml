@@ -29,7 +29,7 @@ on:
 jobs:
   macOS-latest:
     name: macOS-latest
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
       - name: Run './build.cmd GitHubActions'
