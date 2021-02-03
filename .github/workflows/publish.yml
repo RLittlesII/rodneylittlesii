@@ -4,13 +4,11 @@ on:
   push:
     branches:
       - main
-      - drafts
       - draft/*
 
   pull_request:
     branches:
       - main
-      - drafts
 
 jobs:
   Build:

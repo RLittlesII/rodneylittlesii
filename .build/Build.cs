@@ -11,11 +11,12 @@ using Nuke.Common.Tools.DotNet;
 using Wyam.Common.Meta;
 using Nuke.Common.Tooling;
 
-[GitHubActions("ci",
+[GitHubActions("publish",
     GitHubActionsImage.MacOsLatest,
-    AutoGenerate = true,
-    OnPushBranches = new[] {"main", "drafts", "draft/*"},
-    OnPullRequestBranches = new[] {"drafts"},
+    AutoGenerate = false,
+    OnPushBranches = new[] {"main", "draft/*"},
+    OnPullRequestBranches = new[] {"main"},
+    
     InvokedTargets = new[] {nameof(GitHubActions)},
     ImportSecrets = new[] {"NETLIFY_TOKEN", "NETLIFY_URL"})]
 [DotNetVerbosityMapping]
@@ -37,7 +38,7 @@ class Build : NukeBuild
                     configuration
                         .SetPackageName("Nuke.GlobalTool")
                         .EnableGlobal()
-                        .SetArgumentConfigurator(args => args.Add("--version={0}", "0.25.0-alpha0377")));
+                        .SetProcessArgumentConfigurator(args => args.Add("--version={0}", "0.25.0")));
         });
 
     Target RestoreWyam => _ => _
@@ -48,7 +49,7 @@ class Build : NukeBuild
                     configuration
                         .SetPackageName("Wyam.Tool")
                         .EnableGlobal()
-                        .SetArgumentConfigurator(args => args.Add("--version={0}", "2.2.9")));
+                        .SetProcessArgumentConfigurator(args => args.Add("--version={0}", "2.2.9")));
         });
 
     Target Restore => _ => _
