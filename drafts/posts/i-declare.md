@@ -9,7 +9,7 @@ Tags:
 
 ## Je pense donc, je suis
 
-[Rene Descartes](https://en.wikipedia.org/wiki/Cogito,_ergo_sum) coined the term "I think, therefore I am."  When I was younger I looked at a lot of the philiosophy/mathemetician types that wrote books, and I studied french.  This quote always resonated with me.  Indulge me while I play on this to make my way the long way around a point.
+When I was younger I looked at a lot of the philiosophy/mathemetician types that wrote books, and I studied french.  This quote always resonated with me.[Rene Descartes](https://en.wikipedia.org/wiki/Cogito,_ergo_sum) coined the term "I think, therefore I am.".  Indulge me while I play on this to make my way the long way around a point?
 
 ## Functional programming is hard
 
@@ -28,12 +28,14 @@ I can now talk about my automonous bits responses to the transitions of state, b
 
 ### Consume and produce the minimal change
 
-Part of the sell of TDD and BDD is that you write the minimum code to get a test to pass.  This helps reduce code, and hopefully drive SRP adherance.  I think reactive extensions gives you another tool to help keep you on that straight and narrow path.  If we can respond to the exact condition required to update a single item,  I think we may have found a bit more depth to SRP.  Now we can say, "I only want to broadcast these state changes, on a rain day."  LINQ operators you know and love `Select`, `Where`, `Take`, `Skip`, with new ones like `Throttle`, `DistinctUntilChanged`, `Merge`, and `CombineLates` to name a few.
+Part of the sell of TDD and BDD is that you write the minimum lines of code to get a test to pass.  This helps reduce code, and hopefully drive adherance to Single Responsibility Principle (SRP).  I think Reactive Extensions gives you another tool to help keep you on that straight and narrow path.  If we can respond to the exact condition required to update a single item,  I think we may have found a bit more depth to SRP.  Now we can say, "I only want to broadcast these state changes, on a rainy day."  LINQ operators you know and love `Select`, `Where`, `Take`, `Skip`, with new ones like `Throttle`, `DistinctUntilChanged`, `Merge`, and `CombineLatest` to name a few.
 
-These operators can be chained together creating a pipeline of decisions that need to be satisfied to get to the state change pay off!  Imagine only mutating state when you have to, not as a side effect of other code?!  All this power and more can be yours at the cost of shifting your mental model to consume and produce less state change.
+These operators can be chained together creating a pipeline of decisions that need to be satisfied to get to the state change pay off!  Imagine only mutating state when you have to, not as a side effect of other code?!  All this power and more can be yours at the cost of shifting your mental model to consume and produce less state changes instead of maintaining them.
 
 ### State is the enemy, don't manage state, let it mutate
 
 My early poorly place mention of the Master Control Program.  Well, that is the example of managing state.  It is having a method that is responsible for changing massive amounts of state so all the logic can be in one place.  Well.  What is the most important method on any class?  The constructor!  Guess where you declare al your autonomous pieces of Rx wizardy?!  If you guessed the constructor, then you're still reading.
 
 Managing state for the program is much harder than responding to the current state of the program with a set of pre-canned responses.  I read somewhere years ago that a state machine seems complex at first, but as complexity grow, and requirements change, and code scales you'll be glad you had it.  Reactive Extensions allow you to build customized state machines, built specifically for your requirements.  So as your requirements scale your code will scale easier with it.  Generally new requirements means new states, new transitions, and new behaviors.  So having a customisable state machine could be a pretty handy tool.
+
+## Composition is King
