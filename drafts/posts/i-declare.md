@@ -39,3 +39,5 @@ My early poorly place mention of the Master Control Program.  Well, that is the 
 Managing state for the program is much harder than responding to the current state of the program with a set of pre-canned responses.  I read somewhere years ago that a state machine seems complex at first, but as complexity grow, and requirements change, and code scales you'll be glad you had it.  Reactive Extensions allow you to build customized state machines, built specifically for your requirements.  So as your requirements scale your code will scale easier with it.  Generally new requirements means new states, new transitions, and new behaviors.  So having a customisable state machine could be a pretty handy tool.
 
 ## Composition is King
+
+## Solve the business problem, not the tech problem
