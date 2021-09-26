@@ -88,7 +88,7 @@ class Build : NukeBuild
 
     Target Deploy => _ => _
         .DependsOn(Compile)
-        .OnlyWhenStatic(() => GitRepository.Branch == "refs/heads/main")
+        .OnlyWhenStatic(() => GitRepository.Branch.Contains("main"))
         .Executes(() =>
         {
             var netlifyToken = Environment.GetEnvironmentVariable("NETLIFY_TOKEN");
