@@ -4,9 +4,23 @@ Order: 30
 
 This list of is a catalog of books I have read by year.
 
+## 2022
+
+- Domain Driven Design, Eric Evans
+
+## 2021
+
+- Domain Modeling Made Functional, Scott Wlaschin
+
+## 2020
+
+- Building Microservices with ASP.NET Core, Kevin Hoffman
+
 ## 2018
+
 - Mastering Xamarin.Forms, Ed Snider
 - You, I and ReactiveUI, Kent Boogaart
+- Mobile Development with C#, Greg Shackles
 
 ## 2017
 
