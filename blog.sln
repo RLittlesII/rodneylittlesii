@@ -92,6 +92,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "posts", "posts", "{95247F4D-B0F7-4876-B8D0-C7FD95BB0CF7}"
 ProjectSection(SolutionItems) = preProject
 	drafts\posts\draft.md = drafts\posts\draft.md
+	drafts\posts\mutable-state.md = drafts\posts\mutable-state.md
 EndProjectSection
 EndProject
 Global
