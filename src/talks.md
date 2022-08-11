@@ -18,3 +18,6 @@ Order: 10
 
 # Prism + ReactiveUI Sample App Review
 <iframe width="560" height="315" src="https://www.youtube.com/embed/sEfznU3lwVQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+# Mobile Dev Ops at Scale
+<iframe width="560" height="315" src="https://youtube.com/embed/oGd1x7fD5Uk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
