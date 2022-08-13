@@ -3,6 +3,7 @@ Drafted: 09/30/2021
 Published: 10/02/2021
 Tags:
     - .NET Foundation
+    - dotnet Foundation
     - Open Source
 ---
 
