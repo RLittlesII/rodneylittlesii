@@ -15,77 +15,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{1A3C097B-1F09-4AF9-8A25-02B7021C0B18}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6111799A-79DC-4FB9-B0F3-28DC6E1376E6}"
-ProjectSection(SolutionItems) = preProject
-	src\_Footer.cshtml = src\_Footer.cshtml
-	src\_Head.cshtml = src\_Head.cshtml
-	src\_Images.cshtml = src\_Images.cshtml
-	src\_Navbar.cshtml = src\_Navbar.cshtml
-	src\_PostFooter.cshtml = src\_PostFooter.cshtml
-	src\_Scripts.cshtml = src\_Scripts.cshtml
-	src\_SocialLinks.cshtml = src\_SocialLinks.cshtml
-	src\about.md = src\about.md
-	src\favicon.ico = src\favicon.ico
-	src\office-hours.md = src\office-hours.md
-	src\reading.md = src\reading.md
-	src\talks.md = src\talks.md
-EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{46418F44-82B3-430C-896C-424524063922}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{5324CCCF-DAF2-4510-8CDC-2FDBD2082A55}"
-ProjectSection(SolutionItems) = preProject
-	src\images\appveyor-cake-recipe-settings.jpg = src\images\appveyor-cake-recipe-settings.jpg
-	src\images\Attach-To-Process.jpg = src\images\Attach-To-Process.jpg
-	src\images\connectivity.gif = src\images\connectivity.gif
-	src\images\fastlane-folder.png = src\images\fastlane-folder.png
-	src\images\Iterative_development_model.png = src\images\Iterative_development_model.png
-	src\images\nteractive-dotnet.png = src\images\nteractive-dotnet.png
-	src\images\rx-publish-marbles.png = src\images\rx-publish-marbles.png
-	src\images\rx-refcount-marbles.png = src\images\rx-refcount-marbles.png
-	src\images\Scientific-Method.PNG = src\images\Scientific-Method.PNG
-	src\images\tdd_life_cycle.png = src\images\tdd_life_cycle.png
-EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "posts", "posts", "{AB81A4D6-0EBB-45C4-93CD-A293E7E87F4F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "topic", "topic", "{2E5C7C08-86C8-4A1C-957F-286553F981FF}"
-ProjectSection(SolutionItems) = preProject
-	src\posts\topic\adding-cake-recipe.md = src\posts\topic\adding-cake-recipe.md
-	src\posts\topic\async-void-task-return.md = src\posts\topic\async-void-task-return.md
-	src\posts\topic\cake-addins-modules.md = src\posts\topic\cake-addins-modules.md
-	src\posts\topic\cake-fastlane.md = src\posts\topic\cake-fastlane.md
-	src\posts\topic\cake-global-install.md = src\posts\topic\cake-global-install.md
-	src\posts\topic\coming-soon.md = src\posts\topic\coming-soon.md
-	src\posts\topic\debug-cake-addin.md = src\posts\topic\debug-cake-addin.md
-	src\posts\topic\generate-certs-cake-fastlane.md = src\posts\topic\generate-certs-cake-fastlane.md
-	src\posts\topic\i-dont-contribute.md = src\posts\topic\i-dont-contribute.md
-	src\posts\topic\infrastructure-as-code.md = src\posts\topic\infrastructure-as-code.md
-	src\posts\topic\inotifycollectionchanged.md = src\posts\topic\inotifycollectionchanged.md
-	src\posts\topic\multiline-label-effect.md = src\posts\topic\multiline-label-effect.md
-	src\posts\topic\oss-contribution.md = src\posts\topic\oss-contribution.md
-	src\posts\topic\reactive-ui-activity-button.md = src\posts\topic\reactive-ui-activity-button.md
-	src\posts\topic\reactiveui-interop.md = src\posts\topic\reactiveui-interop.md
-	src\posts\topic\reactiveui-snippets.md = src\posts\topic\reactiveui-snippets.md
-	src\posts\topic\rider-for-xamarin-mac.md = src\posts\topic\rider-for-xamarin-mac.md
-	src\posts\topic\rx-publish-refcount.md = src\posts\topic\rx-publish-refcount.md
-	src\posts\topic\scientific-method-applied.md = src\posts\topic\scientific-method-applied.md
-	src\posts\topic\setup-nteractive.md = src\posts\topic\setup-nteractive.md
-	src\posts\topic\what-is-cake-recipe.md = src\posts\topic\what-is-cake-recipe.md
-	src\posts\topic\xamarin-central-package-version.md = src\posts\topic\xamarin-central-package-version.md
-	src\posts\topic\xamarin-essentials-events.md = src\posts\topic\xamarin-essentials-events.md
-	src\posts\topic\building-github-actions-with-nuke.md = src\posts\topic\building-github-actions-with-nuke.md
-EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{10D70755-875E-4E84-8AB6-E60161ED952D}"
-ProjectSection(SolutionItems) = preProject
-	src\assets\img\android-chrome-192x192.png = src\assets\img\android-chrome-192x192.png
-	src\assets\img\android-chrome-512x512.png = src\assets\img\android-chrome-512x512.png
-	src\assets\img\apple-touch-icon.png = src\assets\img\apple-touch-icon.png
-	src\assets\img\favicon-16x16.png = src\assets\img\favicon-16x16.png
-	src\assets\img\favicon-32x32.png = src\assets\img\favicon-32x32.png
-	src\assets\img\favicon.ico = src\assets\img\favicon.ico
-	src\assets\img\site.webmanifest = src\assets\img\site.webmanifest
-EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "drafts", "drafts", "{FB6FE18C-93F3-4B4A-A4A5-F671F761672C}"
 EndProject
@@ -93,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "posts", "posts", "{95247F4D
 ProjectSection(SolutionItems) = preProject
 	drafts\posts\draft.md = drafts\posts\draft.md
 EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blog", "src\blog.csproj", "{24D1B340-4250-4F93-A9CF-6C1851D6E3D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -113,14 +44,22 @@ Global
 		{FBEC6C39-CF15-4DEF-937F-A2E982DD12E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBEC6C39-CF15-4DEF-937F-A2E982DD12E4}.Release|x64.ActiveCfg = Release|Any CPU
 		{FBEC6C39-CF15-4DEF-937F-A2E982DD12E4}.Release|x86.ActiveCfg = Release|Any CPU
+		{24D1B340-4250-4F93-A9CF-6C1851D6E3D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24D1B340-4250-4F93-A9CF-6C1851D6E3D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24D1B340-4250-4F93-A9CF-6C1851D6E3D4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{24D1B340-4250-4F93-A9CF-6C1851D6E3D4}.Debug|x64.Build.0 = Debug|Any CPU
+		{24D1B340-4250-4F93-A9CF-6C1851D6E3D4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{24D1B340-4250-4F93-A9CF-6C1851D6E3D4}.Debug|x86.Build.0 = Debug|Any CPU
+		{24D1B340-4250-4F93-A9CF-6C1851D6E3D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24D1B340-4250-4F93-A9CF-6C1851D6E3D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24D1B340-4250-4F93-A9CF-6C1851D6E3D4}.Release|x64.ActiveCfg = Release|Any CPU
+		{24D1B340-4250-4F93-A9CF-6C1851D6E3D4}.Release|x64.Build.0 = Release|Any CPU
+		{24D1B340-4250-4F93-A9CF-6C1851D6E3D4}.Release|x86.ActiveCfg = Release|Any CPU
+		{24D1B340-4250-4F93-A9CF-6C1851D6E3D4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FBEC6C39-CF15-4DEF-937F-A2E982DD12E4} = {1A3C097B-1F09-4AF9-8A25-02B7021C0B18}
-		{46418F44-82B3-430C-896C-424524063922} = {6111799A-79DC-4FB9-B0F3-28DC6E1376E6}
-		{5324CCCF-DAF2-4510-8CDC-2FDBD2082A55} = {6111799A-79DC-4FB9-B0F3-28DC6E1376E6}
-		{AB81A4D6-0EBB-45C4-93CD-A293E7E87F4F} = {6111799A-79DC-4FB9-B0F3-28DC6E1376E6}
-		{2E5C7C08-86C8-4A1C-957F-286553F981FF} = {AB81A4D6-0EBB-45C4-93CD-A293E7E87F4F}
-		{10D70755-875E-4E84-8AB6-E60161ED952D} = {46418F44-82B3-430C-896C-424524063922}
 		{95247F4D-B0F7-4876-B8D0-C7FD95BB0CF7} = {FB6FE18C-93F3-4B4A-A4A5-F671F761672C}
+		{24D1B340-4250-4F93-A9CF-6C1851D6E3D4} = {6111799A-79DC-4FB9-B0F3-28DC6E1376E6}
 	EndGlobalSection
 EndGlobal
