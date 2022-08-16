@@ -4,6 +4,7 @@ Published: 08/13/2022
 Tags:
     - C#
     - .NET
+    - dotnet
     - Enterprise
     - Open Source
 ---
@@ -11,16 +12,19 @@ Tags:
 ## Disclaimer
 My only experience with Open Source Software (OSS) is in the dotnet community.  I understand that different communities have differeent concerns.
 
+## The spirit of software
+- To Solve a problem for a consumer
+- To create something fun
+
 ## Developer Ownership is powerful
 - When devs own it they care about keeping it.
     - Tragedy of the commons
 
-
-## Abuse of power is not tolerated
-
 ## Quality is an important metric
 - OSS is dependend on by many developers to build their applications on top of
 - Without a quality bar nobody would consume
+- Trust is more important than timeline
+    - once you lose the consumers trust, its difficult to regain
 
 ## Failing fast is less risky than failing slow
 - Point releases allow confident developers to find issues in your software
@@ -30,18 +34,6 @@ My only experience with Open Source Software (OSS) is in the dotnet community.  
 - Developers finding bugs is better than QA finding them
     - Developers give better detail about the crux of the issue
     - Developers 
-
-## Branching, Releasing, Versioning
-- Understanding the world of breaking changes
-- Know what it is to have breaking API changes
-- Understanding the concepts behind semver
-- Software readiness
-
-# Documentation
-- Docs
-- Issues
-- Pull Requests
-- RFC's
 
 ## Maintainability as a service
 - Pull Requests add value
@@ -57,9 +49,19 @@ My only experience with Open Source Software (OSS) is in the dotnet community.  
         - proper reproduction of an issue is important
 - Support
 
-## The spirit of software
-- To Solve a problem for a consumer
-- To create something fun
+## Abuse of maintainers is not tolerated
+
+# Documentation
+- Docs
+- Issues
+- Pull Requests
+- RFC's
+
+## Branching, Releasing, Versioning
+- Understanding the world of breaking changes
+- Know what it is to have breaking API changes
+- Understanding the concepts behind semver
+- Software readiness
 
 ## Don't reinvent the wheel
 
