@@ -10,11 +10,12 @@ Tags:
 ---
 
 ## Disclaimer
-My only experience with Open Source Software (OSS) is in the dotnet community.  I understand that different communities have differeent concerns.
+My only experience with Open Source Software (OSS) is in the dotnet community.  I understand that different communities have differeent concerns and this may not be applicable everywhere.
 
 ## The spirit of software
-- To Solve a problem for a consumer
-- To create something fun
+Before you say it.  No this is not about vision quests or spirit animals.  This is about understanding what is being requested, vs doing what we are told.  If a user story comes to you and has five acceptance, and you look at it an wonder, "is this really going to work the way the business wants it to work" then you understand the spirit of the request.  If you look at the five acceptance and you ensure they are covered without considering edges, corners or potential missed requirements; your doing what you are told.  Yes, yes.  I know that this is extremely gray area in a world that is so black and white.  Lets consider the real world for a moment.  How much does it cost a company in additional man hours to send a feature to QA, just to have it returned to the developer because it doesn't work "as expected"?  Then my favorite game of pin the blame on the developer starts.  We go around with QA and the business for a few hours, or days, all to find out we missed a spot!  At this point, it honestly doesn't matter who missed it, the developer has to fix it.  Most of this could be avoided by a conversation before the developer considers the code complete and ships it.  Who has time for that?  I satisfied the five acceptance, I am done!
+
+As developers we forget, our job isn't to punch a clock and close tickets.  Our profession exists to solve real problems for *real* consumers.  If we get to create something fun and exciting and learn something during the process, *bonus*!  Open Source understands this concept, enterprise sometimes misses the mark.  So the spirit of the software is that place between acceptance criteria and how a real user would use the application, and the developer is the first human to get to ask the question, "will the implementation satisfy the acceptance *and* make the consumer experience enjoyable.
 
 ## Developer Ownership is powerful
 - When devs own it they care about keeping it.
