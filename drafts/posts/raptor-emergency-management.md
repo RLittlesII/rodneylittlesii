@@ -17,4 +17,4 @@ Finding fulfilment in the work helps you do better work.  There are all levels o
 I have been fortunate in my career to work on some interesting software.  One particular system I helped engineer was an Emergency Management System.  I never really speak about engagements (mainly because I don't want to be sued).  In this instance my original NDA is up and I won't be giving away any proprietary secrets.  Just a story.
 
 # Raptor Emergency Management
-I worked for a company called Raptor Technologies that was in the emergency management space.
+I worked for a company called Raptor Technologies that was in the emergency management space.  I was brought in to work on the CEO's vision.  He had envisioned a system that would allow you to automate the [Emergency Response Plan](https://www.ready.gov/business/implementation/emergency)
