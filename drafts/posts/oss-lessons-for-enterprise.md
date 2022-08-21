@@ -18,6 +18,14 @@ Before you say it.  No this is not about vision quests or spirit animals.  This 
 As developers we forget, our job isn't to punch a clock and close tickets.  Our profession exists to solve real problems for *real* consumers.  If we get to create something fun and exciting and learn something during the process, *bonus*!  Open Source understands this concept, enterprise sometimes misses the mark.  So the spirit of the software is that place between acceptance criteria and how a real user would use the application, and the developer is the first human to get to ask the question, "will the implementation satisfy the acceptance *and* make the consumer experience enjoyable.
 
 ## Developer Ownership is powerful
+In OSS, developers are running the show.  They put their hard work, time and effort into every line of code they write.  They own it, and as a result they are usually very concious of it and want it to work.  In Open Source we have metrics that help us judge the health of a project.
+
+- Open Issues
+- Release Cadence
+- Number of Package uses
+- Age of project
+
+In enterprise, the enterprise owns the software.  Developers own work items.  These work items need to be moved to a done state as soon as possible no matter the cost to the maintainability, scalability, or compatability.  Open Source developers generally care about the spirit of the software we talked about earlier.  To them it isn't code, it's a life they have to make sure is healthy.
 - When devs own it they care about keeping it.
     - Tragedy of the commons
 
