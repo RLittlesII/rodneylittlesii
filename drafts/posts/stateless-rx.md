@@ -12,10 +12,10 @@ Tags:
 
 # The Problem
 
-Mobile application state is a sticky wicket.  You receive events that can mutate the application state with no user interaction like reduced network signal. Users can receive a phone call, or other events which could put your app in a background state.  Events from outside the application (the operating system, the hardware) might change the state of the running application. What happens if these events conflict?  How do we handle them cleanly when the events might depend on each other?
+Mobile application state is a sticky wicket.  You receive events that can mutate the application state with no user interaction like a reduced network signal. Users can receive a phone call or other events which could put your app in a background state.  Events from outside the application (the operating system, the hardware) might change the state of the running application. What happens if these events conflict?  How do we handle them cleanly when the events might depend on each other?
 These events transition your application to some state for some period of time.  We have an entire system that needs to "Wake Up", "Power Down", or "Run Offline" and we need to respond to the event and transition the mobile application to the proper state so it doesn't crash!  I have solved this problem a few ways over several mobile applications.  Still looking for a better way to solve the problem.
 
-**Disclaimer:** The application I am solving this for has very *interesting* requirements because of all the background services that are happening and how they process.  Application scope and life cycles have a huge impact on the application, processing certain things in certain states can cause the application to crash.  If your application doesn't have these concerns, this *may* seem like over engneering, and that is okay!
+**Disclaimer:** The application I am solving this for has very *interesting* requirements because of all the background services that are happening and how they process.  Application scope and life cycles have a huge impact on the application, processing certain things in certain states can cause the application to crash.  If your application doesn't have these concerns, this *may* seem like over-engineering, and that is okay!
 
 **Note:** This post is about more than my choice of library.
 
@@ -30,7 +30,7 @@ These events transition your application to some state for some period of time. 
 | Background      | Start           | Foreground      |
 |                 |                 |                 |
 
- I realized I can use a [State Machine](https://en.wikipedia.org/wiki/Finite-state_machine) to model application state.  What better library to use for this than [Stateless](https://github.com/dotnet-state-machine/stateless)?  I have used it to build various aspects of various systems.  It is a fantastic library, feature-rich, and works for everything I have ever thrown at it.  Everything from a Volunteer Application Wizard to Workflow Engines, Stateless has been a dream to work with!  There are a few key things I need to solve for, and guidelines I want to attempt to follow as I model this state.
+ I realized I can use a [State Machine](https://en.wikipedia.org/wiki/Finite-state_machine) to model the application state.  What better library to use for this than [Stateless](https://github.com/dotnet-state-machine/stateless)?  I have used it to build various aspects of various systems.  It is a fantastic library, feature-rich, and works for everything I have ever thrown at it.  Everything from a Volunteer Application Wizard to Workflow Engines, Stateless has been a dream to work with!  There are a few key things I need to solve for, and guidelines I want to attempt to follow as I model this state.
 
 ## The thing™
 
@@ -98,7 +98,7 @@ Stateless allows us to define triggers that accept parameters.  We are going to 
 
 ### Handle Transitions
 
-There is a particular method we are using from Stateless that is the lynch pin of this whole approach.
+There is a particular method we are using from Stateless that is the lynchpin of this whole approach.
 
 ```csharp
 public void OnTransitionCompleted(Action<StateMachine<TState, TTrigger>.Transition> onTransitionAction)
@@ -106,11 +106,11 @@ public void OnTransitionCompleted(Action<StateMachine<TState, TTrigger>.Transiti
 
 This methods documentation states
 
-> Registers a callback that will be invoked every time the statemachine transitions from one state into another and all the OnEntryFrom etc methods have been invoked
+> Registers a callback that will be invoked every time the state machine transitions from one state into another and all the OnEntryFrom etc methods have been invoked
 
-This means we can use the state machines `OnEntryFrom` pass in an `ApplicationStateEvent` allow the mediator to execute the correct handlers and after it completes, we signal the state change to observers.  This checks a requirements box and is a reason why we are putting any patterns around this problem.
+This means we can use the state machines `OnEntryFrom` pass in an `ApplicationStateEvent` to allow the mediator to execute the correct handlers and after it completes, we signal the state change to observers.  This checks a requirements box and is a reason why we are putting any patterns around this problem.
 
-It allows us to model external state with an event, express application state as a declarative machine, and handle application state transitions in a cohesive manner.  If you need to add an operation that has to process when the application is in the background, you just add a handler of the appropriate type!
+It allows us to model the external state with an event, express the application state as a declarative machine, and handle application state transitions cohesively.  If you need to add an operation that has to process when the application is in the background, you just add a handler of the appropriate type!
 
 ```csharp
 /// <summary>
@@ -161,7 +161,7 @@ public interface INetworkState : IObservable<NetworkStateChangedEvent>
 
 ### Application Lifecycle
 
-I am chosing to model Xamarin.Forms application state.  If you want a more platform specific experience you would likely model your observables differently.  Again, using default interfaces on top of an observable
+I am choosing to model Xamarin.Forms application state.  If you want a more platform-specific experience you would likely model your observables differently.  Again, using default interfaces on top of an observable
 
 ```csharp
 public interface IApplicationLifecycleState : IObservable<LifecycleState>
@@ -190,7 +190,7 @@ public enum LifecycleState
 
 # Managing Application State
 
-For this task I'll create a single instance monitor that acts as a router.  It will process global state events as they occur, and convert them into something the application can consume for our purposes.  It encapsulates the machines and the event producer, when events are observed the coresponding state machine trigger fires and state application state has the chance to transition.
+For this task, I'll create a single instance monitor that acts as a router.  It will process global state events as they occur, and convert them into something the application can consume for our purposes.  It encapsulates the machines and the event producer.  When events are observed the corresponding state machine trigger fires and the application state has the chance to transition.
 
 ## Monitor Application State
 
@@ -247,7 +247,7 @@ public record ApplicationState(bool Foreground, bool Connected)
 
 ## Modeling Transition Handlers
 
-I want to observe an incoming event, based on the event type execute a set of developer defined functions, and complete the transition to the new state.  I thought about implementing a messaging queue for this, then I realized I was making it harder.  I can just use a [Mediator Pattern](https://refactoring.guru/design-patterns/mediator/csharp/example) to broadcast a signal, and whatever handlers I have available can just execute.  [MediatR](https://github.com/jbogard/MediatR) here I come!  I will have to extend it slightly because I want to use Observables.  I define the following interface to notify handlers when events are produced.
+I want to observe an incoming event, based on the event type execute a set of developer-defined functions, and complete the transition to the new state.  I thought about implementing a messaging queue for this, then I realized I was making it harder.  I can just use a [Mediator Pattern](https://refactoring.guru/design-patterns/mediator/csharp/example) to broadcast a signal, and whatever handlers I have available can just execute.  [MediatR](https://github.com/jbogard/MediatR) here I come!  I will have to extend it slightly because I want to use Observables.  I define the following interface to notify handlers when events are produced.
 
 ```csharp
 public interface IApplicationStateMediator
@@ -257,7 +257,7 @@ public interface IApplicationStateMediator
 }
 ```
 
-Handlers are generically typed to events which allow MediatR to resolve a set of handlers to execute.
+Handlers are generically typed to events which allows MediatR to resolve a set of handlers to execute.
 
 ```csharp
 public interface IApplicationStateHandler<in TEvent> : INotificationHandler<TEvent>
@@ -285,4 +285,4 @@ void PublishStateEvent(ApplicationStateEvent? stateEvent)
 
 # Mobile State is hard
 
-This is the first iteration of this approach. I intend to grow this solution and see how it responds.  I am going to throw a few real world scenarios at the sample and see if all the boxes get checked.  Managing state is hard.  Harder still when you don't model the problem and understand the goals before you start writing code. Don't be discouraged if you don't get it right the first time, this is my third attempt at solving this problem, hopefully my last.  Keep modeling the thing™ until it fits and does more good than bad in the system.
+This is the first iteration of this approach. I intend to grow this solution and see how it responds.  I am going to throw a few real-world scenarios at the sample and see if all the boxes get checked.  Managing state is hard.  Harder still when you don't model the problem and understand the goals before you start writing code. Don't be discouraged if you don't get it right the first time, this is my third attempt at solving this problem, and hopefully my last.  Keep modeling the thing™ until it fits and does more good than bad in the system.
