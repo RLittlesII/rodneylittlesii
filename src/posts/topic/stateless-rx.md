@@ -1,6 +1,6 @@
 Title: Modeling and managing Mobile Application State
 Drafted: 11/22/2022
-Published: 11/22/2022
+Published: 12/31/2022
 Tags:
     - Functional Programming
     - Mediator Design Pattern
@@ -282,6 +282,9 @@ void PublishStateEvent(ApplicationStateEvent? stateEvent)
     }
 }
 ```
+
+
+![ApplicationState](../../images/application.state.gif)
 
 # Mobile State is hard
 
