@@ -289,3 +289,5 @@ void PublishStateEvent(ApplicationStateEvent? stateEvent)
 # Mobile State is hard
 
 This is the first iteration of this approach. I intend to grow this solution and see how it responds.  I am going to throw a few real-world scenarios at the sample and see if all the boxes get checked.  Managing state is hard.  Harder still when you don't model the problem and understand the goals before you start writing code. Don't be discouraged if you don't get it right the first time, this is my third attempt at solving this problem, and hopefully my last.  Keep modeling the thing™ until it fits and does more good than bad in the system.
+
+Check out the code for this article [Application State](https://github.com/RLittlesII/ApplicationState).
