@@ -268,7 +268,8 @@ public interface IApplicationStateHandler<in TEvent> : INotificationHandler<TEve
 ```
 
 ## Changing State
-When the state does transition, the registered event handlers will get notified and handle the provided event.  This allows us to have 
+
+When the state does transition, the registered event handlers will get notified and handle the provided event.  This allows us to have
 
 ```csharp
 void PublishStateEvent(ApplicationStateEvent? stateEvent)
@@ -282,7 +283,6 @@ void PublishStateEvent(ApplicationStateEvent? stateEvent)
     }
 }
 ```
-
 
 ![ApplicationState](../../images/application.state.gif)
 
