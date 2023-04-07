@@ -1,10 +1,19 @@
-Title: Xamarin to MAUI for a large enterprise mobile application
+Title: Xamarin to MAUI for a large Mvvm mobile application
 Drafted: 01/09/2023
 Published: 01/09/2023
 Tags:
+    - .NET
+    - dotnet
     - Framework
     - MAUI
     - Xamarin
+    - Mvvm
+    - Prism
+    - ReactiveUI
+    - Open Source
+    - Extensibility
+Series:
+    - Xamarin => MAUI
 ---
 
 # Requirements
@@ -31,4 +40,34 @@ Tags:
  - [ ] Check packages for `net6.0` or greater targets
  - If no package exists
     - [ ] determine if there is a comparable package
-    - [ ] 
+    - [ ] Forkable?
+        - Effort?
+
+- Migrate external dependencies
+    - [ ] Pep.GeoFencing
+    - [ ] Pep.SQLite-net
+    - [ ] BrothersPrinterBindings
+    - [ ] Honeywell Dex
+    - [ ] Scandit
+    - [ ] Unitech
+
+# MAUI BRANCH
+
+- Extended Libraries
+    - [ ] Prism Navigation, Scoped Navigation
+    - [ ] DryIoc, ScopeContext
+
+# Links
+
+- [docker-renovate](https://github.com/renovatebot/docker-renovate)
+- [Getting Started](https://docs.renovatebot.com/getting-started/running/)
+- [Self-Hosting Renovate](https://docs.renovatebot.com/getting-started/running/#self-hosting-renovate)
+- [Self-Hosting Examples](https://docs.renovatebot.com/examples/self-hosting/)
+- [Renovate on Azure Dev Ops](https://docs.renovatebot.com/modules/platform/azure/)
+- [renovate-bot-azure-devops](https://github.com/MartinFaartoft/renovate-bot-azure-devops)
+- [12 Self-Host Tips](https://jerrynsh.com/12-tips-to-self-host-renovate-bot/)
+- [Renovate Bot Cheatsheet](https://www.augmentedmind.de/2021/07/25/renovate-bot-cheat-sheet/)
+- [Success Stories](https://www.mend.io/customer-success-stories/)
+- [Languages](https://www.mend.io/languages/)
+- [Renovate Azure Devops](https://github.com/MartinFaartoft/renovate-bot-azure-devops)
+
