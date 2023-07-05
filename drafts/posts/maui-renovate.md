@@ -24,21 +24,24 @@ To me an aspect of the science in what we do as developers is being able to test
 With the migration to net6.0, we will find ourselves in a new world as dotnet mobile developers.  We will have to adhere to dotnet's new support cycles.  The cadence currently is a new Long Term Support(LTS) version every two years.  This means that this process will either be repeated every two years in a painful rush to ensure we maintain support, or a inceremental push towards the goal.
 
 ## Automation of the task
+
 Years ago when I first started depending on nuget.org it would take one developer a two week sprint to keep the packages up to date.  Today we can automate the task.
 
 1. Checking the dependency needs a version bump
 2. Creating a Pull Request against the system
 3. Allow CI to give a Red/Green as to the level of effort involved in the change
- 
+
 This allows us to have background tasks for developers to pick up if they are waiting on story definition or a pull request to finish.
 
 # Pros
+
 - Automated
 - Future Proof
 - [Success Stories](https://www.mend.io/customer-success-stories/)
 - [Languages](https://www.mend.io/languages/)
 
 #### Cons
+
 - Allow access to code via token
 - Manual Hosting
 
@@ -47,10 +50,12 @@ This allows us to have background tasks for developers to pick up if they are wa
 ### dotnet outdated
 
 #### Pros
+
 - Produces json
 - Allows version descrimination (major vs minor)
 
 #### Cons
+
 - Manual execution
 - Manual interpretation
 - Manual Change
@@ -58,6 +63,36 @@ This allows us to have background tasks for developers to pick up if they are wa
 - Could build a custom tool around it which would take time
 
 ### Excel
+
 - Full Manual Tracking of the entire process
 
-https://docs.renovatebot.com/dependency-pinning/#grouping-related-packages
+<https://docs.renovatebot.com/dependency-pinning/#grouping-related-packages>
+
+# The Process
+
+### Renovate Does
+
+- Opens Pull Requests
+- Manages Specific Configuration when issues are encountered
+  - Pinning
+- Manages Dependency Updates
+
+### Developer Does
+
+- Reviews the Pull Request
+- Pulls the Target Branch
+- Runs Developer Smoke Test
+
+### Tester Does
+
+- Executes Test Cases
+  - Smoke
+  - Automated
+  - Business
+
+### Project Manager Does
+- 
+
+## In Case of Emergency Revert
+
+The sell to this, each dependency is updated in isolation.  So once you find the culprit during test case execution, you can just revert the Pull Request and triage each dependency in isolation.
