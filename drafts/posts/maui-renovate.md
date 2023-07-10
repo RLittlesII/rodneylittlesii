@@ -23,7 +23,7 @@ To me an aspect of the science in what we do as developers is being able to test
 
 With the migration to net6.0, we will find ourselves in a new world as dotnet mobile developers.  We will have to adhere to dotnet's new support cycles.  The cadence currently is a new Long Term Support(LTS) version every two years.  This means that this process will either be repeated every two years in a painful rush to ensure we maintain support, or a inceremental push towards the goal.
 
-## Automation of the task
+## Automation of the task™
 
 Years ago when I first started depending on nuget.org it would take one developer a two week sprint to keep the packages up to date.  Today we can automate the task.
 
