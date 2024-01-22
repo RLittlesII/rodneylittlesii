@@ -70,4 +70,3 @@ Series:
 - [Success Stories](https://www.mend.io/customer-success-stories/)
 - [Languages](https://www.mend.io/languages/)
 - [Renovate Azure Devops](https://github.com/MartinFaartoft/renovate-bot-azure-devops)
-
