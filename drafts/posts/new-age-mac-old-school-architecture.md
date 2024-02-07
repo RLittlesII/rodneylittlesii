@@ -36,7 +36,9 @@ If you are like me and needed a new mac for iOS development and the best option 
 # Mono runtime concerns
 6.12 vs 6.13
 
-[GitHub Issue]() for where the current release information is.  There are unreleased mono bits that are required for some of the new compiler features.  If you need those, you can find them here
+[GitHub Issue](https://github.com/mono/mono/issues/20250) for where the current release information is.  There are unreleased mono bits that are required for some of the new compiler features.  If you need those, you can find them here
+
+6.13 is available [here](https://www.mono-project.com/download/nightly/)
 
 # Tools, Build and Execution
 
