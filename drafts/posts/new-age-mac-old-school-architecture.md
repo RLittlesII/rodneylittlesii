@@ -30,6 +30,8 @@ If you are like me and needed a new mac for iOS development and the best option 
 - netcore 3.1
 - greater than net 5.0 is official ARM support
 
+*Note*: Because the .NET runtime has built in hooks to look for version, it will look for an ARM64 version of the .NET 3.1 runtime.  There is no ARM version of the .NET 3.1 runtime only an x64 version.  This effectively breaks the tool chain.
+
 # My new fast ARM, no dotnet arm support till net x.x
 
 
@@ -45,3 +47,22 @@ If you are like me and needed a new mac for iOS development and the best option 
 This screen in Jet Brains Rider has become my most viewed page in all the Preferences!
 
 ![Tools, Build and Execution](../../src/images/tools.build.execution.m1.png)
+
+
+### Environment Setup Steps
+
+#### Prerequisites
+
+1. Homebrew, if you are going to install homebrew do it before you start.  It has been reported that Homebrew can negatively affect the installed xcode version
+
+1. Download current version of .NET (currently [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.201-macos-arm64-binaries))
+2. Download [.NET 3.1 x64](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-3.1.426-macos-x64-installer) (there is no ARM version)
+3. Install Xamarin.iOS 16.4.0.18 (https://github.com/xamarin/xamarin-macios/blob/main/DOWNLOADS.md)
+4. Install Mono, two versions of Mono should be considered
+    1. [6.12.0.206 - Current Stable](https://www.mono-project.com/download/stable/)
+    2. [6.13.0.1235 - Nightly](https://download.mono-project.com/archive/nightly/macos-10-universal/)
+    3. [GitHub Issue 20250](https://github.com/mono/mono/issues/20250) will determine if you need 6.12 vs 6.13 functionality
+5. Install Rider
+    1. Use the JetBrains Toolbox
+6. Install XCode 15.2 (currently)
+ 1. [XCodes](https://github.com/XcodesOrg/xcodes)
