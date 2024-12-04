@@ -9,6 +9,10 @@ Tags:
 
 # Null, the mistake we still have not learned
 
+# What do I know?
+
+I have turned on C# nullability in two of the popular MVVM frameworks for .NET, ReactiveUI and Prism (WIP).
+
 
 Key points
 
@@ -25,4 +29,14 @@ Key points
 - C# 8 feature
     - Turning on the feature will help you appreciate how the absence of a thing™ can severly hurt your software
 - Only Return Null When
-    - Doing so won't kill your application ... yes ... I have seen devs do this.
+    - Doing so won't kill your application ... yes ... I have seen devs do this
+    - The application can recover from the null value being passed
+    - You expect ever consumer of the method to gracefully handle a `null` return value
+
+
+Tips for enabling
+- File or Assembly at a time
+- Start with either the data layer or the UI layer
+- Small commits so you can easily walk backwards
+    - ReactiveUI
+    - Prism
