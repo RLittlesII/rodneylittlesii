@@ -11,7 +11,9 @@ Tags:
 
 # What do I know?
 
-I have turned on C# nullability in two of the popular MVVM frameworks for .NET, ReactiveUI and Prism (WIP).
+I have turned on C# nullability in two of the popular MVVM frameworks for .NET, ReactiveUI and Prism (WIP).  Currently turning on nullabilty in a code base with almost one million lines of C#.
+
+## Value Object vs Reference Object
 
 
 Key points
@@ -32,6 +34,7 @@ Key points
     - Doing so won't kill your application ... yes ... I have seen devs do this
     - The application can recover from the null value being passed
     - You expect ever consumer of the method to gracefully handle a `null` return value
+- The `default` value of a reference object is `null`
 
 
 Tips for enabling
@@ -40,3 +43,6 @@ Tips for enabling
 - Small commits so you can easily walk backwards
     - ReactiveUI
     - Prism
+- Turn on C# nullability warnings as errors
+- Don't use Null Reference Exceptions as your catch all unhandled exception, it's not exceptional, you control it!
+- Don't use nullable enums, rather default the enum with a `None` or `NA` or even `Default`.
