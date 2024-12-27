@@ -12,7 +12,7 @@ Tags:
 
 [Null Reference](https://en.wikipedia.org/wiki/Null_pointer) is what Tony Hoare called his billion dollar mistake.  I always say that learning from your mistakes makes you smart, learning from others makes you wise.  So this post is going to try and impart some wisdom from what I have learned turning on the C# 8 Nullable Reference Type feature in large codebases.
 
-#### Disclaimer
+### Disclaimer
 
 This is not a critique of the feature itself.  This is about `null`, how to take advantage of the feature, and things I think I know after doing this a few times.
 
@@ -60,11 +60,13 @@ Application.Current.SomeExtension();  // if this is null for a reason we don't e
 
 # Turning on C# Nullability
 
-### Handle `null`
+Turning on C# Nullable Reference Types is like shining a spot light on all the imperfections in a codebase.  The feature is fully analyzed by the compiler.  This means that once you turn it on, every oppportunity for you to access an object with _null state_ has to be either guarded against or tolerant of `null`.  As a result you can turn the feature on at the assembly level, or at the file level.  I would recommend starting small and understanding how hidden the absence of state is prevelant in the code we write.
+
+## Handle `null`
 
 Unhandled `null` returns generally result in [`System.NullReferenceException`](https://learn.microsoft.com/en-us/dotnet/api/system.nullreferenceexception).  When defining an API surface with nullability turned on you cannot return `null` from a method or property without making the return value nullable.  Once you change the type to `T?`, you will get compilation errors (with the warnings as errors) when you are potentially creating a `NullReferenceException`.  This will allow you to handle these concerns accordingly and evaluate if this is recoverable for your application.
 
-### Don't return `null` if you can return a default value
+## Don't return `null` if you can return a default value
 
 Given the below signature we could optimize the implementation (and solidifying the contract), by changing it.
 
@@ -88,15 +90,15 @@ public IEnumerable<Thing> Things()
 
 In this we have provided a default value for the return.  Our consumer now only needs to take the return value and start processing.  They don't have to check for the existence of a value, we've guarnteed _something_ gest returned.
 
-### `bool?` is not the new "3 way state"
+## `bool?` is not the new "3 way state"
 
 Yes, the _null state_ creats a built in 3 state `enum`.  I know it's tempting to use this in places.  Resist.  While it is fine for some use cases, it is not scalable.  The second you need a fourth value, you have a lot of code to modify.
 
-### methods can accept null arguments and still guard against them being null
+## methods can accept null arguments and still guard against them being null
 
 Back to our `Application.Current?` example, you don't expect it to be null, but it _can_ be null.  If you don't want it to be null when you are using it, you should guard against it.  We don't want the objects _null state_ to potentially bite us, we have to take control over it.
 
-### nullable default method parameters are fine internal to a system, but shouldn't cross "subsystem" boundaries
+## nullable default method parameters are fine internal to a system, but shouldn't cross "subsystem" boundaries
 
 This next tip is more for developers making public API's that others consume.  Given the method with the following signature.  If in the future I decide to change `bool? shouldCare = null` to `bool? shouldCare`, by the rules of semver, this is a breaking API change.  It's not the end of the world, but I have made this mistake and burned a major version for no reason!
 
@@ -107,51 +109,60 @@ public interface IDoStuff
 }
 ```
 
-### Use the `MaybeNull` and like attributes
+## Use `System.Diagnostics.CodeAnalysis` attributes
 
-[`System.Diagnostics.CodeAnalysis`](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.codeanalysis) has attributes you can use to decorate your API surface.  They are supported by the compiler.  If you 
+[`System.Diagnostics.CodeAnalysis`](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.codeanalysis) has attributes you can use to decorate your API surface, to indicate the presence of the _null state_.  They are supported by the compiler.  If you know your method _might_ return `null`, consider using `MaybeNullAttribute`.  If you want to state an argument `is not null` you can use the `NotNullAttribute`.
 
-### Encapsulate your nullability, don't force every consumer to check for null if you can guard against it for them
+## Encapsulate your nullability, don't force every consumer to check for null if you can guard against it for them
 
-### Don't act like it's not there.  This "see no evil" approach causes defects
+If you have a `private` method that returns `null`, consider checking that return if you don't really want it to be `null`.  You can capture the _null state_ and throw an exception with meaning.  You can return a default value
+
+## Don't act like it's not there.  This "see no evil" approach causes defects
 
 - C# 8 feature
   - Turning on the feature will help you appreciate how the absence of a thing™ can severly hurt your software
 
-### Only Return Null When
+## Only Return Null When
 
 - Doing so won't kill your application ... yes ... I have seen devs do this
 - The application can recover from the null value being passed
 - You expect ever consumer of the method to gracefully handle a `null` return value
 
-### The `default` value of a reference object is `null`
+## The `default` value of a reference object is `null`
 
-### `OrDefault()` methods return `null`
+Next we'll talk about `default`.  In general value types have a value.  The `default(int)` is `0`.  So if you create a reference type, guess what the `default` value is?  That's right `null`.  That means we can't return things like `default(T)!` and expect the application not to throw `NullReferenceException`.  This was one of those no brainer   
+
+## `OrDefault()` methods return `null`
+
+- SingleOrDefault()
+- FirstOrDefault()
+
+These methods return the `default` value if one is not found.  The `default` value for a reference type with _null state_ is `null`.  So if you don't guard the return value, you could have `NullReferenceException` problems all over your code.
 
 # Tips for handling `null` in your code
 
-### File or Assembly at a time
+## File or Assembly at a time
 
-### Start with the edges of the application either the data layer or the UI layer
+## Start with the edges of the application either the data layer or the UI layer
 
-### Small commits so you can easily walk backwards
+## Small commits so you can easily walk backwards
 
 - ReactiveUI
 - Prism
 
-### Turn on C# nullability warnings as errors
+## Turn on C# nullability warnings as errors
 
-### Don't use Null Reference Exceptions as your catch all unhandled exception, it's not exceptional, you control it
+## Don't use Null Reference Exceptions as your catch all unhandled exception, it's not exceptional, you control it
 
-### Don't use nullable enums, rather default the enum with a `None` or `NA` or even `Default`
+## Don't use nullable enums, rather default the enum with a `None` or `NA` or even `Default`
 
-### `!` operator seems like a good idea, but it defeats the purpose of the effort, use it sparringly
+## `!` operator seems like a good idea, but it defeats the purpose of the effort, use it sparringly
 
-### Pay attention to methods that return null but could benefit from returning a `default`
+## Pay attention to methods that return null but could benefit from returning a `default`
 
 - `IEnumerable<T>?` => `[]`
 
-### for Dtos use `init` if you prefer object initialization syntax
+## for Dtos use `init` if you prefer object initialization syntax
 
 ## Links
 
