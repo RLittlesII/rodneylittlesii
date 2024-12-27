@@ -24,15 +24,15 @@ image borrowed from [another blog](https://blog.matesic.info/image.axd?picture=/
 
 The above image demonstrates the "absensce of a reference".  There is a distinct difference between "No Paper" and "Null".  Notice that in the `null` case there is no reference or understanding there is paper at all!  It could be an image of a hand towel holder.  There is no reference to the entity we care about.  `null` doesn't just mean you have none of a given type, it means there is no actual connection to the type at all.  So when we return `null` prior to turning on Nullable Reference Types, we are technically violating the contract we have established with our consumer.
 
-The language feature solves this by allowing developers to provide a type for the reference you expect.  Sort of a type safe `null`.  The compiler can now understand `null` in the context of `type` because every `type` has _nullabilty_; the ability to be `null`.  Declaring `Nullable<T>` (`T?`), you are communicating to the compiler you expect it to handle the _null state_ for the provided `type`.  If you attempt to assign `null` to `T`, the compiler complains because `T?` is required in order to accept `null`.
+The language feature solves this by allowing developers to provide a type for the reference you expect.  Sort of a type safe `null`.  The compiler can now understand `null` in the context of `type` because every `type` has _nullabilty_; the ability to be `null`.  Declaring `Nullable<T>` (`T?`), you are communicating to the compiler you expect it to handle the _null state_ for the provided `type`.  If you attempt to assign `null` to `T`, the compiler complains because `T` does not have `?` which provides access to the _null state_ .
 
 ## Returning `null`
 
 When you return `T?`, you are forcing any consumer of that return value to verify the _nullabilty_ and the _null state_ of what you provide them.  Whether it's a method or a property, every inspection will require an evaluation of the _null state_.  Before this feature, you didn't have the information available at compile time, and lack of doing an evaluation would result in a [`NullReferenceException`](https://learn.microsoft.com/en-us/dotnet/api/system.nullreferenceexception)
 
-## `null` method parameters
+## `null` method arguments
 
-When accepting `T?` as a method parameter you are taking in something that is potentially `null`.  You don't know the context of why it's null, so if your method requires the value to exist, you can check for null and throw.
+When accepting `T?` as a method argument you are taking in something that is potentially `null`.  You don't know the context of why it's null, so if your method requires the value to exist, you can check for null and throw.
 
 Take the MAUI current application
 
@@ -45,7 +45,7 @@ public class Application
 
 ...
 
-public static true SomeExtension(this Application? application) // nullable parameter
+public static true SomeExtension(this Application? application) // nullable argument
 {
     ArgumentNullException.ThrowIfNull(application, nameof(application));
 
@@ -60,7 +60,7 @@ Application.Current.SomeExtension();  // if this is null for a reason we don't e
 
 # Turning on C# Nullability
 
-Turning on C# Nullable Reference Types is like shining a spot light on all the imperfections in a codebase.  The feature is fully analyzed by the compiler.  This means that once you turn it on, every oppportunity for you to access an object with _null state_ has to be either guarded against or tolerant of `null`.  As a result you can turn the feature on at the assembly level, or at the file level.  I would recommend starting small and understanding how hidden the absence of state is prevelant in the code we write.
+Turning on C# Nullable Reference Types is like shining a spot light on all the imperfections in a codebase.  The feature is fully analyzed by the compiler.  This means that once you turn it on, every oppportunity for you to access an object with _null state_ has to be either guarded against or tolerant of `null`.  As a result you can turn the feature on at the assembly level, or at the file level.  I would recommend starting small and understanding how hidden the absence of state is prevelant in the code base you turn it on for.
 
 ## Handle `null`
 
@@ -126,7 +126,7 @@ If you have a `private` method that returns `null`, consider checking that retur
 
 - Doing so won't kill your application ... yes ... I have seen devs do this
 - The application can recover from the null value being passed
-- You expect ever consumer of the method to gracefully handle a `null` return value
+- You expect every consumer of the method to gracefully handle a `null` return value
 
 ## The `default` value of a reference object is `null`
 
@@ -143,14 +143,24 @@ These methods return the `default` value if one is not found.  The `default` val
 
 ## File or Assembly at a time
 
+I would recommend a few approaches
+
+- File at a time
+  - As you are changing an API surface and surrounding dependencies
+  - If you are adding new files
+- Assembly at a time
+  - If you have multiple assemblies (like a lot of .NET applications I have seen)
+  - Start with a single assembly
+
 ## Start with the edges of the application either the data layer or the UI layer
+I wouldn't recommend jumping in at the beginning with your business logic.  It becomes overwhelming to retro fit at first.  I recommend starting with your data layer, or your UI layer.  These are usually the most straight forward and forgiving from what I have seen.  Basically you want to pick an edge and work your way in, starting in the middle gets weird.
 
 ## Small commits so you can easily walk backwards
-
-- ReactiveUI
-- Prism
+Make small commits.  As you open up a cohesive area, commit.  I have backed out adding _nullability_ realizing I can encapsulate a `null` object.
 
 ## Turn on C# nullability warnings as errors
+
+Read the list of [nullable warnings](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings) and chose which ones you want to make errors.  I don't have a recommendation, I am still learning it depends on the code
 
 ## Don't use Null Reference Exceptions as your catch all unhandled exception, it's not exceptional, you control it
 
