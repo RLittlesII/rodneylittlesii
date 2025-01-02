@@ -160,19 +160,25 @@ Make small commits.  As you open up a cohesive area, commit.  I have backed out 
 
 ## Turn on C# nullability warnings as errors
 
-Read the list of [nullable warnings](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings) and chose which ones you want to make errors.  I don't have a recommendation, I am still learning it depends on the code
+Read the list of [nullable warnings](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/nullable-warnings) and chose which ones you want to make errors.  I don't have a recommendation, I am still learning it depends on the code base which errors matter.
 
 ## Don't use Null Reference Exceptions as your catch all unhandled exception, it's not exceptional, you control it
 
-## Don't use nullable enums, rather default the enum with a `None` or `NA` or even `Default`
+Inpsect objects that have _nullability_.  Do not allow `NullReferenceException` to run rampant.  They are not exceptional, nor are they informative.
 
-## `!` operator seems like a good idea, but it defeats the purpose of the effort, use it sparringly
+## Don't use nullable enums, rather default the enum with a `None` or `NA` or even `Default`
+If you are using an `enum` I would suggest using a default value of `None` or `NA` for your `enum `.  This will allow you to inspect anything as default
+
+## Avoid `!` operator
+At first glance this operator seems like a good idea, but it defeats the purpose of the effort.  This operator tells the compiler that you got it.  You know that the compiler may _think_ it can be `null`, but you know it can't.  This operator defeats the purpose of turning on this language feature in most places.  The whole reason we are turning on the feature is so the compiler can help us identify potential `NullReferenceException`.  Instead we use `!` all over the place and still end up with those exceptions.  Use it sparingly.  Initialization and in LINQ lambdas are the main places I find myself using it.
 
 ## Pay attention to methods that return null but could benefit from returning a `default`
 
 - `IEnumerable<T>?` => `[]`
 
 ## for Dtos use `init` if you prefer object initialization syntax
+
+Some developers prefer constructors,  some object initialization.  If you prefer object initialization for concerns like data transfer objects, condsider using the `init` keyword.  This will signal to the compiler that the object can should be initialized with a value, and that the value should not be null, because you cannot set it again after it has received it's initial value.
 
 ## Links
 
