@@ -8,7 +8,7 @@ Tags:
     - Nullability
 ---
 
-## Null, the mistake we still have not learned
+## Null, the mistake we are learning
 
 [Null Reference](https://en.wikipedia.org/wiki/Null_pointer) is what Tony Hoare called his billion dollar mistake.  I always say that learning from your mistakes makes you smart, learning from others makes you wise.  So this post is going to try and impart some wisdom from what I have learned turning on the C# 8 Nullable Reference Type feature in large codebases.
 
@@ -18,17 +18,17 @@ This is **not** a critique of the feature itself.  This is about `null`, how to 
 
 ## The Absence of a Reference
 
-![null toilet paper](../../src/images/some.none.null.png)
+![null toilet paper](https://blog.matesic.info/image.axd?picture=/Blog%20posts/2019/NULL/Papers1.png)
 
-image borrowed from [another blog](https://blog.matesic.info/image.axd?picture=/Blog%20posts/2019/NULL/Papers1.png)
+_above image borrowed_
 
-The above image demonstrates the "absensce of a reference".  There is a distinct difference between "No Paper" and "Null".  Notice that in the `null` case there is no reference or understanding there is paper at all!  It could be an image of a hand towel holder.  There is no reference to the entity we care about.  `null` doesn't just mean you have none of a given type, it means there is no actual connection to the type at all.  So when we return `null` prior to turning on Nullable Reference Types, we are potentially violating the contract we have established with our consumer.
+The image demonstrates the "absensce of a reference".  There is a distinct difference between "No Paper" and "Null".  Notice that in the `null` case there is no reference or understanding there is paper at all!  It could be an image of a hand towel holder.  There is no reference to the entity we care about.  `null` doesn't just mean you have none of a given type, it means there is no actual connection to the type at all.  So when we return `null` prior to turning on Nullable Reference Types, we are potentially violating the contract we have established with our consumer.
 
-The language feature solves this by allowing developers to provide a type for the reference you expect.  Sort of a type safe `null`.  The compiler can now understand `null` in the context of `type` because every `type` has _nullability_; the ability to be `null`.  Declaring `Nullable<T>` (`T?`), you are communicating to the compiler you expect it to handle the _null state_ for the provided `type`.  If you attempt to assign `null` to `T`, the compiler complains because `T` does not have `?` which provides access to the _null state_ .
+The language feature solves this by allowing developers to provide a type for the reference you expect.  Sort of a type safe `null`.  The compiler can now understand `null` in the context of `type` because every `type` has _nullability_; the ability to be `null`.  Declaring `Nullable<T>` (`T?`), you are communicating to the compiler you expect it to handle the _null-state_ for the provided `type`.  If you attempt to assign `null` to `T`, the compiler complains because `T` does not have `?` which provides access to the _null-state_ .
 
 ### Returning `null`
 
-When you return `T?`, you are forcing any consumer of that return value to verify the _nullability_ and the _null state_ of what is provided them.  Whether it's a method or a property, every inspection will require an evaluation of the _null state_.  Before this feature, you didn't have the information readily available at compile time, and lack of doing an evaluation would result in a [`NullReferenceException`](https://learn.microsoft.com/en-us/dotnet/api/system.nullreferenceexception).  
+When you return `T?`, you are forcing any consumer of that return value to verify the _nullability_ and the _null-state_ of what is provided them.  Whether it's a method or a property, every inspection will require an evaluation of the _null-state_.  Before this feature, you didn't have the information readily available at compile time, and lack of doing an evaluation would result in a [`NullReferenceException`](https://learn.microsoft.com/en-us/dotnet/api/system.nullreferenceexception).  
 
 ### `null` method arguments
 
@@ -60,7 +60,7 @@ Application.Current.SomeExtension();  // if this is null for a reason we don't e
 
 ## Turning on C# Nullability
 
-Turning on C# Nullable Reference Types is like shining a spot light on all the imperfections in a codebase.  The feature is fully analyzed by the compiler.  This means that once you turn the feature on, every oppportunity for you to access an object with _null state_ has to be either guarded against or tolerant of `null`.  You can turn the feature on at the assembly level, or at the file level.  I would recommend starting small and understanding how hidden the absence of state is prevelant in the code base you turn it on for.
+Turning on C# Nullable Reference Types is like shining a spot light on all the imperfections in a codebase.  The feature is fully analyzed by the compiler.  This means that once you turn the feature on, every oppportunity for you to access an object with _null-state_ has to be either guarded against or tolerant of `null`.  You can turn the feature on at the assembly level, or at the file level.  I would recommend starting small and understanding how hidden the absence of state is prevelant in the code base you turn it on for.
 
 ### Handle `null`
 
@@ -82,7 +82,7 @@ to
 ```csharp
 public IEnumerable<Thing> Things()
 {
-  var result = apiClient.Get<Thing>();
+  IEnumerable<Thing>? result = apiClient.Get<Thing>();
 
   return result ?? Enumerable.Empty<Thing>();
 }
@@ -92,11 +92,11 @@ In this we have provided a default value for the return.  Our consumer now only 
 
 ### `bool?` is not the new "3 way state"
 
-Yes, the _null state_ creats a built in 3 state `enum`.  I know it's tempting to use this in places.  Resist.  While it is fine for some use cases, it is not scalable.  The second you need a fourth value, you have a lot of code to modify.
+Yes, the _null-state_ creats a built in 3 state `enum`.  I know it's tempting to use this in places.  Resist.  While it is fine for some use cases, it is not scalable.  The second you need a fourth value, you have a lot of code to modify.
 
 ### methods can accept null arguments and still guard against them being null
 
-Back to our `Application.Current?` example, you don't expect it to be null, but it _can_ be null.  If you don't want it to be null when you are using it, you should guard against it.  We don't want the objects _null state_ to potentially bite us, we have to take responsibility for it.
+Back to our `Application.Current?` example, you don't expect it to be null, but it _can_ be null.  If you don't want it to be null when you are using it, you should guard against it.  We don't want the objects _null-state_ to potentially bite us, we have to take responsibility for it.
 
 ### nullable default method parameters are fine internal to a system, but shouldn't cross "subsystem" boundaries
 
@@ -111,27 +111,27 @@ public interface IDoStuff
 
 ### Use `System.Diagnostics.CodeAnalysis` attributes
 
-[`System.Diagnostics.CodeAnalysis`](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.codeanalysis) has attributes you can use to decorate your API surface, to indicate the presence of the _null state_.  They are supported by the compiler.  If you know your method _might_ return `null`, consider using `MaybeNullAttribute`.  If you want to state an argument `is not null` you can use the `NotNullAttribute`.
+[`System.Diagnostics.CodeAnalysis`](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.codeanalysis) has attributes you can use to decorate your API surface, to indicate the presence of the _null-state_.  They are supported by the compiler.  If you know your method _might_ return `null`, consider using `MaybeNullAttribute`.  If you want to state an argument `is not null` you can use the `NotNullAttribute`.
 
 ### Encapsulate your nullability, don't force every consumer to check for null if you can guard against it for them
 
-If you have a `private` method that returns `null`, consider checking that return if you don't really want it to be `null`.  You can capture the _null state_ and throw an exception with meaning.  You can return a default value.  You can ensure t hat the private `null` value doesn't bubble up to the public API surface.  There are a lot of options.  The option you should avoid if possible, letting the `null` return run rampant all the way through your call stack.
+If you have a `private` method that returns `null`, consider checking that return if you don't really want it to be `null`.  You can capture the _null-state_ and throw an exception with meaning.  You can return a default value.  You can ensure t hat the private `null` value doesn't bubble up to the public API surface.  There are a lot of options.  The option you should avoid if possible, letting the `null` return run rampant all the way through your call stack.
 
 ### Don't act like it's not there.  The "see no evil" approach causes defects
 
-Turning on the Nullable Reference Type feature will help you appreciate how the absence of a thing™ can severly affect your software.  There are times where the business expects a value to exist, but the software doesn't provide a value.  Remember some of us are writing software for users to consume.  It has to behave and function a certain way based on a set of requirements.  So when it doesn't behave how we expect, we have to figure out why.  Ensuring your business logic properly accounts for and handles _null state_ is important for long term system health.
+Turning on the Nullable Reference Type feature will help you appreciate how the absence of a thing™ can severly affect your software.  There are times where the business expects a value to exist, but the software doesn't provide a value.  Remember some of us are writing software for users to consume.  It has to behave and function a certain way based on a set of requirements.  So when it doesn't behave how we expect, we have to figure out why.  Ensuring your business logic properly accounts for and handles _null-state_ is important for long term system health.
 
 ### Only Return Null When
 
 - Doing so won't kill your application
-- The application can recover from the _null state_ inspection
+- The application can recover from the _null-state_ inspection
 - You expect every consumer of the method to gracefully handle a `null` return value
 
 ### The `default` value of a reference object is `null`
 
 Next we'll talk about `default`.  In general value types have a value.  The `default(int)` is `0`.  So if you create a reference type, guess what the `default` value is?  That's right `null`.  That means we can't return things like `default(T)!` and expect the application not to throw `NullReferenceException`.  This was one of those no brainer things when I thought about it.  But I had to think about it.  This means that every reference type by default is `null`.  Not just once I turn on the feature, it has always been and I haven't always ensured there is a default value.
 
-It's worth talking about [sentinel values](https://en.wikipedia.org/wiki/Sentinel_value) here.  I haven't historically been a fan of them in C#.  The problem is checking for _null state_ doesn't actually guarntee the default value.  It's just the default of a constructed object is `null`.  So while I am not a fan of sentinel values, I do think there is a place for a type having a `Default`.
+It's worth talking about [sentinel values](https://en.wikipedia.org/wiki/Sentinel_value) here.  I haven't historically been a fan of them in C#.  The problem is checking for _null-state_ doesn't actually guarntee the default value.  It's just the default of a constructed object is `null`.  So while I am not a fan of sentinel values, I do think there is a place for a type having a `Default`.
 
 ### `OrDefault()` methods return `null`
 
@@ -139,7 +139,7 @@ It's worth talking about [sentinel values](https://en.wikipedia.org/wiki/Sentine
 - LastOrDefault<T?>()
 - SingleOrDefault<T?>()
 
-These methods return the `default` value if one is not found.  The `default` value for a reference type with _null state_ is `null`.  So if you don't guard the return value, you could have `NullReferenceException` problems all over your code.
+These methods return the `default` value if one is not found.  The `default` value for a reference type with _null-state_ is `null`.  So if you don't guard the return value, you could have `NullReferenceException` problems all over your code.
 
 ## Tips for handling `null` in your code
 
@@ -195,3 +195,5 @@ I am not going to tell you to test all the things™.  I am going to tell you th
 
 - [Nullable References Documentation](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references)
 - [Nullable migration strategies](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-migration-strategies?source=recommendations)
+- [Plan your migration](https://learn.microsoft.com/en-us/dotnet/csharp/nullable-migration-strategies?source=recommendations#plan-your-migration)
+- [Null safety in C#](https://learn.microsoft.com/en-us/training/modules/csharp-null-safety/?source=recommendations)
