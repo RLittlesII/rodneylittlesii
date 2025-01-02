@@ -130,7 +130,7 @@ The "see no evil" approach causes defects.  Turning on the Nullable Reference Ty
 
 Next, we'll talk about `default`.  In general value types have a value.  The `default(int)` is `0`.  So if you create a reference type, guess what the `default` value is?  That's right `null`.  That means we can't return things like `default(T)!` and expect the application not to throw `NullReferenceException`.  This was one of those no-brainer things when I thought about it.  But I had to think about it.  This means that every reference type by default is `null`.  Not just once I turn on the feature, it has always been and I haven't always ensured there is a default value.
 
-It's worth talking about [sentinel values](https://en.wikipedia.org/wiki/Sentinel_value) here.  I haven't historically been a fan of them in C#.  The problem is checking for _null-state_ doesn't guarantee the default value.  It's just the default of a constructed object is `null`.  So while I am not a fan of sentinel values, I do think there is a place for a type having a `Default`.
+It's worth talking about [sentinel values](https://en.wikipedia.org/wiki/Sentinel_value) here.  I haven't historically been a fan of them in C#.  The problem is checking for _null-state_ doesn't guarantee the default value.  It's just the default of a constructed object is `null`.  So while I am not a fan of sentinel values, I do think there is a place for a type having a `Default`.  In many functional languages the concept of `None` or [`Optional<T>`](https://github.com/louthy/language-ext?tab=readme-ov-file#optional-and-alternative-value-monads) exists.  These provide you access to a default value that is not `null`.  So while I won't recommend returning -999 for an `int` return value.  I _might_ recommend a more type safe functional approach to ensure that `null` doesn't cause mischief.
 
 ### `OrDefault()` methods return `null`
 
@@ -179,9 +179,13 @@ At first glance, this operator seems like a good idea, but it defeats the purpos
 
 ### Pay attention to methods that return null but could benefit from returning a `default`
 
-- `IEnumerable<T>?` => `[]`
-- `bool?` => `false`
-
+- Methods that return lists
+  - `IEnumerable<T>?` => `[]`
+- Methods that return nullable bool
+  - `bool?` => `false`
+- Methods that _might_ be better returning a default value
+  - `enum`
+_ 
 ### Use object initialization syntax
 
 Some developers prefer constructors and some object initialization.  If you prefer object initialization for concerns like data transfer objects, consider using the [`init`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/init) keyword.  This will signal to the compiler that the object should be initialized with a value, and that the value should not be null, because you cannot set it again after it has received its initial value.
@@ -189,6 +193,10 @@ Some developers prefer constructors and some object initialization.  If you pref
 ### Write tests that verify behaviors
 
 I am not going to tell you to test all the things™.  I am going to tell you that verifying the behavior of something that returns `null` is a good idea.  You want to know how your system responds to `null` inputs and outputs.  You don't want to leave it to chance.  A few well-constructed tests can give you some clarity and potentially reduce regressions.
+
+## What's next?!
+
+Hopefully this provides you some ideas to turning on C# Nullable Reference Types in a codebase.  I know this isn't a comprehensive list, nor is it a step by step guide.  I have tried to mimic one approach for every codebase I encounter.  I am learning that using the same guidelines and finding the right seams is a manageable approach.  So go forth and capture the _null-state_, don't allow it to bring down applications.  Enable the feature at your pace and understand what `nullability` means in your codebase!
 
 ### Links
 
