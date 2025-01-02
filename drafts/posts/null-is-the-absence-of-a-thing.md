@@ -28,7 +28,7 @@ The language feature solves this by allowing developers to provide a type for th
 
 ### Returning `null`
 
-When you return `T?`, you are forcing any consumer of that return value to verify the _nullability_ and the _null state_ of what you provide them.  Whether it's a method or a property, every inspection will require an evaluation of the _null state_.  Before this feature, you didn't have the information available at compile time, and lack of doing an evaluation would result in a [`NullReferenceException`](https://learn.microsoft.com/en-us/dotnet/api/system.nullreferenceexception).  
+When you return `T?`, you are forcing any consumer of that return value to verify the _nullability_ and the _null state_ of what is provided them.  Whether it's a method or a property, every inspection will require an evaluation of the _null state_.  Before this feature, you didn't have the information readily available at compile time, and lack of doing an evaluation would result in a [`NullReferenceException`](https://learn.microsoft.com/en-us/dotnet/api/system.nullreferenceexception).  
 
 ### `null` method arguments
 
@@ -60,7 +60,7 @@ Application.Current.SomeExtension();  // if this is null for a reason we don't e
 
 ## Turning on C# Nullability
 
-Turning on C# Nullable Reference Types is like shining a spot light on all the imperfections in a codebase.  The feature is fully analyzed by the compiler.  This means that once you turn it on, every oppportunity for you to access an object with _null state_ has to be either guarded against or tolerant of `null`.  As a result you can turn the feature on at the assembly level, or at the file level.  I would recommend starting small and understanding how hidden the absence of state is prevelant in the code base you turn it on for.
+Turning on C# Nullable Reference Types is like shining a spot light on all the imperfections in a codebase.  The feature is fully analyzed by the compiler.  This means that once you turn the feature on, every oppportunity for you to access an object with _null state_ has to be either guarded against or tolerant of `null`.  You can turn the feature on at the assembly level, or at the file level.  I would recommend starting small and understanding how hidden the absence of state is prevelant in the code base you turn it on for.
 
 ### Handle `null`
 
@@ -135,8 +135,9 @@ It's worth talking about [sentinel values](https://en.wikipedia.org/wiki/Sentine
 
 ### `OrDefault()` methods return `null`
 
-- SingleOrDefault()
-- FirstOrDefault()
+- FirstOrDefault<T?>()
+- LastOrDefault<T?>()
+- SingleOrDefault<T?>()
 
 These methods return the `default` value if one is not found.  The `default` value for a reference type with _null state_ is `null`.  So if you don't guard the return value, you could have `NullReferenceException` problems all over your code.
 
