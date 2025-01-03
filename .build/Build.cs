@@ -12,7 +12,7 @@ using Wyam.Common.Meta;
 using Nuke.Common.Tooling;
 
 [GitHubActions("publish",
-    GitHubActionsImage.MacOsLatest,
+    GitHubActionsImage.UbuntuLatest,
     AutoGenerate = false,
     OnPushBranches = new[] {"main", "draft/*"},
     OnPullRequestBranches = new[] {"main"},
