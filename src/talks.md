@@ -21,3 +21,6 @@ Order: 10
 
 # Mobile Dev Ops at Scale
 <iframe width="560" height="315" src="https://youtube.com/embed/oGd1x7fD5Uk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+# Null, The absence of a C# reference
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zMZXMm46N7g?si=DrnvXm-vGE3jjaFS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
