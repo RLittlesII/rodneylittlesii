@@ -29,3 +29,28 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+
+# Node.js dependencies
+node_modules/
+dist/
+# Astro-specific files
+astro/
+_site/
+# Build and cache files
+*.tsbuildinfo
+turbo/
+eslintcache
+pnpm-store
+# Logs and temporary files
+*.log
+# Environment files
+*.env
+# IDE-specific settings
+.idea/
+vscode/
+# Generated test and fixture files
+packages/**/test/**/fixtures/**/.astro/
+packages/**/e2e/**/fixtures/**/.astro/
+examples/**/.astro/
+# Miscellaneous
+package-lock.json

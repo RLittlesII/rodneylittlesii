@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Use an absolute-from-project-root glob (required by Vite)
+const modules = import.meta.glob('/src/posts/**/*.md', { eager: true });
+
+const normalizeKey = (k) => k.replace(/\\/g, '/');
+const keyToSlug = (k) => normalizeKey(k).replace(/^\/?src\/posts\//, '').replace(/\.md$/, '');
+
+const entries = Object.entries(modules);
+// Debug in server console about discovered modules and frontmatter
+try {
+  // eslint-disable-next-line no-console
+  console.log('[index] discovered modules:', entries.map(([k]) => k));
+} catch {}
+
+const posts = entries.map(([k, mod]) => {
+  const slug = keyToSlug(k);
+  return { slug, url: `/posts/${slug}`, frontmatter: mod.frontmatter };
+});
+
+const toDate = (d) => (d ? new Date(d) : new Date(0));
+// Show all posts (don’t require Published), sort by Published desc when present
+const visible = posts
+  .slice()
+  .sort((a, b) => toDate(b.frontmatter?.Published) - toDate(a.frontmatter?.Published));
+---
+<Base title="Home">
+  <section id="wrapper">
+    <header>
+      <div class="inner">
+        <h2>Blog</h2>
+      </div>
+    </header>
+    <div class="wrapper">
+      <div class="inner">
+        {visible.length === 0 ? (
+          <p><em>No posts were discovered under <code>src/posts/**</code>. Double-check the folder path and filenames.</em></p>
+        ) : (
+          <ul>
+            {visible.map((p) => (
+              <li>
+                <a href={p.url}>{p.frontmatter?.Title ?? p.slug}</a>
+                {Array.isArray(p.frontmatter?.Tags) && p.frontmatter.Tags.length > 0 && (
+                  <small>
+                    {' '}— {p.frontmatter.Tags.map((t) => (<a href={`/tags/${encodeURIComponent(t)}`}>{t}</a>)).reduce((prev, curr) => [prev, ', ', curr])}
+                  </small>
+                )}
+                <small>
+                  {' '}— {p.frontmatter?.Published ? p.frontmatter.Published : 'Draft'}
+                </small>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  </section>
+</Base>

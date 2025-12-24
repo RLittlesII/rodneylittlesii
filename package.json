@@ -1,0 +1,15 @@
+{
+  "name": "rodneylittlesii-astro",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run theme:fetch && astro dev",
+    "build": "npm run theme:fetch && astro build",
+    "preview": "astro preview",
+    "theme:fetch": "node scripts/theme-fetch.mjs"
+  },
+  "devDependencies": {
+    "astro": "^4.0.0"
+  }
+}

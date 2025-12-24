@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const modules = import.meta.glob('/src/posts/**/*.md', { eager: true });
+  const tags = new Set(
+    Object.values(modules)
+      .flatMap((m) => (m.frontmatter?.Tags ?? []))
+  );
+  return [...tags].map((tag) => ({ params: { tag } }));
+}
+
+const { tag } = Astro.params;
+const modules = import.meta.glob('/src/posts/**/*.md', { eager: true });
+const normalizeKey = (k) => k.replace(/\\/g, '/');
+const keyToSlug = (k) => normalizeKey(k).replace(/^\/?src\/posts\//, '').replace(/\.md$/, '');
+const items = Object.entries(modules)
+  .map(([k, m]) => ({
+    url: `/posts/${keyToSlug(k)}`,
+    fm: m.frontmatter,
+  }))
+  .filter((x) => (x.fm?.Tags ?? []).includes(tag));
+---
+<Base title={`Tag: ${tag}`}>
+  <section id="wrapper">
+    <header>
+      <div class="inner">
+        <h2>Tag: {tag}</h2>
+      </div>
+    </header>
+    <div class="wrapper">
+      <div class="inner">
+        <ul>
+          {items.map((i) => (
+            <li><a href={i.url}>{i.fm.Title}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>

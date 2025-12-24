@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Talks from '../talks.md';
+const { Content, frontmatter } = Talks;
+---
+<Base title={frontmatter.Title}>
+  <section id="wrapper">
+    <header>
+      <div class="inner">
+        <h2>{frontmatter.Title}</h2>
+      </div>
+    </header>
+    <div class="wrapper">
+      <div class="inner">
+        <Content />
+      </div>
+    </div>
+  </section>
+</Base>

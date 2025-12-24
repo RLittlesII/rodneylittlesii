@@ -1,0 +1,90 @@
+---
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title ? `${title} | Rodney Littles II` : 'Rodney Littles II'}</title>
+    <!-- Load Solid State assets from local /public/assets (populate via `npm run theme:fetch`) -->
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <!-- Fallback CSS (dev-only): use production site assets if local files are missing -->
+    <link rel="stylesheet" href="https://rodneylittlesii.com/assets/css/main.css" />
+    <noscript>
+      <link rel="stylesheet" href="/assets/css/noscript.css" />
+      <link rel="stylesheet" href="https://rodneylittlesii.com/assets/css/noscript.css" />
+    </noscript>
+  </head>
+  <body class="is-preload">
+    <div id="page-wrapper">
+      <header id="header" class="alt">
+        <h1><a href="/">Rodney Littles II</a></h1>
+        <nav>
+          <a href="#menu">Menu</a>
+        </nav>
+      </header>
+
+      <nav id="menu">
+        <div class="inner">
+          <h2>Menu</h2>
+          <ul class="links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/reading">Reading</a></li>
+            <li><a href="/talks">Talks</a></li>
+            <li><a href="/office-hours">Office Hours</a></li>
+          </ul>
+          <a href="#" class="close">Close</a>
+        </div>
+      </nav>
+
+      <slot />
+
+      <footer id="footer">
+        <div class="inner">
+          <ul class="copyright">
+            <li>&copy; {new Date().getFullYear()} Rodney Littles II</li>
+            <li>Theme: Solid State by <a href="https://html5up.net">HTML5 UP</a></li>
+          </ul>
+        </div>
+      </footer>
+    </div>
+    <!-- Solid State JS (load order matters). Try local first; dynamic fallback will inject remote if needed. -->
+    <script is:inline src="/assets/js/jquery.min.js"></script>
+    <script is:inline src="/assets/js/jquery.scrollex.min.js"></script>
+    <script is:inline src="/assets/js/skel.min.js"></script>
+    <script is:inline src="/assets/js/util.js"></script>
+    <script is:inline src="/assets/js/main.js"></script>
+    <script>
+      // Dev fallback: if local JS failed to load, pull from production site to enable interactions
+      (function(){
+        function load(src, cb){ var s = document.createElement('script'); s.src = src; s.onload = cb || function(){}; document.body.appendChild(s); }
+        function ensure(){
+          if (!window.jQuery) {
+            load('https://rodneylittlesii.com/assets/js/jquery.min.js', function(){
+              load('https://rodneylittlesii.com/assets/js/jquery.scrollex.min.js', function(){
+                load('https://rodneylittlesii.com/assets/js/skel.min.js', function(){
+                  load('https://rodneylittlesii.com/assets/js/util.js', function(){
+                    load('https://rodneylittlesii.com/assets/js/main.js');
+                  });
+                });
+              });
+            });
+          }
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', ensure);
+        } else {
+          ensure();
+        }
+      })();
+    </script>
+    <script>
+      // Fallback: ensure preload class is removed even if theme JS doesn’t run
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.remove('is-preload');
+      });
+    </script>
+  </body>
+  </html>
