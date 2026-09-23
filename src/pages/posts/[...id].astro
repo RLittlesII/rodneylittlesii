@@ -1,0 +1,34 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Banner from '../../components/Banner.astro';
+import Section from '../../components/Section.astro';
+import TagButtons from '../../components/TagButtons.astro';
+import Disqus from '../../components/Disqus.astro';
+import { disqusId, excerpt, formatDate, getPublishedPosts, postUrl, tagSlug, type Post } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const tags = post.data.tags.map((name) => ({ name, slug: tagSlug(name) }));
+const url = new URL(postUrl(post), Astro.site).href;
+---
+<Base title={post.data.title} description={excerpt(post.body) || undefined}>
+  <Banner slot="banner" title={post.data.title}>
+    <p><em>Published on {formatDate(post.data.published)}</em></p>
+    <TagButtons tags={tags} />
+  </Banner>
+
+  <Section style="style2">
+    <Content />
+    <Disqus identifier={disqusId(post)} title={post.data.title} url={url} />
+  </Section>
+</Base>

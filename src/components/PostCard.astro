@@ -1,0 +1,17 @@
+---
+import { excerpt, formatDate, postUrl, type Post } from '../lib/posts';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const summary = excerpt(post.body);
+---
+<article>
+  <h3>{post.data.title}</h3>
+  <hr />
+  <p><em>Posted on {formatDate(post.data.published)}</em></p>
+  {summary && <p>{summary}</p>}
+  <a href={postUrl(post)} class="special">Read</a>
+</article>

@@ -1,31 +1,14 @@
-output/
-tools/*
-!tools/packages.config
-output.zip
-config.wyam.dll
-config.wyam.hash
-.dotnet/
-nuget.exe
-config.wyam.packages.xml
-# macOS
+# Node / Astro
+node_modules/
+dist/
+.astro/
+*.tsbuildinfo
+*.log
+.env
+.env.*
+!.env.example
+.netlify/
+
+# OS / IDE
 .DS_Store
-
-# JetBrains Rider
-.idea
-
-# Nuke
-.tmp
-
-# Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
+.idea/

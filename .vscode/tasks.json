@@ -1,29 +1,15 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "2.0.0",
-    "command": "wyam",
-    "isBackground": true,
-    "args": [
-        "build",
-        "-p",
-        "-w"
-    ],
     "tasks": [
         {
-            "label": "wyam",
-            "type": "shell",
-            "command": "wyam",
-            "args": [
-                "build",
-                "-p",
-                "-w"
-            ],
+            "label": "dev",
+            "type": "npm",
+            "script": "dev",
             "isBackground": true,
             "problemMatcher": [],
             "group": {
-                "_id": "build",
-                "isDefault": false
+                "kind": "build",
+                "isDefault": true
             }
         }
     ]

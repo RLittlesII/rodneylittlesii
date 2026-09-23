@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import Banner from '../components/Banner.astro';
+import Section from '../components/Section.astro';
+---
+<Base title="Not Found">
+  <Banner slot="banner" title="Not Found">
+    <p>That page does not exist, or it moved.</p>
+  </Banner>
+  <Section style="style2">
+    <ul class="actions">
+      <li><a href="/" class="button">Home</a></li>
+      <li><a href="/posts/" class="button">Archive</a></li>
+    </ul>
+  </Section>
+</Base>

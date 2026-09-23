@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import Banner from '../components/Banner.astro';
+import Section from '../components/Section.astro';
+import PostCard from '../components/PostCard.astro';
+import TagButtons from '../components/TagButtons.astro';
+import { getPublishedPosts, groupTags, postUrl } from '../lib/posts';
+import { site } from '../site';
+
+const posts = await getPublishedPosts();
+const featured = posts.slice(0, 3);
+const older = posts.slice(3, 7);
+const tags = groupTags(posts)
+  .slice(0, 10)
+  .map((g) => ({ name: g.name, slug: g.slug, count: g.posts.length }));
+---
+<Base>
+  <Banner slot="banner" title={site.description}>
+    <p>{site.intro}</p>
+  </Banner>
+
+  <Section style="style2">
+    <section class="features">
+      {featured.map((post) => <PostCard post={post} />)}
+    </section>
+  </Section>
+
+  <Section style="alt style3">
+    <h5 class="major">Tags</h5>
+    <div>
+      <TagButtons tags={tags} />
+    </div>
+    <br />
+    <ul class="actions">
+      <li><a href="/tags/" class="button">View All Tags &rarr;</a></li>
+    </ul>
+  </Section>
+
+  <Section style="style1">
+    <h5 class="major">Older Posts</h5>
+    <ul>
+      {older.map((post) => (
+        <li><a href={postUrl(post)}>{post.data.title}</a></li>
+      ))}
+    </ul>
+    <ul class="actions">
+      <li><a href="/posts/" class="button">Archive &rarr;</a></li>
+    </ul>
+  </Section>
+</Base>

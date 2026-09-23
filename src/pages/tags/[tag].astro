@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import Banner from '../../components/Banner.astro';
+import Section from '../../components/Section.astro';
+import PostListItem from '../../components/PostListItem.astro';
+import { getPublishedPosts, groupTags, type TagGroup } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const groups = groupTags(await getPublishedPosts());
+  return groups.map((group) => ({ params: { tag: group.slug }, props: { group } }));
+}
+
+interface Props {
+  group: TagGroup;
+}
+
+const { group } = Astro.props;
+---
+<Base title={group.name}>
+  <Banner slot="banner" title={group.name} />
+  <Section style="style2">
+    {group.posts.map((post) => <PostListItem post={post} />)}
+  </Section>
+</Base>

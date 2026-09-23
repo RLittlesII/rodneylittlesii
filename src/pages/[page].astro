@@ -1,0 +1,24 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Banner from '../components/Banner.astro';
+import Section from '../components/Section.astro';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((page) => ({ params: { page: page.id }, props: { page } }));
+}
+
+interface Props {
+  page: CollectionEntry<'pages'>;
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+---
+<Base title={page.data.title}>
+  <Banner slot="banner" title={page.data.title} />
+  <Section style="style2">
+    <Content />
+  </Section>
+</Base>

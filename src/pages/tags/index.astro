@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import Banner from '../../components/Banner.astro';
+import Section from '../../components/Section.astro';
+import TagButtons from '../../components/TagButtons.astro';
+import { getPublishedPosts, groupTags } from '../../lib/posts';
+
+const tags = groupTags(await getPublishedPosts()).map((g) => ({
+  name: g.name,
+  slug: g.slug,
+  count: g.posts.length,
+}));
+---
+<Base title="All Tags">
+  <Banner slot="banner" title="All Tags" />
+  <Section style="style2">
+    <TagButtons tags={tags} />
+  </Section>
+</Base>

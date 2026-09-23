@@ -1,0 +1,82 @@
+---
+import SocialLinks from '../components/SocialLinks.astro';
+import { site } from '../site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = site.description } = Astro.props;
+const pageTitle = title ? `${site.title} - ${title}` : site.title;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{pageTitle}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonical} />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <style is:inline>
+      body {
+        background-image: linear-gradient(to top, rgba(46, 49, 65, 0.8), rgba(46, 49, 65, 0.8)), url(/favicon.ico);
+      }
+      @media screen and (max-width: 1280px) {
+        #banner, #wrapper > header {
+          background-image: linear-gradient(to top, rgba(46, 49, 65, 0.8), rgba(46, 49, 65, 0.8)), url(/favicon.ico);
+        }
+      }
+    </style>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png" />
+    <link rel="manifest" href="/assets/img/site.webmanifest" />
+    <link rel="alternate" type="application/rss+xml" title={site.title} href="/feed.rss" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+  </head>
+  <body>
+    <div id="page-wrapper">
+      <header id="header">
+        <h1><a href="/">{site.title}</a></h1>
+        <nav>
+          <a href="#menu">Menu</a>
+        </nav>
+      </header>
+
+      <nav id="menu">
+        <div class="inner">
+          <h2>Menu</h2>
+          <ul class="links">
+            {site.nav.map((item) => (
+              <li><a href={item.href}>{item.label}</a></li>
+            ))}
+          </ul>
+          <a href="#" class="close">Close</a>
+        </div>
+      </nav>
+
+      <slot name="banner" />
+
+      <section id="wrapper">
+        <slot />
+      </section>
+
+      <footer id="footer">
+        <div class="inner">
+          <SocialLinks />
+        </div>
+      </footer>
+    </div>
+
+    <script is:inline src="/assets/js/skel.min.js"></script>
+    <script is:inline src="/assets/js/jquery.min.js"></script>
+    <script is:inline src="/assets/js/jquery.scrollex.min.js"></script>
+    <script is:inline src="/assets/js/util.js"></script>
+    <script is:inline src="/assets/js/main.js"></script>
+  </body>
+</html>

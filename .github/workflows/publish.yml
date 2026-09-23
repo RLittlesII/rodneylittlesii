@@ -5,26 +5,61 @@ on:
     branches:
       - main
       - draft/*
-
   pull_request:
     branches:
       - main
 
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NETLIFY_SITE_ID: 954e5bef-1eb2-4220-a9f2-2ea2a9473d90
+
 jobs:
-  Build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [macOS-latest]
-    runs-on: ${{ matrix.os }}
+  build:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
         with:
-          clean: 'false'
-          fetch-depth: '0'
-      - name: Nuke
-        run: ./build.cmd GitHubActions
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload site artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
+
+      - name: Deploy preview to Netlify
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         env:
-            NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
-            NETLIFY_URL: ${{ secrets.NETLIFY_URL }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+        run: >
+          npx --yes netlify-cli@27 deploy --no-build --dir=dist
+          --site="$NETLIFY_SITE_ID" --auth="$NETLIFY_AUTH_TOKEN"
+          --alias="pr-${{ github.event.number }}"
+          --message="PR #${{ github.event.number }} ${{ github.sha }}"
+
+      - name: Deploy to Netlify (production)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+        run: >
+          npx --yes netlify-cli@27 deploy --prod --no-build --dir=dist
+          --site="$NETLIFY_SITE_ID" --auth="$NETLIFY_AUTH_TOKEN"
+          --message="${{ github.sha }}"
