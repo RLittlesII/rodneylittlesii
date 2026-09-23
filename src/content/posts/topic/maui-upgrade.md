@@ -1,7 +1,9 @@
-Title: Xamarin to MAUI for a large Mvvm mobile application
-Drafted: 01/09/2023
-Published: 01/09/2023
-Tags:
+---
+title: "Xamarin to MAUI for a large Mvvm mobile application"
+published: 2023-01-09
+drafted: 2023-01-09
+draft: true
+tags:
     - .NET
     - dotnet
     - Framework
@@ -12,8 +14,6 @@ Tags:
     - ReactiveUI
     - Open Source
     - Extensibility
-Series:
-    - Xamarin => MAUI
 ---
 
 # Requirements

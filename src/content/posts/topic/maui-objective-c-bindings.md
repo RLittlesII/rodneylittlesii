@@ -1,11 +1,9 @@
-Title: MAUI Objective C Bindings
-Drafted: 07/05/2023
-Published: 07/05/2023
-Series:
-    - Xamarin => MAUI
-Sequence:
-    - 3
-Tags:
+---
+title: "MAUI Objective C Bindings"
+published: 2023-07-05
+drafted: 2023-07-05
+draft: true
+tags:
     - .NET
     - dotnet
     - Framework

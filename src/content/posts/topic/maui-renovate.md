@@ -1,7 +1,9 @@
-Title: Add Renovate for long term dotnet support
-Drafted: 01/09/2023
-Published: 01/09/2023
-Tags:
+---
+title: "Add Renovate for long term dotnet support"
+published: 2023-01-09
+drafted: 2023-01-09
+draft: true
+tags:
     - .NET
     - Extensibility
     - dotnet
@@ -9,8 +11,6 @@ Tags:
     - Open Source
     - Renovate
     - Xamarin
-Series:
-    - Xamarin => MAUI
 ---
 
 # Reasons

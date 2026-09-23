@@ -1,7 +1,9 @@
-Title: MAUI forks
-Drafted: 07/05/2023
-Published: 07/05/2023
-Tags:
+---
+title: "MAUI forks"
+published: 2023-07-05
+drafted: 2023-07-05
+draft: true
+tags:
     - .NET
     - dotnet
     - Framework
@@ -10,8 +12,6 @@ Tags:
     - Mvvm
     - Open Source
     - Extensibility
-Series:
-    - Xamarin => MAUI
 ---
 
 # Identify Upstream Changes
