@@ -1,7 +1,9 @@
-Title: INPC is an event that you respond to, even though you don't use it that way.
-Drafted: 07/22/2017
-Published: 01/26/2020
-Tags:
+---
+title: "INPC is an event that you respond to, even though you don't use it that way."
+published: 2020-01-26
+drafted: 2017-07-22
+draft: true
+tags:
     - Draft
 ---
 

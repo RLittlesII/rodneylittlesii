@@ -1,4 +1,15 @@
-```chsarp
+---
+title: "Search with DynamicData and ReactiveUI"
+published: 2020-06-22
+drafted: 2020-06-22
+draft: true
+tags:
+    - C#
+    - DynamicData
+    - ReactiveUI
+---
+
+```csharp
 Func<ViewModelItem, bool> search(string searchTerm) =>
     viewModel =>
     {
