@@ -1,7 +1,9 @@
-Title: A few lessons Enterprise can take from Open Source
-Drafted: 08/13/2022
-Published: 08/13/2022
-Tags:
+---
+title: "A few lessons Enterprise can take from Open Source"
+published: 2022-08-13
+drafted: 2022-08-13
+draft: true
+tags:
     - C#
     - .NET
     - dotnet
