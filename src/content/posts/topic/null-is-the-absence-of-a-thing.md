@@ -1,10 +1,12 @@
-Title: Null, The Absence of a Reference in C#
-Drafted: 12/04/2024
-Published: 01/02/2025
-Tags:
+---
+title: "Null, The Absence of a Reference in C#"
+published: 2025-01-02
+drafted: 2024-12-04
+draft: true
+tags:
     - C#
     - Language
-    - Null
+    - "Null"
     - Nullability
 ---
 
