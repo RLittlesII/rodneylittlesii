@@ -8,9 +8,6 @@ export const site = {
     { href: '/posts/', label: 'Archive' },
     { href: '/tags/', label: 'Tags' },
     { href: '/about/', label: 'About Me' },
-    { href: '/reading/', label: 'Reading' },
-    { href: '/talks/', label: 'Talks' },
-    { href: '/office-hours/', label: 'Office Hours' },
   ],
   social: [
     { href: 'https://github.com/rlittlesii', icon: 'fa-github', label: 'GitHub (rlittlesii)' },
