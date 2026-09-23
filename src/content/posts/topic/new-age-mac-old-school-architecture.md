@@ -1,7 +1,9 @@
-Title: Setup an M1 Mac for Xamarin tooling
-Drafted: 04/07/2023
-Published: 04/07/2023
-Tags:
+---
+title: "Setup an M1 Mac for Xamarin tooling"
+published: 2023-04-07
+drafted: 2023-04-07
+draft: true
+tags:
     - ARM
     - dotnet
     - macOS
