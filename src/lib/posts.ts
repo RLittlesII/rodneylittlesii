@@ -15,7 +15,7 @@ export async function getPublishedPosts(): Promise<Post[]> {
   const now = Date.now();
   const posts = await getCollection(
     'posts',
-    ({ data }) => !data.draft && data.published.getTime() <= now,
+    ({ data }) => (import.meta.env.DEV || !data.draft) && data.published.getTime() <= now,
   );
   return posts.sort((a, b) => b.data.published.getTime() - a.data.published.getTime());
 }
