@@ -1,7 +1,9 @@
-Title: Throwing Stones in the Digital Glass House: Embracing the Power of Painful Design for Unbreakable Solutions
-Drafted: 07/22/2017
-Published: 11/22/2022
-Tags:
+---
+title: "Throwing Stones in the Digital Glass House: Embracing the Power of Painful Design for Unbreakable Solutions"
+published: 2022-11-22
+drafted: 2017-07-22
+draft: true
+tags:
     - Software Design
     - Architecture
 ---
