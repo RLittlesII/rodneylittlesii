@@ -43,7 +43,7 @@ draft: false             # true hides the post from the site and feed
 
 - Posts with a future `published` date, or `draft: true`, are not built.
 - Images go in `public/images/` and are referenced as `/images/<file>`.
-- Tags are grouped case-insensitively. Tag URLs replace spaces with `-`, drop a leading `.`, and turn `#` into `Sharp` (`.NET` becomes `/tags/NET/`, `C#` becomes `/tags/CSharp/`).
+- Tags are grouped case-insensitively. Tag URLs are lower case, replace spaces with `-`, drop a leading `.`, and turn `#` into `sharp` (`.NET Foundation` becomes `/tags/net-foundation/`, `C#` becomes `/tags/csharp/`). Netlify normalizes URLs to lower case, so this keeps canonical links one hop free.
 - Static pages live in `src/content/pages/` and render at `/<id>/`. Add a nav entry in `src/site.ts`.
 - Frontmatter is validated by the schema in `src/content.config.ts`.
 

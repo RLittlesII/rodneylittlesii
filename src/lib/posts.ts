@@ -2,8 +2,8 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type Post = CollectionEntry<'posts'>;
 
-/** Wyam tag slug: whitespace -> "-", leading dots stripped (".NET" -> "NET"), "#" -> "Sharp" ("C#" -> "CSharp") since Netlify decodes %23 before file lookup. */
-export const tagSlug = (tag: string) => tag.trim().replace(/\s+/g, "-").replace(/^\.+/, "").replace(/#/g, "Sharp");
+/** Tag slug: whitespace -> "-", leading dots stripped, "#" -> "sharp", lower-cased. Netlify normalizes URLs to lower case and decodes %23 before file lookup, so ".NET Foundation" -> "net-foundation" and "C#" -> "csharp". */
+export const tagSlug = (tag: string) => tag.trim().replace(/\s+/g, "-").replace(/^\.+/, "").replace(/#/g, "sharp").toLowerCase();
 /** Wyam CaseInsensitiveTags: group by lower-cased name. */
 export const tagKey = (tag: string) => tag.trim().toLowerCase();
 export const tagUrl = (slug: string) => `/tags/${encodeURIComponent(slug)}/`;
