@@ -1,7 +1,9 @@
-Title: INotifyPropertyChanged as an Observable
-Drafted: 09/22/2022
-Published: 09/22/2022
-Tags:
+---
+title: "INotifyPropertyChanged as an Observable"
+published: 2022-09-22
+drafted: 2022-09-22
+draft: true
+tags:
     - Events
     - Reactive Extensions
 ---
