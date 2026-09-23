@@ -1,56 +1,14 @@
-output/
-tools/*
-!tools/packages.config
-output.zip
-config.wyam.dll
-config.wyam.hash
-.dotnet/
-nuget.exe
-config.wyam.packages.xml
-# macOS
-.DS_Store
-
-# JetBrains Rider
-.idea
-
-# Nuke
-.tmp
-
-# Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
-
-# Node.js dependencies
+# Node / Astro
 node_modules/
 dist/
-# Astro-specific files
-astro/
-_site/
-# Build and cache files
+.astro/
 *.tsbuildinfo
-turbo/
-eslintcache
-pnpm-store
-# Logs and temporary files
 *.log
-# Environment files
-*.env
-# IDE-specific settings
+.env
+.env.*
+!.env.example
+.netlify/
+
+# OS / IDE
+.DS_Store
 .idea/
-vscode/
-# Generated test and fixture files
-packages/**/test/**/fixtures/**/.astro/
-packages/**/e2e/**/fixtures/**/.astro/
-examples/**/.astro/
-# Miscellaneous
-package-lock.json

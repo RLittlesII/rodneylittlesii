@@ -1,75 +1,71 @@
 # rodneylittlesii
-Personal blog of a developer trying to learn all the things
+
+Personal blog of a developer trying to learn all the things.
 
 [Rodney Littles, II](https://rodneylittlesii.com)
 
-
 [![github-license-badge]][github-license]
-
-# Status
-<!-- badges -->
 [![Netlify Status](https://api.netlify.com/api/v1/badges/954e5bef-1eb2-4220-a9f2-2ea2a9473d90/deploy-status)](https://app.netlify.com/sites/rodneylittlesii/deploys)
-<!-- badges -->
+[![github-badge]][github]
 
-<!-- history badges -->
-| GitHub Actions |
-| -------------- |
-| [![github-badge]][github] |
-| [![github-history-badge]][github] |
-<!-- history badges -->
+Built with [Astro](https://astro.build). Theme: [Solid State](https://html5up.net/solid-state) by HTML5 UP, vendored under `public/assets/`.
 
-[github-release]: https://github.com/rlittlesii/rodneylittlesii/releases/latest
-[github-release-badge]: https://img.shields.io/github/release/rlittlesii/rodneylittlesii.svg?logo=github&style=flat "Latest Release"
-[github-license]: https://github.com/rlittlesii/rodneylittlesii/blob/master/LICENSE
+## Requirements
+
+- Node 24 (see `.nvmrc`). Astro 7 requires Node 22.12 or newer.
+
+## Scripts
+
+```sh
+npm ci            # install
+npm run dev       # dev server at http://localhost:4321
+npm run build     # static build to dist/
+npm run preview   # serve dist/
+npm run check     # astro check (types + templates)
+```
+
+## Writing a post
+
+Create `src/content/posts/topic/<slug>.md`. The slug becomes the URL: `/posts/topic/<slug>/`.
+
+```yaml
+---
+title: "Post title"
+published: 2026-01-31
+drafted: 2026-01-15      # optional
+edited: 2026-02-01       # optional
+tags:
+  - Reactive Extensions
+  - C#
+draft: false             # true hides the post from the site and feed
+---
+```
+
+- Posts with a future `published` date, or `draft: true`, are not built.
+- Images go in `public/images/` and are referenced as `/images/<file>`.
+- Tags are grouped case-insensitively. Tag URLs replace spaces with `-`, drop a leading `.`, and turn `#` into `Sharp` (`.NET` becomes `/tags/NET/`, `C#` becomes `/tags/CSharp/`).
+- Static pages live in `src/content/pages/` and render at `/<id>/`. Add a nav entry in `src/site.ts`.
+- Frontmatter is validated by the schema in `src/content.config.ts`.
+
+## Layout
+
+| Path | Purpose |
+| --- | --- |
+| `src/content/` | Markdown content collections (`posts`, `pages`) |
+| `src/pages/` | Routes: home, archive, post, tags, static pages, 404, `feed.rss` |
+| `src/layouts/Base.astro` | Solid State shell: head, header, menu, footer, scripts |
+| `src/components/` | Banner, Section, PostCard, PostListItem, TagButtons, Disqus, SocialLinks |
+| `src/lib/posts.ts` | Query, tag slug, date and excerpt helpers |
+| `src/site.ts` | Site title, nav, social links |
+| `public/_redirects` | Netlify 301s from legacy Wyam `.html` URLs |
+
+## Deployment
+
+GitHub Actions (`.github/workflows/publish.yml`) builds on every push to `main` and `draft/*` and on pull requests.
+Pushes to `main` deploy `dist/` to Netlify with `netlify-cli` using the `NETLIFY_TOKEN` secret.
+Pull requests from this repository get a preview deploy aliased `pr-<number>`.
+
+[github-license]: https://github.com/rlittlesii/rodneylittlesii/blob/main/LICENSE
 [github-license-badge]: https://img.shields.io/github/license/rlittlesii/rodneylittlesii.svg?style=flat "License"
-[codecov]: https://codecov.io/gh/rlittlesii/rodneylittlesii
-[codecov-badge]: https://img.shields.io/codecov/c/github/rlittlesii/rodneylittlesii.svg?color=E03997&label=codecov&logo=codecov&logoColor=E03997&style=flat "Code Coverage"
-
-[github]: https://github.com/rlittlesii/rodneylittlesii/actions?query=workflow%3Apublish
-[github-badge]: https://img.shields.io/github/workflow/status/rlittlesii/rodneylittlesii/publish.svg?label=github&logo=github&color=b845fc&logoColor=b845fc&style=flat "GitHub Actions Status"
-[github-history-badge]: https://buildstats.info/github/chart/rlittlesii/rodneylittlesii?includeBuildsFromPullRequest=false "GitHub Actions History"
-
-## Astro Migration (No Markdown Changes Required)
-
-This repository now includes an Astro setup that renders the existing Wyam/Solid State markdown files without modifying them.
-
-Quick start:
-
-1. Install dependencies
-
-```
-npm i
-```
-
-2. Fetch Solid State assets directly into `public/` (no Wyam needed)
-
-```
-npm run theme:fetch
-```
-
-This downloads the minimal Solid State CSS/JS from the Wyam SolidState theme into `public/assets/**` so paths like `/assets/css/main.css` resolve in dev/build. You can override the source with an environment variable:
-
-```
-THEME_BASE=https://example.com/your-assets-base npm run theme:fetch
-```
-
-Alternative: you can also vendor assets manually by downloading Solid State from https://html5up.net/solid-state and placing the CSS/JS under `public/assets/**` to match the paths used in `src/layouts/Base.astro`.
-
-3. Run the site
-
-```
-npm run dev
-```
-
-Open routes like:
-
-- `/` — blog index (lists posts with a `Published` value)
-- `/posts/topic/building-github-actions-with-nuke` — renders a post from `src/posts/**`
-- `/tags/<tag>` — lists posts by tag
-- `/about`, `/reading`, `/talks`, `/office-hours` — render single-file pages from `src/*.md`
-
-Notes:
-
-- A small Vite transform in `astro.config.mjs` virtually inserts the missing opening `---` so Wyam-style frontmatter is parsed correctly. No `.md` changes are needed.
-- Posts are discovered from `src/posts/**/*.md`. Drafts can be excluded by omitting `Published`.
-- Theme assets are served from `public/assets/**`. They are fetched via `npm run theme:fetch` and committed or re-fetched during CI as needed.
+[github]: https://github.com/rlittlesii/rodneylittlesii/actions/workflows/publish.yml
+[github-badge]: https://img.shields.io/github/actions/workflow/status/rlittlesii/rodneylittlesii/publish.yml?branch=main&label=github&logo=github&style=flat "GitHub Actions Status"

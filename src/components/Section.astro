@@ -1,0 +1,12 @@
+---
+interface Props {
+  style?: string;
+}
+
+const { style = 'style2' } = Astro.props;
+---
+<section class={`wrapper ${style}`}>
+  <div class="inner">
+    <slot />
+  </div>
+</section>

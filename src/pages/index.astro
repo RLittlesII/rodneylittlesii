@@ -1,59 +1,50 @@
 ---
 import Base from '../layouts/Base.astro';
+import Banner from '../components/Banner.astro';
+import Section from '../components/Section.astro';
+import PostCard from '../components/PostCard.astro';
+import TagButtons from '../components/TagButtons.astro';
+import { getPublishedPosts, groupTags, postUrl } from '../lib/posts';
+import { site } from '../site';
 
-// Use an absolute-from-project-root glob (required by Vite)
-const modules = import.meta.glob('/src/posts/**/*.md', { eager: true });
-
-const normalizeKey = (k) => k.replace(/\\/g, '/');
-const keyToSlug = (k) => normalizeKey(k).replace(/^\/?src\/posts\//, '').replace(/\.md$/, '');
-
-const entries = Object.entries(modules);
-// Debug in server console about discovered modules and frontmatter
-try {
-  // eslint-disable-next-line no-console
-  console.log('[index] discovered modules:', entries.map(([k]) => k));
-} catch {}
-
-const posts = entries.map(([k, mod]) => {
-  const slug = keyToSlug(k);
-  return { slug, url: `/posts/${slug}`, frontmatter: mod.frontmatter };
-});
-
-const toDate = (d) => (d ? new Date(d) : new Date(0));
-// Show all posts (don’t require Published), sort by Published desc when present
-const visible = posts
-  .slice()
-  .sort((a, b) => toDate(b.frontmatter?.Published) - toDate(a.frontmatter?.Published));
+const posts = await getPublishedPosts();
+const featured = posts.slice(0, 3);
+const older = posts.slice(3, 7);
+const tags = groupTags(posts)
+  .slice(0, 10)
+  .map((g) => ({ name: g.name, slug: g.slug, count: g.posts.length }));
 ---
-<Base title="Home">
-  <section id="wrapper">
-    <header>
-      <div class="inner">
-        <h2>Blog</h2>
-      </div>
-    </header>
-    <div class="wrapper">
-      <div class="inner">
-        {visible.length === 0 ? (
-          <p><em>No posts were discovered under <code>src/posts/**</code>. Double-check the folder path and filenames.</em></p>
-        ) : (
-          <ul>
-            {visible.map((p) => (
-              <li>
-                <a href={p.url}>{p.frontmatter?.Title ?? p.slug}</a>
-                {Array.isArray(p.frontmatter?.Tags) && p.frontmatter.Tags.length > 0 && (
-                  <small>
-                    {' '}— {p.frontmatter.Tags.map((t) => (<a href={`/tags/${encodeURIComponent(t)}`}>{t}</a>)).reduce((prev, curr) => [prev, ', ', curr])}
-                  </small>
-                )}
-                <small>
-                  {' '}— {p.frontmatter?.Published ? p.frontmatter.Published : 'Draft'}
-                </small>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+<Base>
+  <Banner slot="banner" title={site.description}>
+    <p>{site.intro}</p>
+  </Banner>
+
+  <Section style="style2">
+    <section class="features">
+      {featured.map((post) => <PostCard post={post} />)}
+    </section>
+  </Section>
+
+  <Section style="alt style3">
+    <h5 class="major">Tags</h5>
+    <div>
+      <TagButtons tags={tags} />
     </div>
-  </section>
+    <br />
+    <ul class="actions">
+      <li><a href="/tags/" class="button">View All Tags &rarr;</a></li>
+    </ul>
+  </Section>
+
+  <Section style="style1">
+    <h5 class="major">Older Posts</h5>
+    <ul>
+      {older.map((post) => (
+        <li><a href={postUrl(post)}>{post.data.title}</a></li>
+      ))}
+    </ul>
+    <ul class="actions">
+      <li><a href="/posts/" class="button">Archive &rarr;</a></li>
+    </ul>
+  </Section>
 </Base>

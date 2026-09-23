@@ -1,0 +1,12 @@
+---
+import { tagUrl } from '../lib/posts';
+
+interface Props {
+  tags: { name: string; slug: string; count?: number }[];
+}
+
+const { tags } = Astro.props;
+---
+{tags.map((tag) => (
+  <a role="button" href={tagUrl(tag.slug)} class="button small">{tag.name}{tag.count !== undefined ? ` (${tag.count})` : ''}</a>
+))}

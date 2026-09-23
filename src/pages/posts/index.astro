@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import Banner from '../../components/Banner.astro';
+import Section from '../../components/Section.astro';
+import PostListItem from '../../components/PostListItem.astro';
+import { getPublishedPosts, groupByYear } from '../../lib/posts';
+
+const years = groupByYear(await getPublishedPosts());
+---
+<Base title="Archive">
+  <Banner slot="banner" title="Archive" />
+  <Section style="style2">
+    {years.map(({ year, posts }) => (
+      <>
+        <h1>{year}</h1>
+        <hr />
+        {posts.map((post) => <PostListItem post={post} />)}
+      </>
+    ))}
+  </Section>
+</Base>
